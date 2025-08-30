@@ -124,3 +124,9 @@ local.*
 # Backup files
 *.bak
 *.backup
+
+# Test screenshots and debug images
+*.png
+!favicon.ico
+!assets/**/*.png
+!assets/**/*.svg
