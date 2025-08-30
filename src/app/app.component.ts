@@ -35,8 +35,8 @@ import { UserSettingsService } from './services/user-settings.service';
             <button class="burger glass-button" (click)="toggleLeftSidebar()" aria-label="{{ 'HEADER.MENU' | translate }}">
               &#9776;
             </button>
-            <img src="assets/wone-it-logo.svg" alt="Wone IT Logo" class="app-logo">
-            <h1 class="glass-title">{{ getTranslation('COMMON.APP_TITLE', 'Wone IT - Business Solutions - Project Management') }}</h1>
+            <img src="assets/wone-it-logo.svg" alt="Wone IT Logo" class="app-logo" (click)="navigateToDashboard()" title="{{ 'HEADER.GO_TO_DASHBOARD' | translate }}">
+            <h1 class="glass-title" (click)="navigateToDashboard()" title="{{ 'HEADER.GO_TO_DASHBOARD' | translate }}">{{ getTranslation('COMMON.APP_TITLE', 'Wone IT - Business Solutions - Project Management') }}</h1>
           </div>
 
           <div class="center-group hide-on-mobile">
@@ -360,12 +360,15 @@ import { UserSettingsService } from './services/user-settings.service';
       gap: 16px; 
     }
     
+
+    
     .app-logo {
       width: 62px; /* Уменьшили в 1.2 раза с 75px */
       height: 62px; /* Уменьшили в 1.2 раза с 75px */
       object-fit: contain;
       filter: drop-shadow(0 2px 4px rgba(59,130,246,0.2));
       transition: all 0.2s ease;
+      cursor: pointer;
     }
     
     .app-logo:hover {
@@ -1152,6 +1155,7 @@ import { UserSettingsService } from './services/user-settings.service';
       animation: titleGradient 8s ease-in-out infinite;
       text-shadow: 0 2px 8px rgba(59,130,246,0.15);
       filter: drop-shadow(0 1px 3px rgba(59,130,246,0.2));
+      cursor: pointer;
     }
     
     @keyframes titleGradient {
@@ -1590,6 +1594,8 @@ import { UserSettingsService } from './services/user-settings.service';
       color: #cbd5e1;
     }
     
+
+    
     :host-context(.theme-dark) .glass-title { 
       background: linear-gradient(135deg, #f8fafc 0%, #60a5fa 25%, #93c5fd 50%, #60a5fa 75%, #f8fafc 100%);
       background-size: 300% 300%;
@@ -1788,7 +1794,8 @@ export class AppComponent implements OnInit {
         SEARCH: 'Поиск...',
         THEME_LIGHT: 'Темная тема',
         THEME_DARK: 'Светлая тема',
-        HIERARCHY: 'Иерархия'
+        HIERARCHY: 'Иерархия',
+        GO_TO_DASHBOARD: 'Перейти на дашборд'
       },
       SIDEBAR: {
         ACTIVE: 'Активные',
@@ -1838,7 +1845,8 @@ export class AppComponent implements OnInit {
         SEARCH: 'Search...',
         THEME_LIGHT: 'Dark theme',
         THEME_DARK: 'Light theme',
-        HIERARCHY: 'Hierarchy'
+        HIERARCHY: 'Hierarchy',
+        GO_TO_DASHBOARD: 'Go to Dashboard'
       },
       SIDEBAR: {
         ACTIVE: 'Active',
@@ -2141,6 +2149,12 @@ export class AppComponent implements OnInit {
       [this.getTranslation('BREADCRUMBS.DASHBOARD', 'Дашборд')];
   }
 
+  navigateToDashboard(): void {
+    this.router.navigate(['/dashboard']);
+    // Закрываем левый сайдбар при переходе на дашборд
+    this.closeLeftSidebar();
+  }
+  
   navigateTo(index: number): void {
     const path = '/' + this.breadcrumbs.slice(0, index + 1).join('/');
     this.router.navigate([path]);
