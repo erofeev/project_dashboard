@@ -35,8 +35,8 @@ import { UserSettingsService } from './services/user-settings.service';
             <button class="burger glass-button" (click)="toggleLeftSidebar()" aria-label="{{ 'HEADER.MENU' | translate }}">
               &#9776;
             </button>
-            <img src="assets/wone-it-logo.svg" alt="Wone IT Logo" class="app-logo" (click)="navigateToDashboard()" title="{{ 'HEADER.GO_TO_DASHBOARD' | translate }}">
-            <h1 class="glass-title" (click)="navigateToDashboard()" title="{{ 'HEADER.GO_TO_DASHBOARD' | translate }}">{{ getTranslation('COMMON.APP_TITLE', 'Wone IT - Business Solutions - Project Management') }}</h1>
+            <img src="assets/wone-it-logo.svg" alt="Wone IT Logo" class="app-logo" (click)="navigateToDashboard()" [title]="getTranslation('HEADER.LOGO_CLICK', 'Кликните для перехода на главную страницу')">
+            <h1 class="glass-title" (click)="navigateToDashboard()" [title]="getTranslation('HEADER.TITLE_CLICK', 'Кликните для перехода на главную страницу')">{{ getTranslation('COMMON.APP_TITLE', 'Wone IT - Business Solutions - Project Management') }}</h1>
           </div>
 
           <div class="center-group hide-on-mobile">
@@ -368,13 +368,9 @@ import { UserSettingsService } from './services/user-settings.service';
       object-fit: contain;
       filter: drop-shadow(0 2px 4px rgba(59,130,246,0.2));
       transition: all 0.2s ease;
-      cursor: pointer;
     }
     
-    .app-logo:hover {
-      transform: scale(1.05);
-      filter: drop-shadow(0 4px 8px rgba(59,130,246,0.3));
-    }
+
     
     .center-group { 
       flex: 1; 
@@ -468,7 +464,6 @@ import { UserSettingsService } from './services/user-settings.service';
     .history-item,
     .result-item {
       padding: 12px 16px;
-      cursor: pointer;
       transition: all 0.2s ease;
       display: flex;
       align-items: center;
@@ -544,7 +539,6 @@ import { UserSettingsService } from './services/user-settings.service';
       border: none;
       color: #ef4444;
       font-size: 0.8rem;
-      cursor: pointer;
       padding: 4px 8px;
       border-radius: 6px;
       transition: all 0.2s ease;
@@ -1155,7 +1149,6 @@ import { UserSettingsService } from './services/user-settings.service';
       animation: titleGradient 8s ease-in-out infinite;
       text-shadow: 0 2px 8px rgba(59,130,246,0.15);
       filter: drop-shadow(0 1px 3px rgba(59,130,246,0.2));
-      cursor: pointer;
     }
     
     @keyframes titleGradient {
@@ -1210,7 +1203,6 @@ import { UserSettingsService } from './services/user-settings.service';
       font-size: 12px;
       color: #64748b;
       z-index: 100;
-      cursor: pointer;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
@@ -1256,16 +1248,28 @@ import { UserSettingsService } from './services/user-settings.service';
     .glass-button,
     .sidebar-link,
     .sidebar-sublink,
-    .dropdown-item,
-    .history-item,
-    .result-item,
-    .breadcrumbs a,
-    .group-title {
+    .dropdown-item {
       cursor: pointer;
       user-select: none;
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
+    }
+    
+    /* Убираем выделение текста для лейблов и заголовков */
+    .group-title,
+    .glass-title,
+    .app-logo,
+    .suggestion-item,
+    .history-item,
+    .result-item,
+    .breadcrumbs a {
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
     }
     
     /* Убираем outline и курсор на фокусе для кнопок */
@@ -1795,7 +1799,9 @@ export class AppComponent implements OnInit {
         THEME_LIGHT: 'Темная тема',
         THEME_DARK: 'Светлая тема',
         HIERARCHY: 'Иерархия',
-        GO_TO_DASHBOARD: 'Перейти на дашборд'
+        GO_TO_DASHBOARD: 'Перейти на дашборд',
+        LOGO_CLICK: 'Кликните для перехода на главную страницу',
+        TITLE_CLICK: 'Кликните для перехода на главную страницу'
       },
       SIDEBAR: {
         ACTIVE: 'Активные',
@@ -1846,7 +1852,9 @@ export class AppComponent implements OnInit {
         THEME_LIGHT: 'Dark theme',
         THEME_DARK: 'Light theme',
         HIERARCHY: 'Hierarchy',
-        GO_TO_DASHBOARD: 'Go to Dashboard'
+        GO_TO_DASHBOARD: 'Go to Dashboard',
+        LOGO_CLICK: 'Click to go to main page',
+        TITLE_CLICK: 'Click to go to main page'
       },
       SIDEBAR: {
         ACTIVE: 'Active',
