@@ -1,191 +1,156 @@
 {
-  "common": {
-    "loading": "Загрузка...",
-    "save": "Сохранить",
-    "cancel": "Отмена",
-    "delete": "Удалить",
-    "edit": "Редактировать",
-    "add": "Добавить",
-    "search": "Поиск",
-    "filter": "Фильтр",
-    "actions": "Действия",
-    "status": "Статус",
-    "date": "Дата",
-    "amount": "Сумма",
-    "description": "Описание",
-    "name": "Название",
-    "email": "Email",
-    "phone": "Телефон",
-    "role": "Роль",
-    "project": "Проект",
-    "employee": "Сотрудник",
-    "client": "Клиент",
-    "hours": "Часы",
-    "cost": "Стоимость",
-    "revenue": "Выручка",
-    "margin": "Маржа",
-    "profitability": "Рентабельность"
+  "COMMON": {
+    "APP_TITLE": "Wone IT - Business Solutions - Project Management",
+    "ALL_RIGHTS_RESERVED": "Все права защищены"
   },
-  "navigation": {
-    "dashboard": "Дашборд",
-    "projects": "Проекты",
-    "employees": "Сотрудники",
-    "invoices": "Счета",
-    "analytics": "Аналитика",
-    "logout": "Выйти",
-    "login": "Войти"
+  "NAV": {
+    "DASHBOARD": "Дашборд",
+    "PROJECTS": "Проекты",
+    "EMPLOYEES": "Сотрудники",
+    "ANALYTICS": "Аналитика",
+    "INVOICES": "Счета"
   },
-  "auth": {
-    "login": "Вход в систему",
-    "email": "Email",
-    "password": "Пароль",
-    "loginButton": "Войти",
-    "logout": "Выйти",
-    "welcome": "Добро пожаловать",
-    "invalidCredentials": "Неверный email или пароль",
-    "demoAccounts": "Демо аккаунты",
-    "useDemoAccount": "Использовать демо аккаунт"
+  "AUTH": {
+    "LOGIN_TITLE": "Вход в систему",
+    "LOGIN_SUBTITLE": "Введите учетные данные для входа",
+    "EMAIL": "Электронная почта",
+    "EMAIL_PLACEHOLDER": "example@company.ru",
+    "PASSWORD": "Пароль",
+    "PASSWORD_PLACEHOLDER": "Введите пароль",
+    "LOGIN_BUTTON": "Войти",
+    "LOGGING_IN": "Входим...",
+    "LOGOUT": "Выйти",
+    "DEMO_CREDENTIALS": "Демо-доступ"
   },
-  "dashboard": {
-    "title": "Панель управления",
-    "overview": "Обзор",
-    "keyMetrics": "Ключевые метрики",
-    "totalProjects": "Всего проектов",
-    "activeProjects": "Активных проектов",
-    "totalEmployees": "Всего сотрудников",
-    "totalRevenue": "Общая выручка",
-    "totalCost": "Общие затраты",
-    "totalMargin": "Общая маржа",
-    "recentActivity": "Последняя активность",
-    "budgetUtilization": "Использование бюджета",
-    "employeeWorkload": "Нагрузка сотрудников",
-    "projectStatuses": "Статусы проектов"
+  "DASHBOARD": {
+    "TITLE": "Панель управления проектами",
+    "SUBTITLE": "Мониторинг ключевых показателей и трендов",
+    "PROJECTS": "Проекты",
+    "TOTAL_PROJECTS": "Всего проектов",
+    "EMPLOYEES": "Сотрудники",
+    "TOTAL_EMPLOYEES": "Всего сотрудников",
+    "REVENUE": "Выручка",
+    "TOTAL_REVENUE": "Общая выручка",
+    "MARGIN": "Маржа",
+    "TOTAL_MARGIN": "Общая маржа",
+    "PROJECTS_COMPLETED": "Завершено проектов",
+    "AVG_PROJECT_TIME": "Среднее время проекта",
+    "SUCCESS_RATE": "Процент успеха"
   },
-  "projects": {
-    "title": "Проекты",
-    "newProject": "Новый проект",
-    "projectName": "Название проекта",
-    "projectDescription": "Описание проекта",
-    "projectDirection": "Направление",
-    "projectStatus": "Статус",
-    "startDate": "Дата начала",
-    "endDate": "Дата окончания",
-    "plannedEndDate": "Планируемая дата окончания",
-    "contractValue": "Сумма по договору",
-    "plannedValue": "Планируемая стоимость",
-    "actualRevenue": "Фактическая выручка",
-    "plannedHours": "Планируемые часы",
-    "actualHours": "Фактические часы",
-    "costPrice": "Себестоимость",
-    "margin": "Маржа",
-    "marginPercentage": "Процент маржи",
-    "clientName": "Название клиента",
-    "contractNumber": "Номер договора",
-    "contractDate": "Дата договора",
-    "isVisible": "Видимость для сотрудников",
-    "status": {
-      "active": "Активный",
-      "completed": "Завершен",
-      "onHold": "Приостановлен",
-      "cancelled": "Отменен"
+  "SIDEBAR": {
+    "ACTIVE": "Активные",
+    "PLANNING": "Планирование",
+    "COMPLETED": "Завершённые",
+    "SENT": "Отправленные",
+    "OVERDUE": "Просроченные",
+    "PAID": "Оплаченные",
+    "HIERARCHY": "Иерархия",
+    "HIERARCHY_DESC": "Здесь будет иерархический список: Направления → Проекты.",
+    "HIERARCHY_FILTERS": "Фильтры и быстрый выбор появятся позже.",
+    "BOTTOM_TITLE": "Дополнительные возможности",
+    "BOTTOM_DESC": "Здесь будут размещены новые функции и инструменты для управления проектами.",
+    "BOTTOM_PLACEHOLDER_1": "Новые интеграции",
+    "BOTTOM_PLACEHOLDER_2": "Аналитические отчеты",
+    "BOTTOM_PLACEHOLDER_3": "Автоматизация процессов"
+  },
+  "SEARCH": {
+    "SUGGESTIONS": "Подсказки поиска",
+    "RECENT_SEARCHES": "Недавние поиски",
+    "CLEAR_HISTORY": "Очистить историю",
+    "RESULTS": "Результаты поиска"
+  },
+  "HEADER": {
+    "SEARCH": "Поиск...",
+    "MENU": "Меню",
+    "THEME_LIGHT": "Темная тема",
+    "THEME_DARK": "Светлая тема",
+    "HIERARCHY": "Иерархия"
+  },
+  "PROJECTS": {
+    "TITLE": "Проекты",
+    "DESCRIPTION": "Список проектов будет здесь"
+  },
+  "USER": {
+    "PROFILE": "Профиль",
+    "SETTINGS": "Настройки"
+  },
+  "BREADCRUMBS": {
+    "DASHBOARD": "Дашборд",
+    "PROJECTS": "Проекты",
+    "EMPLOYEES": "Сотрудники",
+    "ANALYTICS": "Аналитика",
+    "INVOICES": "Счета",
+    "SETTINGS": "Настройки"
+  },
+  "SETTINGS": {
+    "BACK": "Назад",
+    "TITLE": "Настройки",
+    "COMING_SOON": "Скоро будет доступно",
+    "UI": {
+      "TITLE": "Настройки интерфейса",
+      "LANDSCAPE_TITLE": "3D Ландшафт",
+      "LANDSCAPE_DESCRIPTION": "Настройте параметры анимированного 3D фона",
+      "WAVE_AMPLITUDE": "Амплитуда волн",
+      "ANIMATION_SPEED": "Скорость анимации",
+      "POINT_SIZE": "Размер точек",
+      "GRID_SIZE": "Размер сетки",
+      "COLOR_SCHEME": "Цветовая схема",
+      "COLOR_WONE_IT": "Wone IT (Фиолетово-красная)",
+      "COLOR_SUNSET": "Закат (Оранжевая)",
+      "COLOR_OCEAN": "Океан (Сине-зеленая)",
+      "COLOR_FOREST": "Лес (Зеленая)",
+      "PRESETS": "Быстрые пресеты",
+      "PRESET_NAMES": {
+        "WONE_IT": "Wone IT",
+        "SUNSET": "Закат",
+        "OCEAN": "Океан",
+        "FOREST": "Лес"
+      },
+      "TRANSPARENCY_TITLE": "Прозрачность и блюр",
+      "TRANSPARENCY_DESCRIPTION": "Настройте прозрачность и эффект размытия для различных элементов интерфейса",
+      "FORMS_TRANSPARENCY": "Прозрачность форм",
+      "WIDGETS_TRANSPARENCY": "Прозрачность виджетов",
+      "SIDEBARS_TRANSPARENCY": "Прозрачность сайдбаров",
+      "FORMS_BLUR": "Блюр форм",
+      "WIDGETS_BLUR": "Блюр виджетов",
+      "SIDEBARS_BLUR": "Блюр сайдбаров"
+    },
+    "FILTERS": {
+      "TITLE": "Настройки фильтров",
+      "PROJECTS_TITLE": "Фильтры проектов",
+      "PROJECTS_DESCRIPTION": "Настройте фильтры по умолчанию для проектов",
+      "STATUS_FILTERS": "Фильтры по статусу",
+      "STATUS_ACTIVE": "Активные",
+      "STATUS_COMPLETED": "Завершённые",
+      "STATUS_ON_HOLD": "На паузе",
+      "PRIORITY_FILTERS": "Фильтры по приоритету",
+      "PRIORITY_HIGH": "Высокий",
+      "PRIORITY_MEDIUM": "Средний",
+      "PRIORITY_LOW": "Низкий",
+      "ANALYTICS_TITLE": "Фильтры аналитики",
+      "ANALYTICS_DESCRIPTION": "Настройте параметры аналитических отчётов",
+      "TIME_RANGE": "Временной диапазон по умолчанию",
+      "TIME_WEEK": "Неделя",
+      "TIME_MONTH": "Месяц",
+      "TIME_QUARTER": "Квартал",
+      "TIME_YEAR": "Год",
+      "CHART_TYPE": "Тип графика по умолчанию",
+      "CHART_LINE": "Линейный",
+      "CHART_BAR": "Столбчатый",
+      "CHART_PIE": "Круговой",
+      "CHART_AREA": "Областной",
+      "SHOW_TRENDS": "Показывать тренды",
+      "CLEAR_ALL": "Очистить все фильтры",
+      "SAVE": "Сохранить настройки"
+    },
+    "ACCOUNT": {
+      "TITLE": "Настройки аккаунта"
+    },
+    "NOTIFICATIONS": {
+      "TITLE": "Уведомления"
+    },
+    "PRIVACY": {
+      "TITLE": "Конфиденциальность"
     }
-  },
-  "employees": {
-    "title": "Сотрудники",
-    "newEmployee": "Новый сотрудник",
-    "employeeName": "Имя сотрудника",
-    "employeeEmail": "Email сотрудника",
-    "employeePhone": "Телефон сотрудника",
-    "employeeRole": "Роль сотрудника",
-    "employeeDirection": "Направление",
-    "salary": "Оклад",
-    "hourlyRate": "Почасовая ставка",
-    "workingDaysPerMonth": "Рабочих дней в месяц",
-    "dailyRate": "Дневная ставка",
-    "monthlyCost": "Месячная стоимость",
-    "role": {
-      "generalDirector": "Генеральный директор",
-      "director": "Директор направления",
-      "projectManager": "Руководитель проекта",
-      "employee": "Сотрудник"
-    }
-  },
-  "timeEntries": {
-    "title": "Учет времени",
-    "newTimeEntry": "Новая запись времени",
-    "date": "Дата",
-    "hours": "Часы",
-    "paidHours": "Оплаченные часы",
-    "comments": "Комментарии",
-    "calculatedCost": "Рассчитанная стоимость",
-    "userHourlyRate": "Почасовая ставка пользователя"
-  },
-  "invoices": {
-    "title": "Счета",
-    "newInvoice": "Новый счет",
-    "invoiceNumber": "Номер счета",
-    "issueDate": "Дата выставления",
-    "dueDate": "Дата оплаты",
-    "amount": "Сумма",
-    "status": "Статус",
-    "totalPaid": "Всего оплачено",
-    "remainingAmount": "Остаток к оплате",
-    "items": "Позиции",
-    "status": {
-      "draft": "Черновик",
-      "sent": "Отправлен",
-      "paid": "Оплачен",
-      "overdue": "Просрочен",
-      "cancelled": "Отменен"
-    }
-  },
-  "payments": {
-    "title": "Платежи",
-    "newPayment": "Новый платеж",
-    "paymentNumber": "Номер платежа",
-    "paymentDate": "Дата платежа",
-    "amount": "Сумма",
-    "paymentMethod": "Способ оплаты",
-    "status": "Статус",
-    "status": {
-      "pending": "В ожидании",
-      "completed": "Завершен",
-      "failed": "Неудачен",
-      "cancelled": "Отменен"
-    }
-  },
-  "analytics": {
-    "title": "Аналитика",
-    "financialMetrics": "Финансовые метрики",
-    "projectAnalysis": "Анализ проектов",
-    "employeePerformance": "Производительность сотрудников",
-    "revenueForecast": "Прогноз выручки",
-    "costAnalysis": "Анализ затрат",
-    "marginAnalysis": "Анализ маржи",
-    "profitabilityIndex": "Индекс рентабельности",
-    "budgetUtilization": "Использование бюджета",
-    "averagePaymentTime": "Среднее время оплаты",
-    "paymentRate": "Процент оплаты"
-  },
-  "notifications": {
-    "success": "Успешно",
-    "error": "Ошибка",
-    "warning": "Предупреждение",
-    "info": "Информация",
-    "dataSaved": "Данные сохранены",
-    "dataDeleted": "Данные удалены",
-    "operationFailed": "Операция не удалась",
-    "confirmDelete": "Подтвердите удаление",
-    "deleteConfirmation": "Вы уверены, что хотите удалить этот элемент?"
-  },
-  "validation": {
-    "required": "Это поле обязательно для заполнения",
-    "invalidEmail": "Неверный формат email",
-    "invalidPhone": "Неверный формат телефона",
-    "invalidNumber": "Неверный формат числа",
-    "minLength": "Минимальная длина: {0} символов",
-    "maxLength": "Максимальная длина: {0} символов",
-    "minValue": "Минимальное значение: {0}",
-    "maxValue": "Максимальное значение: {0}"
   }
 }

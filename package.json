@@ -1,6 +1,9 @@
 {
-  "name": "project-management",
+  "name": "wone-it-business-solutions-project-management",
   "version": "0.0.0",
+  "description": "Wone IT - Business Solutions - Project Management",
+  "author": "Andrey Erofev",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -40,6 +43,7 @@
     "@ngx-translate/http-loader": "^16.0.0",
     "@playwright/test": "^1.55.0",
     "@types/pouchdb": "^6.4.2",
+    "@types/three": "^0.179.0",
     "chart.js": "^4.5.0",
     "ng2-charts": "^8.0.0",
     "ngx-translate": "^0.0.1-security",
@@ -47,6 +51,7 @@
     "pouchdb-adapter-http": "^9.0.0",
     "pouchdb-adapter-idb": "^9.0.0",
     "rxjs": "~7.8.0",
+    "three": "^0.179.1",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
   },

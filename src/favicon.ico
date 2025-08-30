@@ -1,0 +1,2214 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head><link rel="canonical" href="https://wone-it.ru/services/company/"/>
+
+
+<meta name="description" content="Комплексные IT-решения для бизнеса: облачные сервисы, AI-аналитика, защита данных. Интеграция с Microsoft, Yandex Cloud и ELMA. Разработка приложений и программ для бизнеса. 18 лет на IT-рынке России. " />
+<script data-skip-moving="true">(function(w, d, n) {var cl = "bx-core";var ht = d.documentElement;var htc = ht ? ht.className : undefined;if (htc === undefined || htc.indexOf(cl) !== -1){return;}var ua = n.userAgent;if (/(iPad;)|(iPhone;)/i.test(ua)){cl += " bx-ios";}else if (/Windows/i.test(ua)){cl += ' bx-win';}else if (/Macintosh/i.test(ua)){cl += " bx-mac";}else if (/Linux/i.test(ua) && !/Android/i.test(ua)){cl += " bx-linux";}else if (/Android/i.test(ua)){cl += " bx-android";}cl += (/(ipad|iphone|android|mobile|touch)/i.test(ua) ? " bx-touch" : " bx-no-touch");cl += w.devicePixelRatio && w.devicePixelRatio >= 2? " bx-retina": " bx-no-retina";if (/AppleWebKit/.test(ua)){cl += " bx-chrome";}else if (/Opera/.test(ua)){cl += " bx-opera";}else if (/Firefox/.test(ua)){cl += " bx-firefox";}ht.className = htc ? htc + " " + cl : cl;})(window, document, navigator);</script>
+
+
+<link href="/bitrix/cache/css/s2/soft/page_d7c03d70a13a957b5f248db1f533b6bd/page_d7c03d70a13a957b5f248db1f533b6bd_v1.css?174954848734982"  rel="stylesheet" />
+<link href="/bitrix/cache/css/s2/soft/template_480afbd39c7fd092278c33e8a0a6f493/template_480afbd39c7fd092278c33e8a0a6f493_v1.css?1753785521523133"  data-template-style="true" rel="stylesheet" />
+
+
+
+
+
+
+
+				<script data-skip-moving="true" src="/bitrix/js/aspro.allcorp3/jquery/jquery-2.1.3.min.js"></script>
+				<script data-skip-moving="true" src="/local/templates/soft/js/speed.min.js?=1660318840"></script>
+			
+<style>html {--theme-base-color: #ef3f29;--theme-base-opacity-color: #ef3f291a;--theme-more-color: #c30101;--theme-border-radius:26px;--theme-outer-border-radius:26px;--theme-button-border-radius:26px;--theme-text-transform:none;--theme-letter-spacing:normal;--theme-button-font-size:0%;--theme-button-padding-2px:0%;--theme-button-padding-1px:0%;--theme-more-color-hue:0;--theme-more-color-saturation:99%;--theme-more-color-lightness:38%;--theme-base-color-hue:7;--theme-base-color-saturation:86%;--theme-base-color-lightness:55%;--theme-lightness-hover-diff:6%}</style>
+<style>html {--theme-base-color: #ef3f29;--theme-base-opacity-color: #ef3f291a;--theme-more-color: #c30101;--theme-border-radius:26px;--theme-outer-border-radius:26px;--theme-button-border-radius:26px;--theme-text-transform:none;--theme-letter-spacing:normal;--theme-button-font-size:0%;--theme-button-padding-2px:0%;--theme-button-padding-1px:0%;--theme-more-color-hue:0;--theme-more-color-saturation:99%;--theme-more-color-lightness:38%;--theme-base-color-hue:7;--theme-base-color-saturation:86%;--theme-base-color-lightness:55%;--theme-lightness-hover-diff:6%}</style>
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+<link href="https://fonts.googleapis.com/css?family=PT+Sans+Caption:300italic,400italic,500italic,600italic,700italic,300,400,500,600,700&subset=latin,cyrillic-ext&display=swap" rel="preload" as="style" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans+Caption:300italic,400italic,500italic,600italic,700italic,300,400,500,600,700&subset=latin,cyrillic-ext&display=swap" crossorigin>
+<link href="/local/templates/soft/css/print.css?166237122914845" data-template-style="true" rel="stylesheet" media="print">
+<script data-skip-moving="true" src="/local/templates/soft/js/actual.counter.min.js?=1660318840" defer></script>
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="apple-touch-icon" sizes="180x180" href="/include/apple-touch-icon.png" />
+    <style>.main-banner-item[data-slide="4370"] .main-banner-item__title{color:#;}.main-banner-item[data-slide="4370"] .main-banner-item__subtitle{color:#;}.main-banner-item[data-slide="4370"] .main-banner-item__text .btn.gradient::before{background:linear-gradient(94.8deg, #, #, #);}.main-banner-item[data-slide="4370"] .main-banner-item__text .btn.gradient:hover{box-shadow:unset;}.main-banner-item[data-slide="4370"] .main-banner-item__text .btn.gradient span{color:#fff;}</style>
+<style>[data-tab="about"] .detail-description-tab-content-arrow path{fill:#5a33b4;}[data-tab="about"] .detail-description-tab-content-button-wrapper .btn.gradient::before{background:linear-gradient(94.8deg, #5f2bb4, #2b7bb8, #5f2bb4);}[data-tab="about"] .detail-description-tab-content-button-wrapper .btn.gradient:hover{box-shadow:unset;}[data-tab="corporate-culture"] .detail-description-tab-content-arrow path{fill:#5a33b4;}[data-tab="corporate-culture"] .detail-description-tab-content-button-wrapper .btn.gradient::before{background:linear-gradient(94.8deg, #5f2bb4, #2b7bb8, #5f2bb4);}[data-tab="corporate-culture"] .detail-description-tab-content-button-wrapper .btn.gradient:hover{box-shadow:unset;}[data-tab="history"] .detail-description-tab-content-arrow path{fill:#5a33b4;}[data-tab="history"] .detail-description-tab-content-button-wrapper .btn.gradient::before{background:linear-gradient(94.8deg, #5f2bb4, #2b7bb8, #5f2bb4);}[data-tab="history"] .detail-description-tab-content-button-wrapper .btn.gradient:hover{box-shadow:unset;}[data-tab="awards"] .detail-description-tab-content-arrow path{fill:#5a33b4;}[data-tab="awards"] .detail-description-tab-content-button-wrapper .btn.gradient::before{background:linear-gradient(94.8deg, #5f2bb4, #2b7bb8, #5f2bb4);}[data-tab="awards"] .detail-description-tab-content-button-wrapper .btn.gradient:hover{box-shadow:unset;}.header-slider-slide[data-slide="4370"] .header-slider-slide-text-top{color:#;}.header-slider-slide[data-slide="4370"] .header-slider-slide-text-bottom{color:#;}.header-slider-slide[data-slide="4370"] .header-slider-slide-button-wrapper .btn.gradient::before{background:linear-gradient(94.8deg, #, #, #);}.header-slider-slide[data-slide="4370"] .header-slider-slide-button-wrapper .btn.gradient:hover{box-shadow:unset;}.header-slider-slide[data-slide="4370"] .header-slider-slide-button-wrapper .btn.gradient span{color:#fff;}</style>
+
+
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="robots" content="index, follow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT-компания для бизнеса: разработка и внедрение решений — Wone IT</title>
+
+					<style>html {}</style>
+
+
+    <link rel="shortcut icon" href="/local/templates/soft/favicon.ico" type="image/x-icon">
+
+    
+    <!--[if lt IE 9]>
+	-->
+	    	    	<!--[endif]-->
+
+    
+	
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org/",
+    "@type": "Organization",
+    "name": "IT-компания полного цикла - Wone-IT",
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "ул. Нижняя Красносельская, д. 40/12, корпус 2, этаж 3, офис № 323",
+        "addressLocality": "Москва",
+        "addressRegion": "Россия",
+        "postalCode": "105066"
+    },
+    "telephone": "+7 (499) 322-05-45",
+    "email": "info@wone-it.ru"
+}
+</script>
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="IT-компания полного цикла - Wone-IT">
+<meta property="og:description" content="Cистемный интегратор и поставщик решений в сфере бизнес-приложений, инфраструктуры, информационной безопасности, заказной разработки и искусственного интеллекта. 17 лет опыта работы в IT">
+<meta property="og:url" content="https://wone-it.ru">
+<meta property="og:image" content="https://wone-it.ru/upload/link_image.png">
+<meta property="og:site_name" content="wone-it.ru">
+<meta property="og:locale" content="ru_RU">
+
+	</head>
+<body id="main">
+<!-- Yandex.Metrika counter -->
+<noscript><div><img src="https://mc.yandex.ru/watch/91715862" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+<!-- /Yandex.Metrika counter -->
+		<script data-skip-moving="true">
+			var solutionName = 'arAllcorp3Options';
+			var arAsproOptions = window[solutionName] = ({});
+		</script>
+		<script src="/local/templates/soft/js/setTheme.php?site_id=s2&site_dir=/" data-skip-moving="true"></script>
+				<!--'start_frame_cache_options-block'-->					<!--'end_frame_cache_options-block'-->
+
+<header class="header" style="background-color: white;">
+    
+            
+
+    <div class="header-inner-wrapper">
+        <div id="panel">  </div>
+        <div class="container">
+            <div class="header__inner">
+                <div class="header__logo">
+                    <a href="/">
+                        <img class="image-responsive lazyload"
+                             src="/local/templates/soft/pictures/loaders/loader-circle-2.svg"
+                             data-src="/local/templates/soft/pictures/template_pictures/logo.svg"
+                             alt="logo">
+                    </a>
+                </div>
+                <div class="header__menu">
+
+                                            
+
+
+
+<nav class="main-menu">
+    <div class="mobile-menu-header">
+        <a href="/">
+        <img class="image-responsive lazyload"
+             src="/local/templates/soft/pictures/loaders/loader-dots.svg"
+             data-src="/local/templates/soft/pictures/template_pictures/logo.svg"
+             alt="logo">
+        </a>
+        <div class="mobile-menu-close">
+            <img class="lazyload"
+                 src="/local/templates/soft/pictures/loaders/cancelmobail.svg"
+                 data-src="/local/templates/soft/pictures/icons/mobile-menu-close.svg"
+                 alt="close menu">
+        </div>
+    </div>
+    <ul class="main-menu__list">
+                    <li class="main-menu__item left-padding parent" data-link="javascript:void(0)">
+                <div class="main-menu__item-title">
+                    <a class="main-menu__link link gradient" href="javascript:void(0)">Компания</a>
+                                            <img src="/local/templates/soft/pictures/icons/mobile-menu-arrow-more2.svg" alt="dropdown">
+                                    </div>
+                                        <div class="submenu" data-submenu="">
+        <div class="submenu-container">
+            <div class="submenu-header">
+                <img src="/local/templates/soft/pictures/icons/mobile-menu-back-arrow2.svg" alt="back" class="back-arrow">
+                <span>Компания</span>
+            </div>
+            
+                                <div class="submenu__item parent submenu-open">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/company/">О компании</a>
+                                            <i class="arrow-box"><img class="desktop-img-arrow" src="/local/templates/soft/pictures/icons/mobile-menu-arrow-more2.svg" alt="dropdown"></i>
+                        <i class="arrow-desktop"></i>
+                        <img src="/local/templates/soft/pictures/icons/mobile-menu-arrow-more2.svg" alt="dropdown">
+                                                                    <div class="submenu" data-submenu="">
+        <div class="submenu-container">
+            <div class="submenu-header">
+                <img src="/local/templates/soft/pictures/icons/mobile-menu-back-arrow2.svg" alt="back" class="back-arrow">
+                <span>О компании</span>
+            </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/company/#history">История</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/company/staff/">Руководство</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/company/#corporate-culture">Ценности</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/company/#awards">Признание и награды</a>
+                                                        </div>
+                    </div>
+    </div>
+                                    </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="/career/">Карьера</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="/company/korporativnaya-otvetstvennost/">Корпоративная ответственность</a>
+                                                        </div>
+                    </div>
+    </div>
+                            </li>
+                    <li class="main-menu__item parent services-item" data-link="https://wone-it.ru/services/">
+                <div class="main-menu__item-title">
+                    <a class="main-menu__link link gradient" href="https://wone-it.ru/services/">Решения</a>
+                                            <img src="/local/templates/soft/pictures/icons/mobile-menu-arrow-more2.svg" alt="dropdown">
+                                    </div>
+                                        <div class="submenu" data-submenu="">
+        <div class="submenu-container">
+            <div class="submenu-header">
+                <img src="/local/templates/soft/pictures/icons/mobile-menu-back-arrow2.svg" alt="back" class="back-arrow">
+                <span>Решения</span>
+            </div>
+            
+                                <div class="submenu__item parent submenu-open">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/infrastructure/">Инфраструктурные решения</a>
+                                            <i class="arrow-box"><img class="desktop-img-arrow" src="/local/templates/soft/pictures/icons/mobile-menu-arrow-more2.svg" alt="dropdown"></i>
+                        <i class="arrow-desktop"></i>
+                        <img src="/local/templates/soft/pictures/icons/mobile-menu-arrow-more2.svg" alt="dropdown">
+                                                                    <div class="submenu" data-submenu="">
+        <div class="submenu-container">
+            <div class="submenu-header">
+                <img src="/local/templates/soft/pictures/icons/mobile-menu-back-arrow2.svg" alt="back" class="back-arrow">
+                <span>Инфраструктурные решения</span>
+            </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/postavka-oborudovaniya/">Поставка оборудования</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/virtualization/">Виртуализация серверов и рабочих станций</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/backup/">Системы резервного копирования и восстановления данных</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/sovremennoe-rabochee-mesto/">Современное рабочее место</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/zamena-resheniy-microsoft/">Замена решений Microsoft</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/service-migrate-to-russian-office-soft/">Офисные приложения и почтовые системы</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/tekhnicheskaya-podderzhka-it-infrastruktury/">Техническая поддержка IT-инфраструктуры</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/upravlenie-mobilnymi-ustroystvami/">Управление мобильными устройствами</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/demolab/">Демостенды</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/zheleznye-skidki-ot-wone-it-i-gruppy-astra/">Оборудование и ПО от Wone IT по специальной цене</a>
+                                                        </div>
+                    </div>
+    </div>
+                                    </div>
+            
+                                <div class="submenu__item parent">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/information-security/">Информационная безопасность</a>
+                                            <i class="arrow-box"><img class="desktop-img-arrow" src="/local/templates/soft/pictures/icons/mobile-menu-arrow-more2.svg" alt="dropdown"></i>
+                        <i class="arrow-desktop"></i>
+                        <img src="/local/templates/soft/pictures/icons/mobile-menu-arrow-more2.svg" alt="dropdown">
+                                                                    <div class="submenu" data-submenu="">
+        <div class="submenu-container">
+            <div class="submenu-header">
+                <img src="/local/templates/soft/pictures/icons/mobile-menu-back-arrow2.svg" alt="back" class="back-arrow">
+                <span>Информационная безопасность</span>
+            </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/information-security/#security-it-infrastructure">Безопасность ИТ-инфраструктуры</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/information-security/#testirovanie-na-proniknovenie">Тестирование на проникновение</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/information-security/#demostend">Демостенды</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/information-security/#support">Сопровождение и поддержка</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/information-security/#support-kaspersky">Поддержка Kaspersky</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/information-security/#skidka-na-resheniya-kaspersky">Скидки на решения Kaspersky</a>
+                                                        </div>
+                    </div>
+    </div>
+                                    </div>
+            
+                                <div class="submenu__item parent">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/business-solutions/">Решения для автоматизации бизнеса</a>
+                                            <i class="arrow-box"><img class="desktop-img-arrow" src="/local/templates/soft/pictures/icons/mobile-menu-arrow-more2.svg" alt="dropdown"></i>
+                        <i class="arrow-desktop"></i>
+                        <img src="/local/templates/soft/pictures/icons/mobile-menu-arrow-more2.svg" alt="dropdown">
+                                                                    <div class="submenu" data-submenu="">
+        <div class="submenu-container">
+            <div class="submenu-header">
+                <img src="/local/templates/soft/pictures/icons/mobile-menu-back-arrow2.svg" alt="back" class="back-arrow">
+                <span>Решения для автоматизации бизнеса</span>
+            </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/epm-cpm/">Бюджетирование и финансовое планирование (EPM/CPM)</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/crm/">Управление отношениями с клиентами (CRM)</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/upravlenie-skladom-wms/">Управление складом (WMS)</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/tekhnicheskoe-obsluzhivanie-i-upravlenie-aktivami-eam/">Техническое обслуживание и управление активами (EAM) </a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/dokumentooborot/">Документооборот</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/small-auto-and-rpa/">Процессная автоматизация и роботизация</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/data-and-bi/">Аналитика и работа с данными</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/microsoft-support/">Сопровождение, развитие и аудит решений Microsoft</a>
+                                                        </div>
+                    </div>
+    </div>
+                                    </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/cloud/">Переход в облако</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/wone-technology-center/">WONE Technology Center</a>
+                                                        </div>
+            
+                                <div class="submenu__item parent">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/razrabotka-programmnykh-resheniy/">Разработка программных решений</a>
+                                            <i class="arrow-box"><img class="desktop-img-arrow" src="/local/templates/soft/pictures/icons/mobile-menu-arrow-more2.svg" alt="dropdown"></i>
+                        <i class="arrow-desktop"></i>
+                        <img src="/local/templates/soft/pictures/icons/mobile-menu-arrow-more2.svg" alt="dropdown">
+                                                                    <div class="submenu" data-submenu="">
+        <div class="submenu-container">
+            <div class="submenu-header">
+                <img src="/local/templates/soft/pictures/icons/mobile-menu-back-arrow2.svg" alt="back" class="back-arrow">
+                <span>Разработка программных решений</span>
+            </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/dev/">Комплексная web-разработка</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/razrabotka-mobilnykh-prilozheniy/">Разработка мобильных приложений</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="/services/audit-i-revers-inzhiniring/">Аудит и Реверс инжиниринг</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="/services/ux-ui-design/">Разработка UX/UI-дизайна</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="/services/testirovanie/">Тестирование</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="/services/tekhnicheskaya-podderzhka/">Техническая поддержка</a>
+                                                        </div>
+                    </div>
+    </div>
+                                    </div>
+            
+                                <div class="submenu__item parent">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/artificial-intelligence-and-machine-learning/">Искусственный интеллект и машинное обучение</a>
+                                            <i class="arrow-box"><img class="desktop-img-arrow" src="/local/templates/soft/pictures/icons/mobile-menu-arrow-more2.svg" alt="dropdown"></i>
+                        <i class="arrow-desktop"></i>
+                        <img src="/local/templates/soft/pictures/icons/mobile-menu-arrow-more2.svg" alt="dropdown">
+                                                                    <div class="submenu" data-submenu="">
+        <div class="submenu-container">
+            <div class="submenu-header">
+                <img src="/local/templates/soft/pictures/icons/mobile-menu-back-arrow2.svg" alt="back" class="back-arrow">
+                <span>Искусственный интеллект и машинное обучение</span>
+            </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="/services/raspoznavanie-tekstovykh-dannykh-ocr/">AI для работы с документами (OCR)</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="/services/ai-raspoznavanie-i-analiz-audiozapisey/">AI-распознавание и анализ аудиозаписей</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="/services/ai-ml-vorkshop-ot-wone-it/">AI/ML воркшоп от Wone IT</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="/services/wroomee-reshenie-dlya-gostey-i-sotrudnikov-oteley/">Wroomify — экосистема решений для отелей</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/retriver-baza-znaniy-s-iskusstvennym-intellektom/">Ретривер: база знаний на основе AI</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="https://wone-it.ru/services/ai-avatar-dlya-biznesa/">Цифровой аватар</a>
+                                                        </div>
+                    </div>
+    </div>
+                                    </div>
+                    </div>
+    </div>
+                            </li>
+                    <li class="main-menu__item" data-link="/projects/">
+                <div class="main-menu__item-title">
+                    <a class="main-menu__link link gradient" href="/projects/">Проекты и кейсы</a>
+                                    </div>
+                            </li>
+                    <li class="main-menu__item" data-link="/otrasli/">
+                <div class="main-menu__item-title">
+                    <a class="main-menu__link link gradient" href="/otrasli/">Отрасли</a>
+                                    </div>
+                            </li>
+                    <li class="main-menu__item" data-link="/company/partners/">
+                <div class="main-menu__item-title">
+                    <a class="main-menu__link link gradient" href="/company/partners/">Партнёры</a>
+                                    </div>
+                            </li>
+                    <li class="main-menu__item parent" data-link="/media-center/">
+                <div class="main-menu__item-title">
+                    <a class="main-menu__link link gradient" href="/media-center/">Медиацентр</a>
+                                            <img src="/local/templates/soft/pictures/icons/mobile-menu-arrow-more2.svg" alt="dropdown">
+                                    </div>
+                                        <div class="submenu" data-submenu="">
+        <div class="submenu-container">
+            <div class="submenu-header">
+                <img src="/local/templates/soft/pictures/icons/mobile-menu-back-arrow2.svg" alt="back" class="back-arrow">
+                <span>Медиацентр</span>
+            </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="/media-center/news/">Новости</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="/media-center/meropriyatiya/">Мероприятия</a>
+                                                        </div>
+            
+                                <div class="submenu__item">
+
+                    <a class="submenu__item-link link gradient"
+                       href="/media-center/ekspertiza-wone-it/">Экспертиза</a>
+                                                        </div>
+                    </div>
+    </div>
+                            </li>
+                    <li class="main-menu__item" data-link="/contacts/">
+                <div class="main-menu__item-title">
+                    <a class="main-menu__link link gradient" href="/contacts/">Контакты</a>
+                                    </div>
+                            </li>
+            </ul>
+    <div class="mobile-menu-footer-contact">
+    <a href="tel:+74993220545">+7(499)322-05-45</a><br />
+    <a href="mailto:info@wone-it.ru">info@wone-it.ru</a><br />
+</div>
+<div class="mobile-menu-footer">
+    <div class="mobile-menu-footer-feedback">
+        <a class="btn gradient" data-fancybox="" data-type="ajax" data-src="/form/?form_id=callback&amp;ajax=Y" href="javascript:void(0)">
+            <span>Связаться с нами</span>
+        </a>
+    </div>
+
+    <div class="header-english-bottom">
+        <a href="javascript:void(0);" class="header-english-link">EN</a>
+    </div>
+
+    <div class="mobile-menu-footer-contacts">
+        <a class="link gradient phone" href="tel:+74993220545">+7(499)322-05-45</a>
+        <a class="link gradient mail" href="mailto:info.ru@wone-it.ru">info.ru@wone-it.ru</a>
+    </div>
+    <div class="mobile-menu-footer-social">
+        <a href="https://t.me/wone_it" class="mobile-menu-footer-social-item">
+            <img class="lazyload"
+                 src="/local/templates/soft/pictures/loaders/loader-circle-2.svg"
+                 data-src="/local/templates/soft/pictures/icons/telegram-circle.svg"
+                 alt="telegram">
+        </a>
+<!--        <a href="javascript:void(0);" class="mobile-menu-footer-social-item">-->
+<!--            <img class="lazyload"-->
+<!--                 src="--><!--/pictures/loaders/loader-circle-2.svg"-->
+<!--                 data-src="--><!--/pictures/icons/facebook-circle.svg"-->
+<!--                 alt="facebook">-->
+<!--        </a>-->
+        <a href="https://vk.com/woneit" class="mobile-menu-footer-social-item">
+            <img class="lazyload"
+                 src="/local/templates/soft/pictures/loaders/loader-circle-2.svg"
+                 data-src="/local/templates/soft/pictures/icons/vk-circle.svg"
+                 alt="vk">
+        </a>
+<!--    </div>-->
+</div></nav>                        <div class="mobile-menu-hamburger">
+                            <img class="lazyload"
+                                 src="/local/templates/soft/pictures/loaders/loader-circle-2.svg"
+                                 data-src="/local/templates/soft/pictures/icons/hamburger.svg"
+                                 alt="hamburger">
+                        </div>
+
+                        
+    <div class="search-wrapper">
+        <form class="search"
+              action="/search/"
+              method="get"
+              id="title-search">
+            <div class="search-input-wrapper">
+                <input class="search-input"
+                       type="text"
+                       placeholder="Поиск"
+                       id="title-search-input"
+                       name="q"
+                       autocomplete="off">
+                <button class="search-button" type="submit">
+                    <svg height="30" viewBox="0 0 512 512" width="30" xmlns="http://www.w3.org/2000/svg"><title/><path fill="#8430b4" d="M456.69,421.39,362.6,327.3a173.81,173.81,0,0,0,34.84-104.58C397.44,126.38,319.06,48,222.72,48S48,126.38,48,222.72s78.38,174.72,174.72,174.72A173.81,173.81,0,0,0,327.3,362.6l94.09,94.09a25,25,0,0,0,35.3-35.3ZM97.92,222.72a124.8,124.8,0,1,1,124.8,124.8A124.95,124.95,0,0,1,97.92,222.72Z"/></svg>
+                </button>
+
+                <div class="search-close-button">
+                    <svg enable-background="new 0 0 256 256" height="30" id="Layer_1" version="1.1" viewBox="0 0 256 256" width="30" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="#df423a" d="M137.051,128l75.475-75.475c2.5-2.5,2.5-6.551,0-9.051s-6.551-2.5-9.051,0L128,118.949L52.525,43.475  c-2.5-2.5-6.551-2.5-9.051,0s-2.5,6.551,0,9.051L118.949,128l-75.475,75.475c-2.5,2.5-2.5,6.551,0,9.051  c1.25,1.25,2.888,1.875,4.525,1.875s3.275-0.625,4.525-1.875L128,137.051l75.475,75.475c1.25,1.25,2.888,1.875,4.525,1.875  s3.275-0.625,4.525-1.875c2.5-2.5,2.5-6.551,0-9.051L137.051,128z"/></svg>
+                </div>
+            </div>
+            <div class="search-open-button">
+                <svg height="40" viewBox="0 0 512 512" width="40" xmlns="http://www.w3.org/2000/svg"><title/><path fill="#8430b4" d="M456.69,421.39,362.6,327.3a173.81,173.81,0,0,0,34.84-104.58C397.44,126.38,319.06,48,222.72,48S48,126.38,48,222.72s78.38,174.72,174.72,174.72A173.81,173.81,0,0,0,327.3,362.6l94.09,94.09a25,25,0,0,0,35.3-35.3ZM97.92,222.72a124.8,124.8,0,1,1,124.8,124.8A124.95,124.95,0,0,1,97.92,222.72Z"/></svg>
+            </div>
+        </form>
+        <div class="search-prompt" id="search-result-XdqEv1"></div>
+    </div>
+                    
+                </div>
+                
+
+
+                <div class="header__buttons">
+                                            <a class="btn gradient" data-fancybox="" data-type="ajax" data-src="/form/?form_id=callback&amp;ajax=Y" href="javascript:void(0)">
+                            <span>Связаться с нами</span>
+                        </a>
+                                        <div class="header-lang-btn">EN</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    
+    <div class="aam-header-content-target">
+            
+                    <div class="main-banner-wrapper">
+        <div class="main-banner swiper">
+
+            <div class="main-banner-slider swiper-wrapper">
+                                                                                    <div class="main-banner-item swiper-slide" data-slide="4370" id="bx_3218110189_4370"
+                             data-background="">
+                            <div class="container no-padding-mobile">
+                                <div class="main-banner-item-content">
+                                    <div class="main-banner-item__text">
+                                                                                <h1 class="main-banner-item__title">О компании WONE IT</h1>
+                                                                                <span class="main-banner-item__subtitle">Берем на себя решение всех технологических задач заказчика — от анализа IT-ландшафта и подбора продуктов до их поставки, внедрения и поддержки</span>
+                                        <a class="btn gradient"
+                                           href="https://wone-it.ru/upload/WONE_IT._Презентация_компании.pdf">
+                                            <span>Скачайте презентацию</span>
+                                        </a>
+                                    </div>
+                                    <div class="main-banner-item__image">
+                                        <img class="image-responsive"
+                                             src="/upload/iblock/d58/jd8qxj9bu9xr4p6vfdynsprzvgyp7kft.png"
+                                             alt="История и философия бизнеса компании WONE IT">
+                                    </div>
+                                    <div class="main-banner-item__image-mobile">
+                                        <img class="image-responsive"
+                                             src="/upload/iblock/d58/jd8qxj9bu9xr4p6vfdynsprzvgyp7kft.png"
+                                             alt="История и философия бизнеса компании WONE IT">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                                                </div>
+                    </div>
+    </div>
+            </div>
+            <div class="container">
+            <div class="breadcrumbs">
+                <ul>
+		<li id="bx_breadcrumb_0">
+            <a class="link underline" href="/">Главная</a>
+        </li>
+        <li>
+            <img src="/local/templates/soft/pictures/icons/arrow-right-grey.svg" alt="">
+        </li>
+			
+		<li id="bx_breadcrumb_1">
+            <a class="link underline" href="/services/">Услуги и Решения</a>
+        </li>
+        <li>
+            <img src="/local/templates/soft/pictures/icons/arrow-right-grey.svg" alt="">
+        </li>
+			
+        <li>
+            <span>О компании</span>
+        </li></ul><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "item": { "@id": "https://wone-it.ru/", "name": "Главная"}},{"@type": "ListItem", "position": 2, "item": { "@id": "https://wone-it.ru/services/", "name": "Услуги и Решения"}},{"@type": "ListItem", "position": 3, "item": { "@id": "https://wone-it.ru", "name": "О компании"}}]}</script>            </div>
+        </div>
+        </header>
+    <main class="main">
+        <div class="container  no-padding-mobile">
+
+
+</div><div class="services-detail">
+            <div class="detail-container-inner">
+
+            <section class="services-detail-section tabs">
+                <div class="detail-section-caption-wrapper">
+                    <h2>Технологический партнер. ИТ-интегратор</h2>
+                                    </div>
+                <div class="detail-section-content">
+                    <div class="detail-description-tabs-wrapper">
+                        <div class="detail-description-tabs swiper">
+                            <div class="detail-desctiption-tabs-head-items swiper-wrapper">
+                                                                    <div class="detail-description-tab-head-item swiper-slide active" data-tab="about">
+                                        О компании                                        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+                                            <path d="M8 2L15.0711 9.07107L8 16.1421L7.29289 15.435L13.1804 9.54751L1.45249 9.54751L1.45249 8.54751H13.1333L7.29289 2.70711L8 2Z" fill="#802FB9" stroke="#802FB9" stroke-width="2" />
+                                        </svg>
+                                    </div>
+                                                                    <div class="detail-description-tab-head-item swiper-slide" data-tab="corporate-culture">
+                                        Ценности                                        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+                                            <path d="M8 2L15.0711 9.07107L8 16.1421L7.29289 15.435L13.1804 9.54751L1.45249 9.54751L1.45249 8.54751H13.1333L7.29289 2.70711L8 2Z" fill="#802FB9" stroke="#802FB9" stroke-width="2" />
+                                        </svg>
+                                    </div>
+                                                                    <div class="detail-description-tab-head-item swiper-slide" data-tab="history">
+                                        История                                        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+                                            <path d="M8 2L15.0711 9.07107L8 16.1421L7.29289 15.435L13.1804 9.54751L1.45249 9.54751L1.45249 8.54751H13.1333L7.29289 2.70711L8 2Z" fill="#802FB9" stroke="#802FB9" stroke-width="2" />
+                                        </svg>
+                                    </div>
+                                                                    <div class="detail-description-tab-head-item swiper-slide" data-tab="awards">
+                                        Признание и награды                                        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+                                            <path d="M8 2L15.0711 9.07107L8 16.1421L7.29289 15.435L13.1804 9.54751L1.45249 9.54751L1.45249 8.54751H13.1333L7.29289 2.70711L8 2Z" fill="#802FB9" stroke="#802FB9" stroke-width="2" />
+                                        </svg>
+                                    </div>
+                                                            </div>
+                        </div>
+                        <div class="detail-description-tabs-content">
+                                                            <div class="detail-description-tab-content-item active" data-tab="about">
+                                    <div class="detail-description-tab-content-caption">О компании</div>
+                                    <div class="detail-description-tab-content-text">Мы умеем работать с заказчиками любого масштаба и профиля деятельности и берем на себя решение всех технологических задач − от анализа ИТ-ландшафта и подбора продуктов до их поставки, внедрения и поддержки. Обращаясь в нашу компанию, вы получаете доступ к максимально широкому портфелю продуктов и глубоким компетенциям в различных сферах ИТ.<br>
+ <b>
+<h4>С нашей помощью вы можете:</h4>
+<div>
+	<ul>
+		<li>разрабатывать и реализовывать технологические стратегии,<br>
+ </li>
+		<li>приобретать необходимое ПО и/или облачные продукты,<br>
+ </li>
+		<li>внедрять ИТ-системы и управлять ими,<br>
+ </li>
+		<li>оптимизировать программные ресурсы.<br>
+ </li>
+	</ul>
+</div>
+ <b>
+<h4>Мы реализуем разные виды проектов, среди них:</h4>
+<ul>
+	<li>переход на российское ПО и оборудование,<br>
+ </li>
+	<li>миграция ИТ-ресурсов в облако,<br>
+ </li>
+	<li>создание цифровых двойников,<br>
+ </li>
+	<li>обеспечение информационной безопасности и многие другие.<br>
+ </li>
+	<ul>
+	</ul>
+</ul>
+ Многолетний опыт работы с мировыми ИТ-решениями позволяет нам подбирать лучшие российские аналоги и поддерживать технологическую независимость вашего бизнеса на самом высоком уровне.<br>
+ <br>
+ Каждый проект мы рассматриваем индивидуально, предлагая адаптивное решение, которое отвечает запросам вашего бизнеса.<br>
+ </b></b></div>
+                                    <div class="detail-description-tab-content-bottom">
+                                                                            </div>
+                                </div>
+                                                            <div class="detail-description-tab-content-item" data-tab="corporate-culture">
+                                    <div class="detail-description-tab-content-caption">Ценности</div>
+                                    <div class="detail-description-tab-content-text"><div>
+	 Как и любая компания, мы стремимся развивать свой бизнес и получать прибыль. Но смысл нашего существования не только в этом. Свою миссию мы видим в том, чтобы <b>гарантировать компаниям беспрерывность бизнеса и технологический суверенитет независимо от рыночной ситуации и специфики используемого ими ПО</b>.
+</div>
+<h3>Вовлеченность</h3>
+ Каждый проект для нас — это глубокое погружение. Мы по-настоящему любим свою работу, ответственно и с драйвом подходим к любой задаче.
+<h3>Гибкость</h3>
+ Мы уверены, что умение адаптироваться к изменениям — единственный способ двигаться вперед в современном мире.<br>
+<h3>Новаторство</h3>
+ Мы не боимся экспериментировать, проявляем изобретательность, смотрим на стандартные задачи свежим взглядом. Наша цель — быть на шаг впереди в тенденциях рынка, поэтому мы постоянно совершенствуем свою экспертизу и ищем новые зоны развития.<br>
+<h3>Скорость</h3>
+ Мы стремительны, но последовательны в своих действиях, имея лучшую команду на рынке, мы можем себе позволить не останавливаться на крутых виражах, а только набирать скорость.<br>
+ <b>
+<h3>Забота</h3>
+ </b>Мы внимательно относимся к людям и окружающему миру, поддерживаем атмосферу открытости, честности, взаимного уважения и создаем возможности для роста.<br></div>
+                                    <div class="detail-description-tab-content-bottom">
+                                                                            </div>
+                                </div>
+                                                            <div class="detail-description-tab-content-item" data-tab="history">
+                                    <div class="detail-description-tab-content-caption">История</div>
+                                    <div class="detail-description-tab-content-text"><b>WONE IT</b> образована в результате слияния российских подразделений двух компаний — системного интегратора «Авара Ай Ти» и международного холдинга SoftwareOne (специализация: мультибрендовые поставки и сервисная поддержка ПО). Как самостоятельный бренд действует на рынке с мая 2022 года.<br>
+ <br>
+ «Мамой» одной из компаний — участниц союза — стала финская корпорация Awara Group, которая занималась управленческим и финансовым консалтингом и помогала западным брендам выходить на российский рынок. В ответ на многочисленные запросы клиентов руководство группы открыло ИТ-подразделение. Вскоре оно преобразовалось в самостоятельную компанию, а в 2007 году ее лидеры — Александр Ермаков и Юрий Шумаков — выкупили бизнес у владельцев, зарегистрировали новый товарный знак и начали собственную практику в ИТ-сфере.<br>
+ <br>
+ Европейские корни и западная ментальность помогли команде привлечь первых клиентов. Среди них было много международных брендов, которые открывали бизнес в России. Компания отвечала за всю ИТ-инфраструктуру и техподдержку и была готова замкнуть на себя весь цикл ИТ-задач: с первых шагов на рынке она стремилась стать для своих заказчиков универсальным бутиком, где есть все, что нужно, и самого высокого качества. К формированию команды подходили соответственно: в штат брали лидеров, готовых браться за новое и самостоятельно принимать решения.<br>
+ <br>
+ Выбранная стратегия дала свои плоды: у компании появились знаковые проекты и партнеры, главным среди которых стала корпорация Microsoft. На протяжении нескольких лет “Авара” признавалась «партнером года» Microsoft по нескольким направлениям.<br>
+ <br>
+ В апреле 2022 года произошло стратегически важное для интегратора событие: основатели бизнеса выкупили российские активы одного из своих партнеров — международного холдинга SoftwareOne. Этот шаг помог компании сделать новый рывок: благодаря слиянию на рынке появился новый игрок — мультивендорная компания WONE IT, которая объединила экспертизу внедрения, локализации и поддержки сложных бизнес-приложений, широкий портфель партнерских контрактов с международными и российскими вендорами и мощную структуру продаж.<br>
+ <br>
+ Сегодня у WONE IT большие планы. Компания продолжает расширять портфель услуг, осваивать новые продукты и наращивать сеть российских партнеров, чтобы оказывать своим заказчикам ИТ-поддержку любого уровня.<br></div>
+                                    <div class="detail-description-tab-content-bottom">
+                                                                            </div>
+                                </div>
+                                                            <div class="detail-description-tab-content-item" data-tab="awards">
+                                    <div class="detail-description-tab-content-caption">Признание и награды</div>
+                                    <div class="detail-description-tab-content-text"><p>
+ <img src="/upload/sert/status_platinum.png"><br>
+ <b>Elma</b>&nbsp;Платиновый партнер
+</p>
+<p>
+ <img src="/upload/sert/status_gold_.png"><br>
+ <b>Kaspersky</b>&nbsp;Золотой партнер<br>
+ <b>ГК "Астра"</b>&nbsp;Золотой партнер<br>
+ <b>Мой Офис</b>&nbsp;Золотой партнер<br>
+ <b>Microsoft</b>&nbsp;Золотой партнер, 19 из 20 золотых компетенций
+</p>
+<p>
+ <img src="/upload/sert/status_silver__.png"><br>
+ <b>Форсайт</b>&nbsp;Серебряный партнер<br>
+ <b>VK Tech</b> Серебряный партнер
+</p>
+<p>
+ <img src="/upload/sert/status_partner.png"><br>
+ <b>Yandex Cloud</b> Partner Professional<br>
+ <b>Y360</b> Professional<br> 
+ <b>Microsoft&nbsp;</b>Партнер года
+</p>
+<p>
+ <a href="/upload/Сертификат%2027001%20Ван-Ай-Ти%20Трейд.pdf"><img src="/upload/sert/ISO_27001_.png" height="50px;"></a><br>
+ <b>ISO/IEC 27001:2013 </b>Сертификат соответствия<br>
+</p>
+<p>
+ <a href="/upload/iblock/1c7/jyu0pmz1pb7z71sypxg0wuupsbklxbaz.pdf"><img src="/upload/medialibrary/f3f/mqrt6e737xmm40e8631y39x9wg0smuq3.png" height="50px;"></a><br>
+ <b>ISO/IEC 27001:2022 </b>Сертификат соответствия<br>
+</p>
+<p>
+ <a href="/upload/Сертификат%209001%20Ван-Ай-Ти%20Трейд.pdf"><img src="/upload/sert/ISO_9001.png" height="50px;"></a><br>
+ <b>ISO 9001: 2015 </b>Сертификат соответствия<br>
+</p>
+<p>
+ <img src="/upload/sert/top___.png"><br>
+ <b>7 место </b>Номинация "Лидеры ИТ для промышленности России" <a href="https://up-pro.ru/library/information_systems/automation_production/itogi-rejtinga-lidery-it-2023/" rel="nofollow" target="_blank"><b>&gt;&gt;</b></a><br>
+ <b>10 место </b>Топ-10 интеграторов ITSM-систем <a href="https://www.tadviser.ru/index.php/ITSM_-_%D0%A1%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D1%8B_%D1%83%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F_IT-%D1%81%D0%BB%D1%83%D0%B6%D0%B1%D0%BE%D0%B9" rel="nofollow" target="_blank"><b>&gt;&gt;</b></a><br>
+ <b>10 место </b>Унифицированные коммуникации в России<a href="https://www.tadviser.ru/index.php/%D0%A1%D1%82%D0%B0%D1%82%D1%8C%D1%8F:%D0%A3%D0%BD%D0%B8%D1%84%D0%B8%D1%86%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5_%D0%BA%D0%BE%D0%BC%D0%BC%D1%83%D0%BD%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D0%B8_%D0%B2_%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B8._%D0%9E%D0%B1%D0%B7%D0%BE%D1%80_TAdviser_2023?ysclid=lnd3kiuj3u111968661" rel="nofollow" target="_blank"><b>&gt;&gt;</b></a><br>
+ <b>13 место </b>Крупнейшие ИТ-поставщики в сфере строительства <a href="https://www.tadviser.ru/index.php/%D0%A1%D1%82%D0%B0%D1%82%D1%8C%D1%8F:%D0%A6%D0%B8%D1%84%D1%80%D0%BE%D0%B2%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F_%D1%81%D1%82%D1%80%D0%BE%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D1%82%D0%B2%D0%B0._%D0%9E%D0%B1%D0%B7%D0%BE%D1%80_TAdviser_2023" rel="nofollow" target="_blank"><b>&gt;&gt;</b></a>
+</p></div>
+                                    <div class="detail-description-tab-content-bottom">
+                                                                            </div>
+                                </div>
+                                                    </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    
+    
+            <section class="services-detail-section education">
+            <div class="detail-section-content">
+
+                <div class="container" style="position: relative;">
+                    <div class="detail-container-inner">
+                        <div class="detail-education-wrapper" style="background-image: url('')">
+                                                                                    <div class="detail-education-title">
+                                <h2>Компания в цифрах</h2>
+                            </div>
+                                                            <div class="detail-education-content items-2">
+                                                                            <div class="detail-education-item">
+                                                                                            <div class="detail-education-item-icon" style="background-image: url('/upload/iblock/d41/d0psd8lzoj5sxslwxinq0k56lkwxakks.png');"></div>
+                                                                                        <div class="detail-education-item-title">лет работы на рынке России</div>
+                                            <div class="detail-education-item-text"></div>
+                                        </div>
+                                                                            <div class="detail-education-item">
+                                                                                            <div class="detail-education-item-icon" style="background-image: url('/upload/iblock/fdd/9o7tlx3h0tcbxc0f6ka6diglt6nic1kf.png');"></div>
+                                                                                        <div class="detail-education-item-title">активных заказчиков</div>
+                                            <div class="detail-education-item-text"></div>
+                                        </div>
+                                                                    </div>
+                                                            <div class="detail-education-content items-2">
+                                                                            <div class="detail-education-item">
+                                                                                            <div class="detail-education-item-icon" style="background-image: url('/upload/iblock/756/8uddus1tizx8ix43iq65qvtf0ny7iqxq.png');"></div>
+                                                                                        <div class="detail-education-item-title">технических экспертов в штате</div>
+                                            <div class="detail-education-item-text"></div>
+                                        </div>
+                                                                            <div class="detail-education-item">
+                                                                                            <div class="detail-education-item-icon" style="background-image: url('/upload/iblock/256/l2m2k33hsobw0vxjyihiumupwdlcagik.png');"></div>
+                                                                                        <div class="detail-education-item-title">поставщиков решений</div>
+                                            <div class="detail-education-item-text"></div>
+                                        </div>
+                                                                    </div>
+                                                    </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    
+            <section class="services-detail-section advantages">
+            <div class="detail-section-content">
+
+                <div class="detail-container-inner">
+                    <div class="detail-advantages-wrapper">
+                        <div class="detail-advantages">
+                            <div class="detail-advantages-title">
+                                <h2>Подход к работе</h2>
+                            </div>
+                            <div class="detail-advantages-content">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="243" height="243" viewBox="0 0 243 243" fill="none">
+                                    <g opacity="0.8" filter="url(#filter0_if_5_642)">
+                                        <circle cx="121.5" cy="121.5" r="81.5" fill="url(#paint0_linear_5_642)" />
+                                    </g>
+                                    <defs>
+                                        <filter id="filter0_if_5_642" x="0" y="0" width="243" height="243" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+                                            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                                            <feOffset dx="40" dy="40" />
+                                            <feGaussianBlur stdDeviation="30" />
+                                            <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+                                            <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.35 0" />
+                                            <feBlend mode="normal" in2="shape" result="effect1_innerShadow_5_642" />
+                                            <feGaussianBlur stdDeviation="20" result="effect2_foregroundBlur_5_642" />
+                                        </filter>
+                                        <linearGradient id="paint0_linear_5_642" x1="40" y1="54.7883" x2="215.898" y2="73.7989" gradientUnits="userSpaceOnUse">
+                                            <stop stop-color="#E44036" />
+                                            <stop offset="1" stop-color="#6516B3" />
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                                                                    <div class="detail-advantages-item">
+                                        <div class="detail-advantages-item-number">01</div>
+                                        <div class="detail-advantages-item-title">Демонстрация решений</div>
+                                        <div class="detail-advantages-item-text"></div>
+                                    </div>
+                                                                    <div class="detail-advantages-item">
+                                        <div class="detail-advantages-item-number">02</div>
+                                        <div class="detail-advantages-item-title">Подбор и закупка программных решений</div>
+                                        <div class="detail-advantages-item-text"></div>
+                                    </div>
+                                                                    <div class="detail-advantages-item">
+                                        <div class="detail-advantages-item-number">03</div>
+                                        <div class="detail-advantages-item-title">Техническая поддержка</div>
+                                        <div class="detail-advantages-item-text"></div>
+                                    </div>
+                                                                    <div class="detail-advantages-item">
+                                        <div class="detail-advantages-item-number">04</div>
+                                        <div class="detail-advantages-item-title">Сервисная поддержка</div>
+                                        <div class="detail-advantages-item-text"></div>
+                                    </div>
+                                                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    
+            <div class="detail-section-white-bg">
+
+            <section class="services-detail-section partners">
+                <div class="detail-container-inner">
+                    <div class="detail-section-caption-wrapper">
+                        <h2>Наши партнеры</h2>
+                                            </div>
+                </div>
+                <div class="detail-section-content">
+                    <div class="logos-list-wrapper owl-carousel owl-theme owl-loaded">
+    <div class="logos-list owl-stage-outer">
+        <div class="logos-list-slider owl-stage" >
+                        <div class="logos-list-item owl-item" id="bx_651765591_3638">
+                                    <a href="/company/partners/turbo/">
+                        <img class="image-responsive" src="/upload/resize_cache/iblock/b11/120_40_1/7joetfexfwlc2vv0av6j2iu07subo6gc.png"
+                             alt="ТУРБО">
+                    </a>
+                            </div>
+                        <div class="logos-list-item owl-item" id="bx_651765591_3760">
+                                    <a href="/company/partners/arenadata/">
+                        <img class="image-responsive" src="/upload/resize_cache/iblock/0dd/120_40_1/ax14xz7ozfsyui3fwv4n0epcg8uqix1j.png"
+                             alt="Arenadata">
+                    </a>
+                            </div>
+                        <div class="logos-list-item owl-item" id="bx_651765591_3754">
+                                    <a href="/company/partners/sokb/">
+                        <img class="image-responsive" src="/upload/resize_cache/iblock/362/120_40_1/yn2ck9ua8xpqpj5fkfgwvn2q2cg0lnb4.png"
+                             alt="ООО «НИИ СОКБ Центр разработки» ">
+                    </a>
+                            </div>
+                        <div class="logos-list-item owl-item" id="bx_651765591_3753">
+                                    <a href="/company/partners/rustek/">
+                        <img class="image-responsive" src="/upload/resize_cache/iblock/0a2/120_40_1/em2mpqcbmupwl0xzv3c07pq5zx51kbc9.png"
+                             alt="РУСТЭК ">
+                    </a>
+                            </div>
+                        <div class="logos-list-item owl-item" id="bx_651765591_3717">
+                                    <a href="/company/partners/1forma/">
+                        <img class="image-responsive" src="/upload/resize_cache/iblock/58b/120_40_1/bxqihrohdjydfjutclebn0tmb4muetc3.png"
+                             alt="Первая форма">
+                    </a>
+                            </div>
+                        <div class="logos-list-item owl-item" id="bx_651765591_3615">
+                                    <a href="/company/partners/forsayt/">
+                        <img class="image-responsive" src="/upload/resize_cache/iblock/2bd/120_40_1/gpmxc8iqquwk38onkt4xvwa3d2ttxv3c.png"
+                             alt="Форсайт">
+                    </a>
+                            </div>
+                        <div class="logos-list-item owl-item" id="bx_651765591_3604">
+                                    <a href="/company/partners/vinteo/">
+                        <img class="image-responsive" src="/upload/resize_cache/iblock/04d/120_40_1/xvvltegsjshx6j05wl7qysnrln032dp2.jpg"
+                             alt=" Vinteo">
+                    </a>
+                            </div>
+                        <div class="logos-list-item owl-item" id="bx_651765591_3374">
+                                    <a href="/company/partners/avanpost/">
+                        <img class="image-responsive" src="/upload/resize_cache/iblock/1b5/120_40_1/3tqdzv0fofvjbqzhpsnom38c55izrps8.png"
+                             alt="Avanpost">
+                    </a>
+                            </div>
+                        <div class="logos-list-item owl-item" id="bx_651765591_3325">
+                                    <a href="/company/partners/basealt/">
+                        <img class="image-responsive" src="/upload/resize_cache/iblock/470/120_40_1/kaz9xyltqr92d4pgxvatjjyue2cl7etl.png"
+                             alt="BaseALT">
+                    </a>
+                            </div>
+                        <div class="logos-list-item owl-item" id="bx_651765591_3119">
+                                    <a href="/company/partners/ros/">
+                        <img class="image-responsive" src="/upload/resize_cache/iblock/e4c/120_40_1/royei4wh1le77d2d6w38nsv7p71qzxvx.jpg"
+                             alt="РОС">
+                    </a>
+                            </div>
+                        <div class="logos-list-item owl-item" id="bx_651765591_3037">
+                                    <a href="/company/partners/red-soft/">
+                        <img class="image-responsive" src="/upload/resize_cache/iblock/e43/120_40_1/1q0wed6slnip93xjx3s2dqsw8k13uljl.png"
+                             alt="РЕД СОФТ">
+                    </a>
+                            </div>
+                        <div class="logos-list-item owl-item" id="bx_651765591_3035">
+                                    <a href="/company/partners/r7-ofis/">
+                        <img class="image-responsive" src="/upload/resize_cache/iblock/2a3/120_40_1/nx3li6seo1r5aner7oqs3vefspi4bjhj.png"
+                             alt="Р7-Офис">
+                    </a>
+                            </div>
+                    </div>
+            </div>
+</div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+
+</article><!--    -->
+</div>
+</main>
+<footer class="footer ">
+    <div class="footer__background">
+        <div class="container">
+            <div class="footer__inner">
+                <div class="footer-top">
+                    <div class="footer-top-logo">
+                        <img class="footer-top-image-responsive lazyload"
+                             src="/local/templates/soft/pictures/loaders/logo-footer.svg"
+                             alt="logo">
+                    </div>
+                </div>
+                <div class="footer-left">
+                    <div class="footer__row">
+                        <div class="footer-menu">
+        <span class="footer-menu__title">
+       Решения    </span>
+    <ul class="footer-menu__list">
+                <li class="footer-menu__item">
+            <a class="footer-menu__link link underline" href="/services/infrastructure/">Инфраструктурные решения</a>
+        </li>
+                <li class="footer-menu__item">
+            <a class="footer-menu__link link underline" href="/services/information-security/">Информационная безопасность</a>
+        </li>
+                <li class="footer-menu__item">
+            <a class="footer-menu__link link underline" href="/services/business-solutions/">Решения для автоматизации бизнеса</a>
+        </li>
+                <li class="footer-menu__item">
+            <a class="footer-menu__link link underline" href="/services/artificial-intelligence-and-machine-learning/">Искусственный интеллект и машинное обучение</a>
+        </li>
+                <li class="footer-menu__item">
+            <a class="footer-menu__link link underline" href="/services/razrabotka-programmnykh-resheniy/">Разработка программных решений</a>
+        </li>
+                <li class="footer-menu__item">
+            <a class="footer-menu__link link underline" href="/services/wone-technology-center/">WONE Technology Center</a>
+        </li>
+                <li class="footer-menu__item">
+            <a class="footer-menu__link link underline" href="/services/cloud/">Переход в облако</a>
+        </li>
+                <li class="footer-menu__item">
+            <a class="footer-menu__link link underline" href=""></a>
+        </li>
+                <li class="footer-menu__item">
+            <a class="footer-menu__link link underline" href=""></a>
+        </li>
+            </ul>
+    </div>                        <div class="footer-menu">
+            <span class="footer-menu__title">
+            Полезные материалы
+        </span>
+        <ul class="footer-menu__list">
+                            <li class="footer-menu__item">
+                    <a class="footer-menu__link link underline" href="/media-center/news/">Новости</a>
+                </li>
+                            <li class="footer-menu__item">
+                    <a class="footer-menu__link link underline" href="/media-center/meropriyatiya/">Мероприятия</a>
+                </li>
+                            <li class="footer-menu__item">
+                    <a class="footer-menu__link link underline" href="/projects/">Истории успеха</a>
+                </li>
+                            <li class="footer-menu__item">
+                    <a class="footer-menu__link link underline" href="/career/">Карьера</a>
+                </li>
+                    </ul>
+    </div>                        <div class="footer-menu">
+            <span class="footer-menu__title">
+            Полезные ссылки        </span>
+        <ul class="footer-menu__list">
+                            <li class="footer-menu__item">
+                    <a class="footer-menu__link link underline" href="/services/company/">О компании</a>
+                </li>
+                            <li class="footer-menu__item">
+                    <a class="footer-menu__link link underline" href="/contacts/">Контакты</a>
+                </li>
+                            <li class="footer-menu__item">
+                    <a class="footer-menu__link link underline" href="/media-center/">Медиацентр</a>
+                </li>
+                            <li class="footer-menu__item">
+                    <a class="footer-menu__link link underline" href="/privacy/policy/">Политика обработки персональных данных</a>
+                </li>
+                            <li class="footer-menu__item">
+                    <a class="footer-menu__link link underline" href="/privacy/legal-information/">Юридическая информация</a>
+                </li>
+                    </ul>
+    </div>
+                    </div>
+                </div>
+		<style>
+			.phone2{
+				font-weight: 400;
+				font-size: 20px;
+				line-height: 27px;
+				color: #FFFFFF;
+				margin-left: 36px;
+			}
+			.phone2:after {
+			    content: "";
+			    position: absolute;
+			    top: 100%;
+			    left: 0;
+			    width: 100%;
+			    height: 2px;
+			    background-color: #fff4;
+			    transition: .1s;
+			    transition-delay: .1s;
+			}
+			.footer-phone{
+				margin-bottom: 4px !important;
+			}
+			.new_info-footer{
+				display: flex;
+				flex-direction: column;
+			}
+			.get_phone_btn{
+				color: #FFFFFF;
+				font-size: 18px;
+				font-weight: 400;
+				opacity: 0.7;
+				width: fit-content;
+				margin-top: 15px;
+				margin-bottom: 15px;
+				margin-left: 68px;
+			}
+			.get_phone_btn:after {
+			    content: "";
+			    position: absolute;
+			    top: 100%;
+			    left: 0;
+			    width: 100%;
+			    height: 2px;
+			    background-color: #fff4;
+			    transition: .1s;
+			    transition-delay: .1s;
+			}
+			.office_info-title{
+				font-weight: 400;
+				color: #FFFFFF;
+    				font-size: 18px;
+    				line-height: 20px;
+				margin-bottom: 12px;
+			}
+			.office_info-text{
+				opacity: 0.7;
+				font-size: 12px;
+    				line-height: 15px;
+    				font-weight: 400;
+    				color: #FFFFFF;
+			}
+			.see_more_map{
+				opacity: 0.7;
+				font-size: 12px;
+    				line-height: 15px;
+    				font-weight: 400;
+    				color: #FFFFFF;
+			}
+			.see_more_map:after {
+			    content: "";
+			    position: absolute;
+			    top: 100%;
+			    left: 0;
+			    width: 100%;
+			    height: 2px;
+			    background-color: #fff4;
+			    transition: .1s;
+			    transition-delay: .1s;
+			}
+			.office_info_adress-footer{
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				margin-top:43px;
+			}
+			.footer-pre-bottom{
+				width: 65%;
+			}
+			.office_info_adress-footer .office_info-title{
+				margin-bottom: 7px;
+			}
+			@media(max-width: 992px){
+				.get_phone_btn{
+					margin-left: 40px;
+					padding-bottom: 1px;
+					border-bottom: 1px solid white;
+				}
+				.footer-pre-bottom{
+					width: 100%;
+				}
+				.office_info-footer{
+					display: none;
+				}
+				.office_info_adress-footer{
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+				}
+				.office_adress_cont{
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+				}
+				.office_adress_cont:not(:first-child){
+					margin-top: 49px;
+				}
+				.see_more_map {
+					text-decoration: underline;
+					margin-top: 7px;
+				}
+				.footer-mail::before{
+					margin-right: 25px;
+				}
+			}
+			@media(max-width: 768px){
+				.phone2{
+					font-size: 18px;
+        				line-height: 24px;
+				}
+				.get_phone_btn{
+					font-size: 14px;
+        				line-height: 26px;
+				}
+			}
+		</style>
+                <div class="footer-right">
+                    <div class="footer-contacts">
+                        <div class="footer-contacts__links">
+                            <div class="footer-phone">
+                                <a class="link underline copyphone">+7(499)322-05-45</a>                            </div>
+				<div class="new_info-footer">
+					
+					<a onclick="ym(91715862,'reachGoal',' click_call')" class="link underline get_phone_btn" data-fancybox data-src="#callback_form_footer" href="javascript:;" id="btn_callback_form_footer" >
+	                            		Заказать звонок
+	                        	</a>
+				</div>
+                            <div class="footer-mail">
+                                <a href="mailto:info@wone-it.ru" class="link underline copymail">info@wone-it.ru</a>                            </div>
+                        </div>
+                        <div class="footer-social">
+    <div class="footer-social-item">
+        <a href="https://vk.com/woneit">
+            <img class="lazyload"
+                 src="/local/templates/soft/pictures/loaders/loader-spinner.svg"
+                 data-src="/local/templates/soft/pictures/icons/vk-white.svg"
+                 alt="vk">
+        </a>
+    </div>
+    <div class="footer-social-item">
+        <a href="https://t.me/wone_it" target="_blank">
+            <img class="lazyload"
+                 src="/local/templates/soft/pictures/loaders/loader-spinner.svg"
+                 data-src="/local/templates/soft/pictures/icons/telegram-white.svg"
+                 alt="telegram">
+        </a>
+    </div>
+<!--    <div class="footer-social-item">
+        <a href="javascript:void(0);">
+            <img class="lazyload"
+                 src="/local/templates/soft/pictures/loaders/loader-spinner.svg"
+                 data-src="/local/templates/soft/pictures/icons/facebook-white.svg"
+                 alt="facebook">
+        </a>
+    </div> -->
+</div>                    </div>
+                </div>
+		<div class="footer-pre-bottom">
+			<div class="office_info-footer">
+				<div class="office_info-title">Наши офисы</div>
+				<div class="office_info-text">Напишите нам или приходите в гости — обсудим идею и реализуем ее для вас.<br>
+					Режим работы офисов: понедельник - пятница, с 9:00 до 18:00
+				</div>
+			</div>
+			<div class="office_info_adress-footer">
+				<div class="office_adress_cont">
+					<div class="office_info-title">Москва</div>
+					<div class="office_info-text">ул. Нижняя Красносельская, д. 40/12, к2</div>
+					<a class="see_more_map link underline" href="http://wone-it.ru/contacts/">Смотреть на карте</a>
+				</div>
+				<div class="office_adress_cont">
+					<div class="office_info-title">Санкт-Петербург</div>
+					<div class="office_info-text">Волховский пер., д. 4, лит. А</div>
+					<a class="see_more_map link underline" href="http://wone-it.ru/contacts/">Смотреть на карте</a>
+				</div>
+				<div class="office_adress_cont">
+					<div class="office_info-title">Новосибирск</div>
+					<div class="office_info-text">ул. Кропоткина, 271</div>
+					<a class="see_more_map link underline" href="http://wone-it.ru/contacts/">Смотреть на карте</a>
+				</div>
+			</div>
+		</div>
+                <div class="footer-bottom">
+                    <div class="footer-logo">
+<!--                        <img class="image-responsive lazyload"-->
+<!--                             src="--><!--/pictures/loaders/loader-dots.svg"-->
+<!--                             data-src="--><!--/pictures/template_pictures/logo-white.svg"-->
+<!--                             alt="logo">-->
+                        <img class="image-responsive lazyload"
+                             src="/local/templates/soft/pictures/loaders/logo-footer.svg"
+
+                             alt="logo">
+                        <div class="footer-description">
+							© 2025 Группа компаний WONE IT<br>							Системный интегратор и поставщик решений в сфере информационной безопасности,<br /> инфраструктуры, бизнес-приложений и заказной разработки.
+                        </div>
+                    </div>
+                    <div class="footer-info">
+                        <a href="/privacy/agreements-using-personal-data/">Обработка персональных данных посетителей сайта</a>
+                        <a href="/privacy/personal-data-processing-policy/">Обработка персональных данных соискателей</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+</footer>
+<div class="overlay"></div>
+<div class="scrollUp">
+    <div class="scrollUp__arrow ripple">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24">
+            <path d="M11.25 19.625V7.25l-5.8 5.825L4.375 12 12 4.375 19.625 12l-1.075 1.075-5.8-5.825v12.375Z"/>
+        </svg>
+    </div>
+</div>
+
+	<style>
+	    #callback_form_footer.fancybox-content{
+	        padding: 0px;
+	    }
+	    #callback_form_footer .popup-form-head{
+	        width: 100%;
+	        background: linear-gradient(90deg, rgba(228, 64, 54, 0.15) 0%, rgba(103, 23, 176, 0.15) 66%, rgba(72, 97, 183, 0.15) 96%);
+	        height: 76px;
+	        display: flex;
+	        justify-content: center;
+	        align-items: center;
+	    }
+	    #callback_form_footer .popup-form-caption{
+	        font-weight: 500;
+	        font-size: 24px;
+	        line-height: 33px;
+	        color: #171717;
+	    }
+	    #callback_form_footer .popup-form-content{
+	        padding: 25px 29px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	    }
+	    #callback_form_footer .popup-form-item{
+	        display: flex;
+	        flex-direction: column;
+	        width: 100%;
+	        margin-bottom: 20px;
+	    }
+	    .label_callback_footer{
+	        font-weight: 400;
+	        font-size: 15px;
+	        line-height: 17px;
+	        color: #C6C5C7;
+	    }
+	    #callback_form_footer .popup-form-field{
+	        font-weight: 400;
+	        font-size: 15px;
+	        line-height: 17px;
+	        color: #171717;
+	        border-bottom: 1px solid #4F4F64CC;
+	        padding-bottom: 6px;
+	        margin-top: 10px;
+	    }
+	
+	
+	    .promoted-input-checkbox {
+	        border: 0; 
+	        clip: rect(0 0 0 0); 
+	        height: 1px; 
+	        margin: -1px; 
+	        overflow: hidden; 
+	        padding: 0; 
+	        position: absolute; 
+	        width: 1px;
+	    }
+	    .checkbox_form_callback label::before{
+	        width: 24px;
+	        height: 24px;
+	        border-radius: 2px;
+	        border: 1px solid #6717B04D;
+		margin: 0px;
+	    }
+	    #callback_form_footer .submit_form_wrap input{
+	        width: 146.34px;
+	        height: 56px;
+	        color: white;
+	        text-align: center;
+	        font-size: 16px;
+	        font-weight: 400;
+		border-radius: 100px;
+		
+	    }
+	    #callback_form_footer .submit_form_wrap {
+		margin-left: auto;
+		margin-right: auto;
+		width: 160.34px;
+	        height: 56px;
+		margin-bottom: 40px;
+	    }
+
+	    .label_callback_footer {
+		    opacity: 0;
+		    transition: opacity 0.3s ease;
+		}
+
+	    @keyframes draw-checkbox {
+	        0% {
+	            stroke-dashoffset: 33;
+	        }
+	        100% {
+	            stroke-dashoffset: 0;
+	        }
+	    }
+
+	</style>
+	<form id="callback_form_footer" class="popup-form-wrapper" method="POST" enctype="multipart/form-data" style="display: none; width: 540px;" >
+	    <div class="popup-form-head">
+	        <div class="popup-form-caption">
+	            Заказать звонок
+	        </div>
+	        <div class="popup-form-close" onclick="$.fancybox.close()"></div>
+	    </div>
+	    <div class="popup-form-content">
+	        <div class="popup-form-item">
+	            <label id="fio_label_callback" class="label_callback_footer" for="FIO">Фамилия Имя</label>
+	            <input
+	                class="popup-form-field fio_validate"
+	                type="text"
+	                name="FIO"
+	                placeholder="Фамилия Имя"
+	                id="popup-form-field-FIO"
+	                minlength="2"
+	                autocomplete="off"
+	                required
+	            >
+	
+	        </div>
+	        <div class="popup-form-item">
+	            <label id="organization_label_callback" class="label_callback_footer" for="ORGANIZATION">Организация</label>
+	            <input
+	                class="popup-form-field organization_validate"
+	                type="text"
+	                name="ORGANIZATION"
+	                placeholder="Организация"
+	                id="popup-form-field-ORGANIZATION"
+	                minlength="2"
+	                autocomplete="off"
+	                required
+	            >
+	
+	        </div>
+	        <div class="popup-form-item">
+	            <label id="post_label_callback" class="label_callback_footer" for="POST">Должность</label>
+	            <input
+	                class="popup-form-field post_validate"
+	                type="text"
+	                name="POST"
+	                placeholder="Должность"
+	                id="popup-form-field-POST"
+	                minlength="2"
+	                autocomplete="off"
+	                required
+	            >
+	
+	        </div>
+	        <div class="popup-form-item">
+		    <label id="phone_label_callback" class="label_callback_footer" for="PHONE">Телефон</label>
+	            <input
+	                class="popup-form-field phone_validate_1 mask-phone"
+	                type="text"
+	                name="PHONE"
+	                placeholder="+7(___)___-____"
+	                id="popup-form-field-PHONE"
+	                minlength="2"
+	                autocomplete="off"
+	                required
+	            >
+	        </div>
+	        
+	        <div class="argree_block checkbox checkbox_form_callback" style="margin-top: 15px">
+	            <input id="tmp" type="checkbox" class="promoted-input-checkbox"/>
+	            <label for="tmp">
+	                <svg style="display: none" width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<g clip-path="url(#clip0_415_3878)">
+				<path d="M6.45384 12.9893L2.15838 8.69389L0.726562 10.1257L6.45384 15.853L18.7266 3.58026L17.2947 2.14844L6.45384 12.9893Z" fill="url(#paint0_linear_415_3878)"/>
+				</g>
+				<defs>
+				<linearGradient id="paint0_linear_415_3878" x1="-2.16023" y1="-0.207029" x2="22.1974" y2="2.48073" gradientUnits="userSpaceOnUse">
+				<stop stop-color="#802FB9"/>
+				<stop offset="1" stop-color="#FF3E2D"/>
+				</linearGradient>
+				<clipPath id="clip0_415_3878">
+				<rect width="18" height="18" fill="white" transform="translate(0.726562)"/>
+				</clipPath>
+				</defs>
+			</svg>    
+	                <span style="color:black; font-size: 16px; line-height: 24px; margin-left: 21px; width: fit-content; cursor: pointer;">Я ознакомился с <a style="font-size: 16px; line-height: 24px;" href="/privacy/policy/">Политикой обработки персональных данных</a> и даю <a style="font-size: 16px; line-height: 24px;" href="/privacy/agreements-using-personal-data/">согласие на обработку персональных данных</a></span>
+	            </label>
+	        </div>
+
+	    </div>
+	    <div class="submit_form_wrap">
+	        <div class="submititem">
+	            <button
+	                class="btn gradient btn_send_callback_footer valide_form disabled"
+	                type="submit"
+	                disabled
+	                id="form_submit"
+	                name="form_submit"
+	                value="Отправить"
+				><span>ОТправить</span></button>
+	        </div>
+	    </div>
+	</form>
+
+		
+<script>if(!window.BX)window.BX={};if(!window.BX.message)window.BX.message=function(mess){if(typeof mess==='object'){for(let i in mess) {BX.message[i]=mess[i];} return true;}};</script>
+<script>(window.BX||top.BX).message({"JS_CORE_LOADING":"Загрузка...","JS_CORE_NO_DATA":"- Нет данных -","JS_CORE_WINDOW_CLOSE":"Закрыть","JS_CORE_WINDOW_EXPAND":"Развернуть","JS_CORE_WINDOW_NARROW":"Свернуть в окно","JS_CORE_WINDOW_SAVE":"Сохранить","JS_CORE_WINDOW_CANCEL":"Отменить","JS_CORE_WINDOW_CONTINUE":"Продолжить","JS_CORE_H":"ч","JS_CORE_M":"м","JS_CORE_S":"с","JSADM_AI_HIDE_EXTRA":"Скрыть лишние","JSADM_AI_ALL_NOTIF":"Показать все","JSADM_AUTH_REQ":"Требуется авторизация!","JS_CORE_WINDOW_AUTH":"Войти","JS_CORE_IMAGE_FULL":"Полный размер"});</script><script src="/bitrix/js/main/core/core.min.js?1721909356225422"></script><script>BX.Runtime.registerExtension({"name":"main.core","namespace":"BX","loaded":true});</script>
+<script>BX.setJSList(["\/bitrix\/js\/main\/core\/core_ajax.js","\/bitrix\/js\/main\/core\/core_promise.js","\/bitrix\/js\/main\/polyfill\/promise\/js\/promise.js","\/bitrix\/js\/main\/loadext\/loadext.js","\/bitrix\/js\/main\/loadext\/extension.js","\/bitrix\/js\/main\/polyfill\/promise\/js\/promise.js","\/bitrix\/js\/main\/polyfill\/find\/js\/find.js","\/bitrix\/js\/main\/polyfill\/includes\/js\/includes.js","\/bitrix\/js\/main\/polyfill\/matches\/js\/matches.js","\/bitrix\/js\/ui\/polyfill\/closest\/js\/closest.js","\/bitrix\/js\/main\/polyfill\/fill\/main.polyfill.fill.js","\/bitrix\/js\/main\/polyfill\/find\/js\/find.js","\/bitrix\/js\/main\/polyfill\/matches\/js\/matches.js","\/bitrix\/js\/main\/polyfill\/core\/dist\/polyfill.bundle.js","\/bitrix\/js\/main\/core\/core.js","\/bitrix\/js\/main\/polyfill\/intersectionobserver\/js\/intersectionobserver.js","\/bitrix\/js\/main\/lazyload\/dist\/lazyload.bundle.js","\/bitrix\/js\/main\/polyfill\/core\/dist\/polyfill.bundle.js","\/bitrix\/js\/main\/parambag\/dist\/parambag.bundle.js"]);
+</script>
+<script>BX.Runtime.registerExtension({"name":"aspro_logo","namespace":"window","loaded":true});</script>
+<script>BX.Runtime.registerExtension({"name":"aspro_owl_gallery","namespace":"window","loaded":true});</script>
+<script>BX.Runtime.registerExtension({"name":"aspro_video","namespace":"window","loaded":true});</script>
+<script>(window.BX||top.BX).message({"LANGUAGE_ID":"ru","FORMAT_DATE":"DD.MM.YYYY","FORMAT_DATETIME":"DD.MM.YYYY HH:MI:SS","COOKIE_PREFIX":"BITRIX_SM","SERVER_TZ_OFFSET":"0","UTF_MODE":"Y","SITE_ID":"s2","SITE_DIR":"\/","USER_ID":"","SERVER_TIME":1756548902,"USER_TZ_OFFSET":0,"USER_TZ_AUTO":"Y","bitrix_sessid":"4e584c76485211f847891ed9a1354e6a"});</script><script src="/bitrix/js/main/ajax.min.js?166031884922194"></script>
+<script>BX.setJSList(["\/local\/templates\/soft\/components\/bitrix\/news.detail\/articles_1\/script.js","\/local\/templates\/soft\/components\/bitrix\/news.list\/newmain-banners-dark-top\/script.js","\/local\/templates\/soft\/components\/bitrix\/news.list\/logos-slider\/script.js","\/upload\/minify_cache\/2ff662348b983c464ba964a9fb5a443f.js","\/local\/templates\/soft\/js\/observer.js","\/local\/templates\/soft\/vendor\/jquery.easing.js","\/local\/templates\/soft\/vendor\/jquery.cookie.js","\/local\/templates\/soft\/vendor\/bootstrap.js","\/local\/templates\/soft\/vendor\/jquery.validate.min.js","\/local\/templates\/soft\/vendor\/js\/ripple.js","\/local\/templates\/soft\/js\/detectmobilebrowser.js","\/local\/templates\/soft\/js\/matchMedia.js","\/local\/templates\/soft\/js\/jquery.actual.min.js","\/local\/templates\/soft\/js\/jquery-ui.min.js","\/local\/templates\/soft\/js\/jquery.plugin.min.js","\/local\/templates\/soft\/js\/jquery.alphanumeric.js","\/local\/templates\/soft\/js\/jquery.autocomplete.js","\/local\/templates\/soft\/js\/jquery.mobile.custom.touch.min.js","\/local\/templates\/soft\/js\/jquery.mCustomScrollbar.js","\/local\/templates\/soft\/js\/jqModal.js","\/local\/templates\/soft\/js\/jquery.uniform.min.js","\/local\/templates\/soft\/js\/jquery.countdown.min.js","\/local\/templates\/soft\/js\/jquery.countdown-ru.js","\/local\/templates\/soft\/js\/blocks\/controls.js","\/local\/templates\/soft\/js\/blocks\/hover-block.js","\/local\/templates\/soft\/js\/blocks\/mobile.js","\/local\/templates\/soft\/js\/blocks\/selectOffer.js","\/local\/templates\/soft\/js\/blocks\/tabs-history.js","\/local\/templates\/soft\/js\/general.js","\/local\/templates\/soft\/js\/custom.js","\/local\/templates\/soft\/vendor\/js\/carousel\/owl\/owl.carousel.js","\/local\/js\/jfunctions.min.js","\/local\/templates\/soft\/plugins\/jquery\/jquery.min.js","\/local\/templates\/soft\/js\/jquery.fancybox.min.js","\/local\/templates\/soft\/plugins\/int-counter\/jquery-int-counter.js","\/local\/templates\/soft\/plugins\/lazyload\/lazyload.min.js","\/local\/templates\/soft\/plugins\/ripple-buttons\/jquery-ripple-button.js","\/local\/templates\/soft\/plugins\/scroll-watcher\/scroll-watcher.js","\/local\/templates\/soft\/plugins\/swiper\/swiper-bundle.min.js","\/local\/templates\/soft\/js\/jquery.number.js","\/local\/templates\/soft\/plugins\/datepicker\/air-datepicker.js","\/local\/templates\/soft\/scripts\/common.js","\/upload\/minify_cache\/08f47876e0581ff647781bdb73164a67.js","\/local\/templates\/soft\/components\/bitrix\/menu\/main-menu-top_1\/script.js","\/local\/templates\/soft\/components\/bitrix\/menu\/main-menu-bottom_1\/script.js","\/bitrix\/components\/bitrix\/search.title\/script.js","\/upload\/minify_cache\/8734a8d460356e0e7f9d009fc3c952a5.js","\/local\/templates\/soft\/js\/jquery.inputmask.bundle.min.js"]);</script>
+<script>BX.setCSSList(["\/local\/templates\/soft\/components\/bitrix\/news.detail\/articles_1\/style.css","\/local\/templates\/soft\/components\/bitrix\/news.list\/newmain-banners-dark-top\/style.css","\/local\/templates\/soft\/components\/bitrix\/news.list\/logos-slider\/style.css","\/upload\/minify_cache\/29165b06bb61cf5bc4effc9ade4a76f6.css","\/local\/templates\/soft\/css\/theme-elements.css","\/local\/templates\/soft\/css\/jquery.mCustomScrollbar.min.css","\/local\/templates\/soft\/vendor\/css\/ripple.css","\/local\/templates\/soft\/css\/svg.css","\/local\/templates\/soft\/css\/header.css","\/local\/templates\/soft\/css\/footer.css","\/local\/templates\/soft\/css\/menu-top.css","\/local\/templates\/soft\/css\/mega-menu.css","\/local\/templates\/soft\/css\/mobile-header.css","\/local\/templates\/soft\/css\/mobile-menu.css","\/local\/templates\/soft\/css\/header-fixed.css","\/local\/templates\/soft\/css\/search-title.css","\/local\/templates\/soft\/css\/page-title-breadcrumb-pagination.css","\/local\/templates\/soft\/css\/social-icons.css","\/local\/templates\/soft\/css\/left-menu.css","\/local\/templates\/soft\/css\/top-menu.css","\/local\/templates\/soft\/css\/detail-gallery.css","\/local\/templates\/soft\/css\/detail.css","\/local\/templates\/soft\/css\/banners.css","\/local\/templates\/soft\/css\/yandex-map.css","\/local\/templates\/soft\/css\/bg-banner.css","\/local\/templates\/soft\/css\/smart-filter.css","\/local\/templates\/soft\/css\/basket.css","\/local\/templates\/soft\/css\/contacts.css","\/local\/templates\/soft\/css\/regions.css","\/local\/templates\/soft\/css\/profile.css","\/local\/templates\/soft\/css\/item-views.css","\/local\/templates\/soft\/css\/catalog.css","\/local\/templates\/soft\/css\/reviews.css","\/local\/templates\/soft\/css\/h1-bold.css","\/local\/templates\/soft\/css\/blocks\/arrows.css","\/local\/templates\/soft\/css\/blocks\/ask-block.css","\/local\/templates\/soft\/css\/blocks\/back-url.css","\/local\/templates\/soft\/css\/blocks\/chars.css","\/local\/templates\/soft\/css\/blocks\/controls.css","\/local\/templates\/soft\/css\/blocks\/countdown.css","\/local\/templates\/soft\/css\/blocks\/cross.css","\/local\/templates\/soft\/css\/blocks\/dark-light-theme.css","\/local\/templates\/soft\/css\/blocks\/docs.css","\/local\/templates\/soft\/css\/blocks\/file-type.css","\/local\/templates\/soft\/css\/blocks\/flexbox.css","\/local\/templates\/soft\/css\/blocks\/gallery.css","\/local\/templates\/soft\/css\/blocks\/grid-list.css","\/local\/templates\/soft\/css\/blocks\/hint.css","\/local\/templates\/soft\/css\/blocks\/icon-block.css","\/local\/templates\/soft\/css\/blocks\/images.css","\/local\/templates\/soft\/css\/blocks\/line-block.css","\/local\/templates\/soft\/css\/blocks\/mobile-scrolled.css","\/local\/templates\/soft\/css\/blocks\/popup.css","\/local\/templates\/soft\/css\/blocks\/prices.css","\/local\/templates\/soft\/css\/blocks\/rating.css","\/local\/templates\/soft\/css\/blocks\/right-dock.css","\/local\/templates\/soft\/css\/blocks\/scroller.css","\/local\/templates\/soft\/css\/blocks\/share.css","\/local\/templates\/soft\/css\/blocks\/social-list.css","\/local\/templates\/soft\/css\/blocks\/sticker.css","\/local\/templates\/soft\/css\/blocks\/sticky.css","\/local\/templates\/soft\/css\/blocks\/tabs.css","\/local\/templates\/soft\/css\/blocks\/video-block.css","\/local\/templates\/soft\/css\/owl-styles.css","\/bitrix\/templates\/.default\/ajax\/ajax.css","\/upload\/minify_cache\/0a7e1cb65560fa9c04691de1b18025c4.css","\/upload\/minify_cache\/c9bd8bc565474470671b39c7af4fb27d.css","\/upload\/minify_cache\/d8c1ee18af475ae14897708f41936668.css","\/local\/templates\/soft\/plugins\/swiper\/swiper-bundle.min.css","\/upload\/minify_cache\/85d3bf5a00de33dae4e1b820601c0af6.css","\/local\/templates\/soft\/css\/jquery.fancybox.min.css","\/local\/templates\/soft\/components\/bitrix\/menu\/main-menu-top_1\/style.css","\/local\/templates\/soft\/components\/bitrix\/menu\/main-menu-bottom_1\/style.css","\/upload\/minify_cache\/18463a0dbce178534a578da4c4e49e81.css","\/upload\/minify_cache\/f7f7db8c452f0f683c656e6c90f0ab56.css","\/local\/templates\/soft\/components\/bitrix\/breadcrumb\/breadcrumbs\/style.css","\/local\/templates\/soft\/components\/bitrix\/menu\/footer-menu-solutions\/style.css","\/local\/templates\/soft\/components\/bitrix\/menu\/footer-menu-materials\/style.css","\/local\/templates\/soft\/components\/bitrix\/menu\/footer-menu-other\/style.css","\/local\/templates\/soft\/styles.css","\/local\/templates\/soft\/template_styles.css","\/local\/templates\/soft\/css\/responsive.css"]);</script>
+<script>(window.BX||top.BX).message({'VACANCY__CONTACT_NAME':'Контактное лицо','VACANCY__CONTACT_EMAIL':'E-mail','VACANCY__CONTACT_PHONE':'Телефон','CALLBACK_FORM_SUCCESS_TITLE':'Спасибо за обращение','CALLBACK_FORM_SUCCESS_TEXT':'Ваше обращение успешно отправлено'});</script>
+
+
+<script>
+        (window.BX||top.BX).message({'JS_DATETIME':'','COUNTDOWN_YEAR0':'','COUNTDOWN_MONTH0':'','COUNTDOWN_WEAK0':'','COUNTDOWN_DAY0':'','COUNTDOWN_HOUR':'','COUNTDOWN_MIN':'','COUNTDOWN_SEC':'','COUNTDOWN_YEAR1':'','COUNTDOWN_MONTH1':'','COUNTDOWN_WEAK1':'','COUNTDOWN_DAY1':'','COUNTDOWN_YEAR2':'','COUNTDOWN_MONTH2':'','COUNTDOWN_WEAK2':'','COUNTDOWN_DAY2':'','COUNTDOWN_COMPACT_YEAR0':'','COUNTDOWN_COMPACT_MONTH':'','COUNTDOWN_COMPACT_WEAK':'','COUNTDOWN_COMPACT_DAY':'','COUNTDOWN_COMPACT_DAY':'','COUNTDOWN_COMPACT_HOUR':'','COUNTDOWN_COMPACT_MIN':'','COUNTDOWN_COMPACT_SEC':'','COUNTDOWN_COMPACT_YEAR1':'','JS_REQUIRED':'','JS_FORMAT':'','JS_PASSWORD_COPY':'','JS_PASSWORD_LENGTH':'','JS_ERROR':'','JS_FILE_SIZE':'','JS_DATE':'','JS_FILE_EXT':'','JS_RECAPTCHA_ERROR':''});
+    </script>
+<script  src="/bitrix/cache/js/s2/soft/template_d6c053cc090c115aacbcec3dc4e250a1/template_d6c053cc090c115aacbcec3dc4e250a1_v1.js?1753785521875428"></script>
+<script  src="/bitrix/cache/js/s2/soft/page_b90a10c430d7a8c638f3783d704aa3b6/page_b90a10c430d7a8c638f3783d704aa3b6_v1.js?174954848757604"></script>
+<script>var _ba = _ba || []; _ba.push(["aid", "2c43ba0c84b5a4cb2f02330f8c495003"]); _ba.push(["host", "wone-it.ru"]); (function() {var ba = document.createElement("script"); ba.type = "text/javascript"; ba.async = true;ba.src = (document.location.protocol == "https:" ? "https://" : "http://") + "bitrix.info/ba.js";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(ba, s);})();</script>
+
+
+
+<script>
+			document.fonts.onloadingdone = function() {
+				if (typeof CheckTopMenuDotted === 'function') {
+					CheckTopMenuDotted();
+				}
+			}
+		</script>
+<script src=""></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+<script >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();
+   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(91715862, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        webvisor:true
+   });
+</script>
+<script>
+$(".copymail").bind('copy', function() {
+console.log("email_copy");
+yaCounter91715862.reachGoal('email_copy');
+return true;
+});
+$(".contact-property--email .contact-property__value.dark_link a").bind('copy', function() {
+console.log("email_copy");
+yaCounter91715862.reachGoal('email_copy');
+return true;
+});
+$(".copyphone").bind('copy', function() {
+console.log("copy_phone");
+yaCounter91715862.reachGoal('copy_phone');
+return true;
+});
+$(".contact-property--phones .contact-property__value.dark_link a").bind('copy', function() {
+console.log("copy_phone");
+yaCounter91715862.reachGoal('copy_phone');
+return true;
+});
+</script>
+
+<script>
+var settings = {
+    need: 120, // Сюда вписываем через какое количество секунд повторно отправлять цель, по умолчанию стоит 60, но можно указать и 30
+    checkTime: 10, // секунды. период проверки.
+    //желательно, чтобы need было кратно checkTime
+	IDmetrika: 91715862, // Сюда вписываем ИД Счетчика Яндекс Метрики
+
+}
+
+var metricsFn = function () {
+
+    var c1 = this.getCookie(this.cookieName);
+    console.log(c1);
+
+    if (ActiveScore.timer >= 120) {
+        console.log("событие 60 sec отправилось");
+        ym(91715862,'reachGoal','60sec');
+        console.log("событие 120 sec отправилось");
+        ym(91715862,'reachGoal','120sec');
+    }
+};
+
+var ActiveScore = {
+    need: settings.need,
+    checkTime: settings.checkTime,
+    loop: true,
+    counter: 0,
+    cookieName: "120sec_ap",
+    sendFn: null,
+    parts: 0,
+    active_parts: 0,
+    timer: 0,
+    events: [
+        "touchmove",
+        "blur",
+        "focus",
+        "focusin",
+        "focusout",
+        "load",
+        "resize",
+        "scroll",
+        "unload",
+        "click",
+        "dblclick",
+        "mousedown",
+        "mouseup",
+        "mousemove",
+        "mouseover",
+        "mouseout",
+        "mouseenter",
+        "mouseleave",
+        "change",
+        "select",
+        "submit",
+        "keydown",
+        "keypress",
+        "keyup",
+        "error",
+    ],
+
+    setEvents: function () {
+        for (var index = 0; index < this.events.length; index++) {
+            var eName = this.events[index];
+            window.addEventListener(eName, function (e) {
+                if (e.isTrusted && ActiveScore.period.events == false) {
+                    ActiveScore.period.events = true;
+                }
+            });
+        }
+    },
+
+    period: {
+        start: 0,
+        end: 0,
+        events: false,
+    },
+
+    init: function (fn) {
+        this.calcParts();
+        this.setEvents();
+        this.setStartCounter();
+        if (this.checkCookie()) {
+            this.sendFn = fn;
+            this.start();
+        }
+    },
+
+    readLastCookie: function () {
+        var absurdlyLarge = 100000;
+        for (var i = 1; i < absurdlyLarge; i++) {
+            var cookie = this.getCookie(i * this.need + 'sec_ap');
+            if (cookie != this.parts * this.parts) return { i: i, cookie: cookie };
+        }
+        return { i: 1, cookie: 0 };
+    },
+
+    setStartCounter: function () {
+        var lastCookie = this.readLastCookie();
+        this.counter = lastCookie.i - 1;
+        this.active_parts = Number(lastCookie.cookie);
+        this.cookieName = (this.counter + 1) * this.need + "sec_ap";
+    },
+
+    calcParts: function () {
+        this.parts = Math.ceil(this.need / this.checkTime);
+    },
+
+    setPeriod: function () {
+        this.period.start = this.microtime();
+        this.period.end = this.period.start + this.checkTime;
+        this.period.events = false;
+    },
+
+    microtime: function () {
+        var now = new Date().getTime() / 1000;
+        var s = parseInt(now);
+        return s;
+    },
+
+    start: function () {
+        this.setPeriod();
+        this.runPeriod();
+    },
+
+    timeoutId: null,
+
+    checkPeriod: function () {
+        if (this.period.events == true) {
+            this.active_parts = this.active_parts + 1;
+            // console.log('В этой секции были действия');
+        } else {
+            // console.log('В этой секции НЕБЫЛО действия');
+        }
+        this.timer = this.active_parts * this.checkTime;
+        console.log(
+            this.active_parts + " / " + this.parts + " [" + this.timer + "]"
+        );
+        if(this.timer == 60){
+             console.log("событие 60 sec отправилось");
+            ym(91715862,'reachGoal','60sec');
+        }
+
+        if (this.checkSecs()) {
+        } else {
+            this.start();
+        }
+        this.setCookie(this.cookieName, this.active_parts);
+    },
+
+    checkSecs: function () {
+        if (this.timer >= this.need) {
+            this.send();
+            if (this.loop == true) {
+                this.counter++;
+                this.timer = 0;
+                this.active_parts = 0;
+                this.cookieName = (this.counter + 1) * this.need + "sec_ap";
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    },
+
+    timeoutFn: function () {
+        ActiveScore.checkPeriod();
+    },
+
+    runPeriod: function () {
+        this.timeoutId = setTimeout(this.timeoutFn, this.checkTime * 1000);
+    },
+
+    send: function () {
+        if (this.getCookie(this.cookieName) == this.parts * this.parts) {
+            this.setStartCounter();
+        } else {
+            this.setCookie(this.cookieName, this.active_parts * this.active_parts);
+        }
+        this.sendFn();
+    },
+
+    checkCookie: function () {
+        var c = this.getCookie(this.cookieName);
+        if (c == null) {
+            return true;
+        } else {
+            if (c == '') return true;
+            c = parseInt(c);
+            if (c >= this.parts) {
+                // console.log('Скрипт даже не запустился...');
+                if (this.loop == true) {
+                    return true;
+                }
+                return false;
+            } else {
+                this.active_parts = c;
+                return true;
+            }
+        }
+    },
+
+    setCookie: function (name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    },
+    getCookie: function (name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(";");
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == " ") c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    },
+    eraseCookie: function (name) {
+        document.cookie =
+            name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+    },
+};
+
+ActiveScore.init(metricsFn);
+</script>
+
+<script>
+		var arBasketItems = {};
+		if(arAsproOptions.SITE_ADDRESS)
+			arAsproOptions.SITE_ADDRESS = arAsproOptions.SITE_ADDRESS.replace(/'/g, "");
+		</script>
+<script>var arBasketItems = [];</script>
+<script>
+    BX.ready(function(){
+        new CUSTOM_JCTitleSearch({
+            'AJAX_PAGE' : '/services/company/',
+            'CONTAINER_ID': 'title-search',
+            'RESULT_CONTAINER_ID': 'search-result-XdqEv1',
+            'INPUT_ID': 'title-search-input',
+            'MIN_QUERY_LEN': 2
+        });
+    });
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const resumeForm = document.getElementById('resume_form'); // Убедитесь, что форма имеет этот id
+    if (!resumeForm) return; // Если формы нет, выходим
+
+    const nameField = resumeForm.querySelector('.name_validate');
+    const phoneField = resumeForm.querySelector('.phone_validate');
+    const emailField = resumeForm.querySelector('.email_validate');
+    const agreeCheckbox = resumeForm.querySelector('.agree_valid');
+    const submitButton = resumeForm.querySelector('.valide_form');
+
+    // Функция проверки состояния формы
+    function checkFormValidity() {
+        const isFormValid =
+            nameField.value.trim().length >= 2 &&
+            phoneField.value.replace(/\D/g, '').length >= 10 && // Учитываем только цифры
+            emailField.value.trim().length > 0 &&
+            agreeCheckbox.checked;
+
+        submitButton.classList.toggle('disabled', !isFormValid);
+        submitButton.disabled = !isFormValid;
+    }
+
+    // Навешиваем события на поля формы только внутри #resume_form
+    nameField.addEventListener('input', checkFormValidity);
+    phoneField.addEventListener('input', checkFormValidity);
+    emailField.addEventListener('input', checkFormValidity);
+    agreeCheckbox.addEventListener('change', checkFormValidity);
+
+    // Проверяем состояние формы при загрузке страницы
+    checkFormValidity();
+});
+
+
+</script>
+
+<script>
+		document.addEventListener('DOMContentLoaded', function() {
+    const callbackForm = document.getElementById('callback_form_footer');
+    if (!callbackForm) return; // Проверяем наличие формы на странице
+
+    const fioField = callbackForm.querySelector('.fio_validate');
+    const organizationField = callbackForm.querySelector('.organization_validate');
+    const postField = callbackForm.querySelector('.post_validate');
+    const phoneField = callbackForm.querySelector('.phone_validate_1');
+    const agreeCheckbox = callbackForm.querySelector('.promoted-input-checkbox');
+    const submitButton = callbackForm.querySelector('.valide_form');
+
+    // Функция для проверки валидности формы
+    function checkCallbackFormValidity() {
+        const isFioValid = fioField.value.trim().length > 1;
+        const isOrganizationValid = organizationField.value.trim().length > 1;
+        const isPostValid = postField.value.trim().length > 1;
+        const isPhoneValid = phoneField.value.replace(/\D/g, '').length === 11; // Проверка, что введен номер длиной 11 символов (например, +7XXXXXXXXXX)
+        const isAgreeChecked = agreeCheckbox.checked;
+
+        const isFormValid = isFioValid && isOrganizationValid && isPostValid && isPhoneValid && isAgreeChecked;
+
+        // Управляем активацией кнопки
+        submitButton.classList.toggle('disabled', !isFormValid);
+        submitButton.disabled = !isFormValid;
+    }
+
+    // Навешиваем события на поля формы для вызова проверки при изменениях
+    [fioField, organizationField, postField, phoneField, agreeCheckbox].forEach(field => {
+        field.addEventListener('input', checkCallbackFormValidity);
+        field.addEventListener('change', checkCallbackFormValidity);
+    });
+
+    // Начальная проверка на случай, если форма частично заполнена при загрузке
+    checkCallbackFormValidity();
+});
+
+	</script>
+<script>
+	
+    document.getElementById('btn_callback_form_footer').addEventListener('click', function() {
+        document.getElementById('callback_form_footer').style.display = 'block';
+        document.querySelector('.overlay').style.display = 'block';
+    });
+    document.querySelector('.popup-form-close').addEventListener('click', function() {
+        document.getElementById('callback_form_footer').style.display = 'none';
+        document.querySelector('.overlay').style.display = 'none';
+    });
+
+	document.addEventListener("DOMContentLoaded", function() {
+    const inputs = document.querySelectorAll(".popup-form-field");
+
+    inputs.forEach(input => {
+        const label = input.previousElementSibling;
+        
+        if (label) { // Проверяем, что label существует
+            input.addEventListener("focus", () => {
+                label.style.opacity = 1;
+            });
+
+            input.addEventListener("blur", () => {
+                if (!input.value.trim()) {
+                    label.style.opacity = 0;
+                }
+            });
+        } else {
+            console.log("Предыдущий элемент отсутствует для input:", input);
+        }
+    });
+});
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var phoneInputs = document.querySelectorAll('input.mask-phone');
+        var phoneLabel = document.getElementById('phone_label_callback');
+
+        var getInputNumbersValue = function (input) {
+            return input.value.replace(/\D/g, ''); 
+        }
+
+        var onPhonePaste = function (e) {
+            var input = e.target,
+                inputNumbersValue = getInputNumbersValue(input);
+            var pasted = e.clipboardData || window.clipboardData;
+
+            if (pasted) {
+                var pastedText = pasted.getData('Text');
+                if (/\D/g.test(pastedText)) {
+                    input.value = inputNumbersValue; 
+                }
+            }
+        }
+
+        var onPhoneInput = function (e) {
+            var input = e.target,
+                inputNumbersValue = getInputNumbersValue(input),
+                selectionStart = input.selectionStart,
+                formattedInputValue = "";
+
+            if (!inputNumbersValue) {
+                return input.value = "";
+            }
+
+            if (input.value.length !== selectionStart) {
+                if (e.data && /\D/g.test(e.data)) {
+                    input.value = inputNumbersValue; 
+                }
+                return;
+            }
+
+            if (["7", "8", "9"].indexOf(inputNumbersValue[0]) > -1) {
+                if (inputNumbersValue[0] == "9") inputNumbersValue = "7" + inputNumbersValue; 
+                var firstSymbols = (inputNumbersValue[0] == "8") ? "8" : "+7";
+                formattedInputValue = firstSymbols + " ";
+                if (inputNumbersValue.length > 1) {
+                    formattedInputValue += '(' + inputNumbersValue.substring(1, 4);
+                }
+                if (inputNumbersValue.length >= 5) {
+                    formattedInputValue += ') ' + inputNumbersValue.substring(4, 7);
+                }
+                if (inputNumbersValue.length >= 8) {
+                    formattedInputValue += '-' + inputNumbersValue.substring(7, 9);
+                }
+                if (inputNumbersValue.length >= 10) {
+                    formattedInputValue += '-' + inputNumbersValue.substring(9, 11);
+                }
+            } else {
+                formattedInputValue = '+' + inputNumbersValue.substring(0, 16); 
+            }
+            input.value = formattedInputValue; 
+        }
+
+        var onPhoneKeyDown = function (e) {
+            var inputValue = e.target.value.replace(/\D/g, '');
+            if (e.keyCode === 8 && inputValue.length === 1) {
+                e.target.value = ""; 
+            }
+        }
+
+        var onPhoneFocus = function (e) {
+            var input = e.target;
+            if (input.value === "") {
+                input.value = "+7 ";
+                input.setSelectionRange(3, 3);
+            }
+        }
+
+        for (var phoneInput of phoneInputs) {
+            phoneInput.addEventListener('keydown', onPhoneKeyDown);
+            phoneInput.addEventListener('input', onPhoneInput, false);
+            phoneInput.addEventListener('paste', onPhonePaste, false);
+            phoneInput.addEventListener('focus', onPhoneFocus);
+        }
+
+        function CheckValideButton() {
+            var inputNumbersValue = phoneInput.value.replace(/\D/g, ''); 
+            var isComplete = inputNumbersValue.length > 10; 
+
+            if (isComplete) {
+                phoneLabel.style.color = ''; 
+		phoneLabel.textContent = "Телефон"; 
+                phoneInput.classList.remove('invalid'); 
+            } else {
+                phoneLabel.style.color = 'red'; 
+		phoneLabel.textContent = "Введите полный номер телефона"; 
+                phoneInput.classList.add('invalid');
+            }
+
+            var isChecked = document.getElementById('tmp').checked; 
+            if (isComplete && isChecked) {
+                document.querySelector('.valide_form').classList.remove('disabled');
+                document.querySelector('.valide_form').disabled = false;
+            } else {
+                document.querySelector('.valide_form').classList.add('disabled');
+                document.querySelector('.valide_form').disabled = true;
+            }
+        }
+
+        for (var phoneInput of phoneInputs) {
+            phoneInput.addEventListener('keydown', CheckValideButton);
+            phoneInput.addEventListener('input', CheckValideButton);
+            phoneInput.addEventListener('paste', CheckValideButton);
+            phoneInput.addEventListener('focus', CheckValideButton);
+        }
+    
+        CheckValideButton();
+    });
+</script>
+
+<script src="/local/templates/soft/plugins/sweet-alert/sweetalert2.all.min.js"></script>
+
+<script>
+    $(".btn_send_callback_footer").on("click", function(e) {
+        e.preventDefault();
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const utmSource = urlParams.get('utm_source') || '';
+        const utmMedium = urlParams.get('utm_medium') || '';
+        const utmCampaign = urlParams.get('utm_campaign') || '';
+        const utmContent = urlParams.get('utm_content') || '';
+        const utmTerm = urlParams.get('utm_term') || '';
+
+        const fio = $(".fio_validate").val();
+        const organization = $(".organization_validate").val();
+        const post = $(".post_validate").val();
+        const phone = $(".phone_validate_1").val();
+
+        const dataToSend = {
+            'fio': fio,
+            'organization': organization,
+            'post': post,
+            'phone': phone,
+            'utm_source': utmSource,
+            'utm_medium': utmMedium,
+            'utm_campaign': utmCampaign,
+            'utm_content': utmContent,
+            'utm_term': utmTerm,
+            'http_referer': document.referrer
+        };
+
+        $.ajax({
+            type: "POST",
+            url: '/local/ajax/ajax.calbackfooter-response.php',
+            data: dataToSend,
+            dataType: "json",
+            success: function(data) {
+                if (data.status === true) {
+                    $(".fio_validate").val('');
+                    $(".organization_validate").val('');
+                    $(".post_validate").val('');
+                    $(".phone_validate_1").val('');
+                    ym(91715862, 'reachGoal', 'order_call');
+                    
+		    Swal.fire({
+                        icon: 'success',
+                        title: 'Спасибо за обращение',
+                        text: 'Ваше обращение успешно отправлено',
+                        confirmButtonText: 'ОК'
+                    });			
+
+			$.fancybox.close();
+
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

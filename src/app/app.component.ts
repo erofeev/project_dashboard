@@ -1,206 +1,1690 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet, Router } from '@angular/router';
+import { RouterOutlet, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { FormsModule } from '@angular/forms';
 import { AuthService, AuthState } from './services/auth.service';
+import { Landscape3dComponent } from './components/3d-landscape/3d-landscape.component';
+import { LandscapeControlPanelComponent } from './components/landscape-control-panel/landscape-control-panel.component';
+import { UserSettingsService } from './services/user-settings.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, TranslateModule],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
+    TranslateModule,
+    FormsModule,
+    Landscape3dComponent,
+    LandscapeControlPanelComponent
+  ],
   template: `
-    <div class="app-container" *ngIf="authState.isAuthenticated">
+    <!-- 3D анимированный ландшафт-подложка -->
+    <app-3d-landscape></app-3d-landscape>
+    
+    <!-- Панель управления 3D ландшафтом -->
+    <app-landscape-control-panel></app-landscape-control-panel>
+    
+    <div class="app-container" [class.sidebar-open]="leftSidebarOpen" *ngIf="authState.isAuthenticated">
       <header class="glass-header">
-        <h1 class="glass-title">Управление проектами</h1>
-        <nav class="glass-nav">
-          <a routerLink="/dashboard" class="glass-nav-link">Дашборд</a>
-          <a routerLink="/projects" class="glass-nav-link">Проекты</a>
-          <a routerLink="/employees" class="glass-nav-link">Сотрудники</a>
-          <a routerLink="/invoices" class="glass-nav-link">Счета</a>
-          <a routerLink="/analytics" class="glass-nav-link">Аналитика</a>
-        </nav>
-        <div class="glass-user-menu">
-          <span class="user-info">
-            {{ authState.currentUser?.name }} ({{ authState.currentUser?.role }})
-          </span>
-          <button class="glass-button glass-ripple" (click)="onLogout()">
-            Выйти
-          </button>
+        <div class="header-top-row">
+          <div class="left-group">
+            <button class="burger glass-button" (click)="toggleLeftSidebar()" aria-label="{{ 'HEADER.MENU' | translate }}">
+              &#9776;
+            </button>
+            <img src="favicon.ico?v=4" alt="Wone IT Logo" class="app-logo">
+            <h1 class="glass-title">{{ getTranslation('COMMON.APP_TITLE', 'Wone IT - Business Solutions - Project Management') }}</h1>
+          </div>
+
+          <div class="center-group hide-on-mobile">
+            <div class="search-container">
+              <input 
+                class="search-input" 
+                type="search" 
+                [placeholder]="'HEADER.SEARCH' | translate" 
+                (input)="onSearch($event)"
+                (focus)="onSearchFocus()"
+                (blur)="onSearchBlur()"
+                [(ngModel)]="searchQuery"
+                #searchInput>
+              
+              <!-- Подсказки поиска -->
+              <div class="search-suggestions" *ngIf="showSuggestions && searchSuggestions.length > 0">
+                <div class="suggestions-header">
+                  <span>{{ 'SEARCH.SUGGESTIONS' | translate }}</span>
+                </div>
+                <div class="suggestions-items">
+                  <div 
+                    *ngFor="let suggestion of searchSuggestions" 
+                    class="suggestion-item"
+                    (click)="selectSuggestion(suggestion)">
+                    <div class="suggestion-icon">{{ suggestion.icon }}</div>
+                    <div class="suggestion-content">
+                      <div class="suggestion-title">{{ suggestion.title }}</div>
+                      <div class="suggestion-subtitle">{{ suggestion.subtitle }}</div>
+                      <div class="suggestion-lang">{{ suggestion.language }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- История поиска -->
+              <div class="search-history" *ngIf="showSearchHistory && searchHistory.length > 0">
+                <div class="history-header">
+                  <span>{{ 'SEARCH.RECENT_SEARCHES' | translate }}</span>
+                  <button class="clear-history" (click)="clearSearchHistory()">
+                    {{ 'SEARCH.CLEAR_HISTORY' | translate }}
+                  </button>
+                </div>
+                <div class="history-items">
+                  <div 
+                    *ngFor="let item of searchHistory" 
+                    class="history-item"
+                    (click)="selectHistoryItem(item)">
+                    <span class="history-text">{{ item }}</span>
+                    <span class="history-time">{{ getTimeAgo(item) }}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Результаты поиска -->
+              <div class="search-results" *ngIf="showSearchResults && searchResults.length > 0">
+                <div class="results-header">
+                  <span>{{ 'SEARCH.RESULTS' | translate }} ({{ searchResults.length }})</span>
+                </div>
+                <div class="results-items">
+                  <div 
+                    *ngFor="let result of searchResults" 
+                    class="result-item"
+                    (click)="navigateToSearchResult(result)">
+                    <div class="result-icon">{{ result.icon }}</div>
+                    <div class="result-content">
+                      <div class="result-title">{{ result.title }}</div>
+                      <div class="result-subtitle">{{ result.subtitle }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="right-group">
+            <div class="toggles">
+              <select class="glass-select" [value]="currentLang" (change)="onLangChange($event)">
+                <option value="ru">RU</option>
+                <option value="en">EN</option>
+              </select>
+              <button class="glass-button" (click)="toggleTheme()"
+                      [title]="theme==='light' ? ('HEADER.THEME_LIGHT' | translate) : ('HEADER.THEME_DARK' | translate)">
+                {{ theme === 'light' ? '🌙' : '☀️' }}
+              </button>
+              <button class="glass-button" (click)="toggleRightSidebar()" [title]="'HEADER.HIERARCHY' | translate">
+                ☰
+              </button>
+            </div>
+            <div class="glass-user-menu">
+              <div class="user-dropdown" (click)="toggleUserMenu()" [class.open]="userMenuOpen">
+                <span class="user-info" title="{{ authState.currentUser?.email }}">
+                  {{ authState.currentUser?.name || 'Пользователь' }}
+                </span>
+                <span class="dropdown-arrow">▼</span>
+                <div class="user-dropdown-menu" *ngIf="userMenuOpen">
+                  <div class="dropdown-item" (click)="onLogout()">
+                    {{ getTranslation('AUTH.LOGOUT', 'Выйти') }}
+                  </div>
+                  <div class="dropdown-item" (click)="onProfile()">
+                    {{ getTranslation('USER.PROFILE', 'Профиль') }}
+                  </div>
+                  <div class="dropdown-item" (click)="onSettings()">
+                    {{ getTranslation('USER.SETTINGS', 'Настройки') }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+        
+        <!-- Хлебные крошки внизу хедера -->
+        <nav class="header-breadcrumbs">
+          <span *ngFor="let crumb of breadcrumbs; let i = index">
+            <a *ngIf="i < breadcrumbs.length - 1" (click)="navigateTo(i)">{{ crumb }}</a>
+            <span *ngIf="i === breadcrumbs.length - 1">{{ crumb }}</span>
+            <span *ngIf="i < breadcrumbs.length - 1"> / </span>
+          </span>
+        </nav>
       </header>
 
+      <!-- Хлебные крошки убраны из основного контента - теперь в хедере -->
+
+      <!-- Left sidebar with two-level nested navigation -->
+      <aside class="glass-sidebar left" [class.open]="leftSidebarOpen" aria-hidden="{{!leftSidebarOpen}}">
+        <nav class="sidebar-nav">
+          <div class="menu-group">
+            <div class="group-title">{{ getTranslation('NAV.DASHBOARD', 'Дашборд') }}</div>
+            <a routerLink="/dashboard" routerLinkActive="active"
+               [routerLinkActiveOptions]="{ exact: true }" (click)="closeLeftSidebar()"
+               class="sidebar-link">
+              {{ getTranslation('NAV.DASHBOARD', 'Дашборд') }}
+            </a>
+          </div>
+
+          <div class="menu-group">
+            <div class="group-title">{{ getTranslation('NAV.PROJECTS', 'Проекты') }}</div>
+            <a routerLink="/projects" routerLinkActive="active"
+               [routerLinkActiveOptions]="{ exact: true }" (click)="closeLeftSidebar()"
+               class="sidebar-link">
+              {{ getTranslation('NAV.PROJECTS', 'Проекты') }}
+            </a>
+            <div class="submenu">
+              <a routerLink="/projects?filter=active" (click)="closeLeftSidebar()"
+                 class="sidebar-sublink">{{ 'SIDEBAR.ACTIVE' | translate }}</a>
+              <a routerLink="/projects?filter=planning" (click)="closeLeftSidebar()"
+                 class="sidebar-sublink">{{ 'SIDEBAR.PLANNING' | translate }}</a>
+              <a routerLink="/projects?filter=completed" (click)="closeLeftSidebar()"
+                 class="sidebar-sublink">{{ 'SIDEBAR.COMPLETED' | translate }}</a>
+            </div>
+          </div>
+
+          <div class="menu-group">
+            <div class="group-title">{{ 'NAV.EMPLOYEES' | translate }}</div>
+            <a routerLink="/employees" routerLinkActive="active"
+               [routerLinkActiveOptions]="{ exact: true }" (click)="closeLeftSidebar()"
+               class="sidebar-link">
+              {{ 'NAV.EMPLOYEES' | translate }}
+            </a>
+          </div>
+
+          <div class="menu-group">
+            <div class="group-title">{{ 'NAV.INVOICES' | translate }}</div>
+            <a routerLink="/invoices" routerLinkActive="active"
+               [routerLinkActiveOptions]="{ exact: true }" (click)="closeLeftSidebar()"
+               class="sidebar-link">
+              {{ 'NAV.INVOICES' | translate }}
+            </a>
+            <div class="submenu">
+              <a routerLink="/invoices?status=sent" (click)="closeLeftSidebar()"
+                 class="sidebar-sublink">{{ 'SIDEBAR.SENT' | translate }}</a>
+              <a routerLink="/invoices?status=overdue" (click)="closeLeftSidebar()"
+                 class="sidebar-sublink">{{ 'SIDEBAR.OVERDUE' | translate }}</a>
+              <a routerLink="/invoices?status=paid" (click)="closeLeftSidebar()"
+                 class="sidebar-sublink">{{ 'SIDEBAR.PAID' | translate }}</a>
+            </div>
+          </div>
+
+          <div class="menu-group">
+            <div class="group-title">{{ 'NAV.ANALYTICS' | translate }}</div>
+            <a routerLink="/analytics" routerLinkActive="active"
+               [routerLinkActiveOptions]="{ exact: true }" (click)="closeLeftSidebar()"
+               class="sidebar-link">
+              {{ 'NAV.ANALYTICS' | translate }}
+            </a>
+          </div>
+        </nav>
+      </aside>
+
+      <!-- Right sidebar placeholder (hierarchy) -->
+      <aside class="glass-sidebar right" [class.open]="rightSidebarOpen"
+             aria-hidden="{{!rightSidebarOpen}}">
+        <div class="right-sidebar-content">
+          <div class="group-title">{{ 'SIDEBAR.HIERARCHY' | translate }}</div>
+          <p>{{ 'SIDEBAR.HIERARCHY_DESC' | translate }}</p>
+          <p>{{ 'SIDEBAR.HIERARCHY_FILTERS' | translate }}</p>
+        </div>
+      </aside>
+
+      <div class="backdrop" *ngIf="leftSidebarOpen" (click)="closeLeftSidebar()"></div>
+      <div class="backdrop" *ngIf="rightSidebarOpen" (click)="closeRightSidebar()"></div>
+
       <main class="glass-main">
-        <router-outlet></router-outlet>
+        <div class="glass-content-panel">
+          <router-outlet></router-outlet>
+        </div>
       </main>
 
-      <footer class="glass-footer">
-        <p>&copy; 2024 Project Management PWA. Система управления проектами</p>
+      <footer class="glass-footer" (click)="toggleBottomSidebar()">
+        <p>&copy; 2025 {{ getTranslation('COMMON.APP_TITLE', 'Wone IT - Business Solutions - Project Management') }}. {{ getTranslation('COMMON.ALL_RIGHTS_RESERVED', 'Все права защищены') }}</p>
       </footer>
+      
+      <!-- Bottom sidebar for future features -->
+      <aside class="glass-sidebar bottom" [class.open]="bottomSidebarOpen" aria-hidden="{{!bottomSidebarOpen}}">
+        <div class="bottom-sidebar-content">
+          <div class="bottom-sidebar-header">
+            <h3>{{ 'SIDEBAR.BOTTOM_TITLE' | translate }}</h3>
+            <button class="close-bottom-sidebar" (click)="closeBottomSidebar()">×</button>
+          </div>
+          <div class="bottom-sidebar-body">
+            <p>{{ 'SIDEBAR.BOTTOM_DESC' | translate }}</p>
+            <div class="bottom-sidebar-placeholder">
+              <div class="placeholder-item">
+                <span class="placeholder-icon">🚀</span>
+                <span class="placeholder-text">{{ 'SIDEBAR.BOTTOM_PLACEHOLDER_1' | translate }}</span>
+              </div>
+              <div class="placeholder-item">
+                <span class="placeholder-icon">💡</span>
+                <span class="placeholder-text">{{ 'SIDEBAR.BOTTOM_PLACEHOLDER_2' | translate }}</span>
+              </div>
+              <div class="placeholder-item">
+                <span class="placeholder-icon">🎯</span>
+                <span class="placeholder-text">{{ 'SIDEBAR.BOTTOM_PLACEHOLDER_3' | translate }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+      
+      <div class="backdrop" *ngIf="bottomSidebarOpen" (click)="closeBottomSidebar()"></div>
     </div>
 
     <router-outlet *ngIf="!authState.isAuthenticated"></router-outlet>
   `,
   styles: [`
-    .glass-header {
+    .app-container {
+      transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-left: 0;
+    }
+    
+    .app-container.sidebar-open {
+      margin-left: 300px;
+    }
+    
+    .glass-header { 
+      display: flex; 
+      flex-direction: column;
+      padding: 16px 24px 8px 24px; 
+      margin-bottom: 16px; 
+      background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(240,248,255,0.95) 100%);
+      backdrop-filter: blur(20px); 
+      border-radius: 20px; 
+      border: 2px solid rgba(59,130,246,0.2);
+      box-shadow: 0 8px 32px rgba(59,130,246,0.15);
+      gap: 12px; 
+      position: relative;
+      z-index: 999999 !important;
+    }
+    
+    .header-top-row {
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .left-group { 
+      display: flex; 
+      align-items: center; 
+      gap: 16px; 
+    }
+    
+    .app-logo {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 4px rgba(59,130,246,0.2));
+      transition: all 0.2s ease;
+    }
+    
+    .app-logo:hover {
+      transform: scale(1.05);
+      filter: drop-shadow(0 4px 8px rgba(59,130,246,0.3));
+    }
+    
+    .center-group { 
+      flex: 1; 
+      display: flex; 
+      justify-content: center; 
+      max-width: 600px;
+    }
+    
+    .right-group { 
+      display: flex; 
+      align-items: center; 
+      gap: 16px; 
+    }
+    
+    .toggles { 
+      display: flex; 
+      align-items: center; 
+      gap: 12px; 
+    }
+
+    .search-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    
+    .search-input { 
+      width: 180px;
+      padding: 12px 16px; 
+      border-radius: 20px;
+      border: 2px solid rgba(59,130,246,0.2); 
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(10px); 
+      font-size: 14px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      color: #1e293b;
+      box-shadow: 0 2px 8px rgba(59,130,246,0.1);
+    }
+    
+    .search-input:focus {
+      outline: none;
+      border-color: rgba(59,130,246,0.5);
+      background: rgba(255,255,255,1);
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.1), 0 4px 16px rgba(59,130,246,0.2);
+      width: 320px;
+    }
+    
+    .search-input::placeholder {
+      color: #9ca3af;
+      font-style: italic;
+    }
+    
+    /* Подсказки поиска */
+    .search-suggestions,
+    .search-history,
+    .search-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: rgba(255,255,255,0.98);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(59,130,246,0.2);
+      border-radius: 16px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+      margin-top: 8px;
+      z-index: 1000;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    
+    .suggestions-header,
+    .history-header,
+    .results-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(59,130,246,0.1);
+      font-weight: 600;
+      color: #374151;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .suggestions-items,
+    .history-items,
+    .results-items {
+      padding: 8px 0;
+    }
+    
+    .suggestion-item,
+    .history-item,
+    .result-item {
+      padding: 12px 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(59,130,246,0.05);
+    }
+    
+    .suggestion-item:last-child,
+    .history-item:last-child,
+    .result-item:last-child {
+      border-bottom: none;
+    }
+    
+    .suggestion-item:hover,
+    .history-item:hover,
+    .result-item:hover {
+      background: rgba(59,130,246,0.05);
+      transform: translateX(4px);
+    }
+    
+    .suggestion-icon,
+    .result-icon {
+      font-size: 1.2rem;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
+    }
+    
+    .suggestion-content,
+    .result-content {
+      flex: 1;
+    }
+    
+    .suggestion-title,
+    .result-title {
+      font-weight: 600;
+      color: #1e293b;
+      font-size: 0.95rem;
+      margin-bottom: 2px;
+    }
+    
+    .suggestion-subtitle,
+    .result-subtitle {
+      color: #64748b;
+      font-size: 0.85rem;
+      margin-bottom: 2px;
+    }
+    
+    .suggestion-lang {
+      color: #3b82f6;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: rgba(59,130,246,0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    
+    .history-text {
+      flex: 1;
+      color: #1e293b;
+      font-weight: 500;
+    }
+    
+    .history-time {
+      color: #94a3b8;
+      font-size: 0.8rem;
+      font-style: italic;
+    }
+    
+    .clear-history {
+      background: none;
+      border: none;
+      color: #ef4444;
+      font-size: 0.8rem;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+    
+    .clear-history:hover {
+      background: rgba(239,68,68,0.1);
+      transform: scale(1.05);
+    }
+    
+    .glass-select { 
+      padding: 8px 12px; 
+      border-radius: 10px;
+      border: 2px solid rgba(59,130,246,0.2); 
+      background: rgba(255,255,255,0.9); 
+      color: #1e293b;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .glass-select:hover {
+      border-color: rgba(59,130,246,0.4);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(59,130,246,0.15);
+    }
+    
+    .glass-select:focus {
+      outline: none;
+      border-color: rgba(59,130,246,0.8);
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+      transform: translateY(-1px);
+    }
+
+    .header-breadcrumbs { 
+      font-size: 12px; 
+      opacity: 0.9; 
+      margin: 8px 0 0 0; 
+      padding: 8px 0 0 0;
+      color: #64748b;
+      border-top: 1px solid rgba(59,130,246,0.1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+    
+    .header-breadcrumbs a { 
+      cursor: pointer; 
+      text-decoration: none; 
+      color: #3b82f6;
+      transition: all 0.2s ease;
+      font-weight: 500;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: rgba(59,130,246,0.05);
+    }
+    
+    .header-breadcrumbs a:hover {
+      color: #1d4ed8;
+      background: rgba(59,130,246,0.1);
+      transform: translateY(-1px);
+    }
+    
+    .header-breadcrumbs span {
+      color: #94a3b8;
+      font-weight: 400;
+    }
+    
+    .breadcrumbs { 
+      font-size: 14px; 
+      opacity: 0.8; 
+      margin: 8px 0 16px; 
+      padding: 0 24px;
+      color: #475569;
+    }
+    
+    .breadcrumbs a { 
+      cursor: pointer; 
+      text-decoration: underline; 
+      color: #3b82f6;
+      transition: color 0.2s ease;
+      font-weight: 500;
+    }
+    
+    .breadcrumbs a:hover {
+      color: #1d4ed8;
+    }
+
+    .glass-sidebar { 
+      position: fixed; 
+      top: 0; 
+      bottom: 0; 
+      width: 300px; 
+      transform: translateX(-100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+      background: linear-gradient(180deg, rgba(255,255,255,var(--sidebars-transparency, 0.85)) 0%, rgba(248,250,252,var(--sidebars-transparency, 0.85)) 100%); 
+      backdrop-filter: blur(var(--sidebars-blur, 25px));
+      border-right: 2px solid rgba(59,130,246,0.25); 
+      z-index: 1000; 
+      padding: 24px 20px; 
+      box-shadow: 4px 0 24px rgba(59,130,246,0.12);
+    }
+    
+    .glass-sidebar.right { 
+      top: 120px; /* Начинаем от места, где заканчивается хедер */
+      right: 0; 
+      left: auto; 
+      transform: translateX(100%); 
+      border-right: 0;
+      border-left: 2px solid rgba(59,130,246,0.3); 
+      height: calc(100vh - 120px); /* Высота от хедера до низа экрана */
+    }
+    
+    .glass-sidebar.left { 
+      left: 0; 
+    }
+    
+
+    
+    .glass-sidebar.open { 
+      transform: translateX(0); 
+    }
+    
+    .glass-sidebar.bottom {
+      top: auto;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 300px;
+      transform: translateY(100%);
+      border-right: 0;
+      border-left: 0;
+      border-bottom: 0;
+      border-top: 2px solid rgba(59,130,246,0.3);
+      border-radius: 24px 24px 0 0;
+      z-index: 1000;
+    }
+    
+    .glass-sidebar.bottom.open {
+      transform: translateY(0);
+    }
+    
+    .bottom-sidebar-content {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+    }
+    
+    .bottom-sidebar-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px;
-      margin-bottom: 30px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      flex-wrap: wrap;
-      gap: 20px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(59,130,246,0.2);
     }
-
-    .glass-title {
+    
+    .bottom-sidebar-header h3 {
       margin: 0;
-      font-size: 2rem;
-      font-weight: 300;
-      background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1e293b;
+      background: linear-gradient(135deg, #1e293b 0%, #3b82f6 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-
-    .glass-nav {
+    
+    .close-bottom-sidebar {
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: #64748b;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      width: 40px;
+      height: 40px;
       display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .close-bottom-sidebar:hover {
+      background: rgba(239,68,68,0.1);
+      color: #ef4444;
+      transform: scale(1.1);
+    }
+    
+    .bottom-sidebar-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
       gap: 20px;
-      flex-wrap: wrap;
+    }
+    
+    .bottom-sidebar-body p {
+      margin: 0;
+      color: #64748b;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+    
+    .bottom-sidebar-placeholder {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    
+    .placeholder-item {
+      background: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(248,250,252,0.8) 100%);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      border: 1px solid rgba(59,130,246,0.15);
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .placeholder-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(59,130,246,0.15);
+      border-color: rgba(59,130,246,0.25);
+    }
+    
+    .placeholder-icon {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    }
+    
+    .placeholder-text {
+      font-size: 0.9rem;
+      color: #475569;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
-    .glass-nav-link {
-      text-decoration: none;
-      color: inherit;
-      font-weight: 400;
-      padding: 8px 16px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      transition: all 0.3s ease;
-      
-      &:hover {
-        background: rgba(255, 255, 255, 0.15);
-        transform: translateY(-2px);
+    .sidebar-nav { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 16px; 
+    }
+    
+    .menu-group { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 8px; 
+    }
+    
+    .group-title { 
+      font-weight: 700; 
+      font-size: 12px; 
+      opacity: 0.8; 
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+      color: #3b82f6;
+    }
+
+    .sidebar-link { 
+      text-decoration: none; 
+      color: #1e293b; 
+      font-weight: 600; 
+      padding: 12px 16px;
+      border-radius: 12px; 
+      background: rgba(255,255,255,0.9); 
+      border: 2px solid rgba(59,130,246,0.2);
+      transition: all 0.2s ease; 
+      font-size: 14px;
+    }
+    
+    .sidebar-link:hover { 
+      background: rgba(59,130,246,0.1); 
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(59,130,246,0.15);
+      border-color: rgba(59,130,246,0.4);
+    }
+    
+    .sidebar-link.active { 
+      outline: 2px solid rgba(59,130,246,0.8); 
+      background: rgba(59,130,246,0.15); 
+      border-color: rgba(59,130,246,0.4);
+      color: #1d4ed8;
+    }
+
+    .submenu { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 6px; 
+      padding-left: 16px; 
+      margin-top: 8px;
+    }
+    
+    .sidebar-sublink { 
+      text-decoration: none; 
+      color: #475569; 
+      font-weight: 500; 
+      padding: 8px 12px;
+      border-radius: 10px; 
+      background: rgba(248,250,252,0.8); 
+      border: 1px solid rgba(59,130,246,0.2);
+      transition: all 0.2s ease; 
+      font-size: 13px;
+    }
+    
+    .sidebar-sublink:hover { 
+      background: rgba(59,130,246,0.1); 
+      color: #1e293b;
+      border-color: rgba(59,130,246,0.3);
+    }
+
+    .right-sidebar-content { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 12px; 
+      padding: 16px;
+    }
+
+    .backdrop { 
+      position: fixed; 
+      inset: 0; 
+      z-index: 900; 
+      background: rgba(15,23,42,0.4);
+      backdrop-filter: blur(4px); 
+    }
+
+    .glass-title { 
+      margin: 0; 
+      font-size: 1.4rem; 
+      font-weight: 700; 
+      background: linear-gradient(135deg, #1e293b 0%, #3b82f6 25%, #1d4ed8 50%, #3b82f6 75%, #1e293b 100%);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: titleGradient 8s ease-in-out infinite;
+      text-shadow: 0 2px 8px rgba(59,130,246,0.15);
+      filter: drop-shadow(0 1px 3px rgba(59,130,246,0.2));
+    }
+    
+    @keyframes titleGradient {
+      0%, 100% {
+        background-position: 0% 50%;
+      }
+      25% {
+        background-position: 100% 50%;
+      }
+      50% {
+        background-position: 50% 100%;
+      }
+      75% {
+        background-position: 50% 0%;
       }
     }
+    
+    .glass-main { 
+      min-height: calc(100vh - 200px); 
+      padding: 0 24px 60px 24px;
+      transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .glass-content-panel {
+      background: linear-gradient(135deg, rgba(255,255,255,var(--forms-transparency, 0.75)) 0%, rgba(248,250,252,var(--forms-transparency, 0.75)) 100%);
+      backdrop-filter: blur(var(--forms-blur, 4px));
+      border-radius: 20px;
+      border: 2px solid rgba(59,130,246,0.2);
+      box-shadow: 0 8px 32px rgba(59,130,246,0.08);
+      padding: 24px;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .glass-footer { 
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      text-align: center; 
+      padding: 6px 24px; 
+      margin: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(248,250,252,0.7) 100%);
+      backdrop-filter: blur(10px); 
+      border-radius: 0;
+      border-top: 1px solid rgba(59,130,246,0.15);
+      box-shadow: 0 -2px 8px rgba(59,130,246,0.08);
+      font-size: 12px;
+      color: #64748b;
+      z-index: 100;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .glass-footer:hover {
+      background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,250,252,0.9) 100%);
+      border-top-color: rgba(59,130,246,0.25);
+      box-shadow: 0 -4px 16px rgba(59,130,246,0.15);
+    }
+    
+    .glass-footer:active {
+      transform: translateY(1px);
+    }
+    
+    .glass-footer p {
+      margin: 0;
+      font-size: 11px;
+      line-height: 1.2;
+      pointer-events: none;
+    }
 
+    .glass-button { 
+      padding: 10px 16px; 
+      border: none; 
+      border-radius: 12px; 
+      background: linear-gradient(135deg, rgba(59,130,246,0.9) 0%, rgba(37,99,235,0.9) 100%);
+      color: #ffffff; 
+      cursor: pointer; 
+      transition: all 0.2s ease; 
+      border: 2px solid rgba(59,130,246,0.3);
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 2px 8px rgba(59,130,246,0.2);
+    }
+    
+    .glass-button:hover { 
+      background: linear-gradient(135deg, rgba(59,130,246,1) 0%, rgba(37,99,235,1) 100%); 
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(59,130,246,0.3);
+      border-color: rgba(59,130,246,0.5);
+    }
+    
+    /* Убираем курсор на неинтерактивных элементах */
+    .glass-button,
+    .sidebar-link,
+    .sidebar-sublink,
+    .dropdown-item,
+    .history-item,
+    .result-item,
+    .breadcrumbs a,
+    .group-title {
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+    
+    /* Убираем outline и курсор на фокусе для кнопок */
+    .glass-button:focus,
+    .sidebar-link:focus,
+    .sidebar-sublink:focus,
+    .dropdown-item:focus {
+      outline: none;
+      cursor: pointer;
+    }
+    
+    /* Убираем выделение текста при клике */
+    .glass-button,
+    .sidebar-link,
+    .sidebar-sublink,
+    .dropdown-item,
+    .history-item,
+    .result-item,
+    .breadcrumbs a {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+    }
+    
     .glass-user-menu {
       display: flex;
       align-items: center;
-      gap: 15px;
-      flex-wrap: wrap;
+      gap: 12px;
+      position: relative;
+      z-index: 999999 !important;
     }
-
-    .user-info {
-      font-size: 0.9rem;
-      opacity: 0.8;
-      white-space: nowrap;
-    }
-
-    .glass-main {
-      min-height: calc(100vh - 200px);
-      margin-bottom: 30px;
-    }
-
-    .glass-footer {
-      text-align: center;
-      padding: 20px;
-      margin-top: auto;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .glass-button {
-      padding: 8px 16px;
-      border: none;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
+    
+    .user-dropdown {
+      position: relative;
       cursor: pointer;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      
-      &:hover {
-        background: rgba(255, 255, 255, 0.2);
-        transform: translateY(-1px);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(37,99,235,0.1) 100%);
+      border: 2px solid rgba(59,130,246,0.2);
+      box-shadow: 0 4px 16px rgba(59,130,246,0.15);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(10px);
+      z-index: 999999 !important;
+    }
+    
+    .user-dropdown:hover {
+      background: linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(37,99,235,0.15) 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(59,130,246,0.25);
+      border-color: rgba(59,130,246,0.4);
+    }
+    
+    .user-dropdown:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px rgba(59,130,246,0.2);
+    }
+    
+    .user-info {
+      font-weight: 700;
+      color: #1e293b;
+      font-size: 14px;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      letter-spacing: 0.3px;
+    }
+    
+    .dropdown-arrow {
+      font-size: 12px;
+      color: #3b82f6;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-weight: bold;
+    }
+    
+    .user-dropdown.open .dropdown-arrow {
+      transform: rotate(180deg);
+      color: #1d4ed8;
+    }
+    
+    .user-dropdown:hover .dropdown-arrow {
+      color: #1d4ed8;
+    }
+    
+    .user-dropdown-menu {
+      position: absolute !important;
+      top: 100% !important;
+      right: 0 !important;
+      background: rgba(255,255,255,0.98);
+      backdrop-filter: blur(20px);
+      border-radius: 16px;
+      border: 2px solid rgba(59,130,246,0.25);
+      box-shadow: 0 12px 40px rgba(59,130,246,0.2);
+      padding: 8px 0;
+      min-width: 160px;
+      z-index: 999999 !important;
+      margin-top: 8px !important;
+      opacity: 0;
+      transform: translateY(-10px) scale(0.95);
+      animation: dropdownSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      transform-origin: top right;
+      pointer-events: auto !important;
+    }
+    
+    @keyframes dropdownSlideIn {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
       }
     }
-
-    .glass-ripple {
+    
+    .dropdown-item {
+      padding: 12px 20px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      color: rgba(30, 41, 59, 0.8);
+      font-size: 14px;
+      font-weight: 600;
       position: relative;
       overflow: hidden;
-      
-      &::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.3);
-        transform: translate(-50%, -50%);
-        transition: width 0.6s, height 0.6s;
-      }
-      
-      &:active::after {
-        width: 300px;
-        height: 300px;
-      }
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(10px);
+    }
+    
+    .dropdown-item:hover {
+      background: linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(37,99,235,0.15) 100%);
+      color: #1d4ed8;
+      transform: translateX(4px);
+      backdrop-filter: blur(15px);
+    }
+    
+    .dropdown-item:active {
+      transform: translateX(2px);
+      background: rgba(59,130,246,0.2);
+    }
+    
+    .dropdown-item:first-child {
+      border-radius: 14px 14px 0 0;
+    }
+    
+    .dropdown-item:last-child {
+      border-radius: 0 0 14px 14px;
     }
 
-    @media (max-width: 768px) {
-      .glass-header {
-        flex-direction: column;
-        text-align: center;
-      }
-      
-      .glass-nav {
-        justify-content: center;
-      }
-      
-      .glass-user-menu {
-        justify-content: center;
-        flex-direction: column;
-        gap: 10px;
-      }
+    .hide-on-mobile { 
+      display: none; 
+    }
+    
+    @media (min-width: 900px) { 
+      .hide-on-mobile { 
+        display: flex; 
+      } 
+    }
+
+    :host-context(.theme-dark) .glass-header, 
+    :host-context(.theme-dark) .glass-sidebar,
+    :host-context(.theme-dark) .glass-content-panel { 
+      background: linear-gradient(135deg, rgba(15,23,42,0.98) 0%, rgba(30,41,59,0.98) 100%); 
+      border-color: rgba(59,130,246,0.3); 
+    }
+    
+    :host-context(.theme-dark) .glass-sidebar.bottom {
+      background: linear-gradient(135deg, rgba(15,23,42,0.98) 0%, rgba(30,41,59,0.98) 100%);
+      border-top-color: rgba(59,130,246,0.4);
+    }
+    
+    :host-context(.theme-dark) .bottom-sidebar-header h3 {
+      background: linear-gradient(135deg, #f8fafc 0%, #60a5fa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    :host-context(.theme-dark) .bottom-sidebar-body p {
+      color: #94a3b8;
+    }
+    
+    :host-context(.theme-dark) .placeholder-item {
+      background: linear-gradient(135deg, rgba(15,23,42,0.8) 0%, rgba(30,41,59,0.8) 100%);
+      border-color: rgba(59,130,246,0.25);
+    }
+    
+    :host-context(.theme-dark) .placeholder-text {
+      color: #cbd5e1;
+    }
+    
+    :host-context(.theme-dark) .glass-footer {
+      background: linear-gradient(135deg, rgba(15,23,42,0.7) 0%, rgba(30,41,59,0.7) 100%);
+      border-top-color: rgba(59,130,246,0.2);
+      color: #94a3b8;
+    }
+    
+    :host-context(.theme-dark) .header-breadcrumbs {
+      border-top-color: rgba(59,130,246,0.2);
+      color: #94a3b8;
+    }
+    
+    :host-context(.theme-dark) .header-breadcrumbs a {
+      color: #60a5fa;
+      background: rgba(59,130,246,0.1);
+    }
+    
+    :host-context(.theme-dark) .header-breadcrumbs a:hover {
+      color: #93c5fd;
+      background: rgba(59,130,246,0.2);
+    }
+    
+    :host-context(.theme-dark) .search-suggestions,
+    :host-context(.theme-dark) .search-history,
+    :host-context(.theme-dark) .search-results {
+      background: rgba(15,23,42,0.98);
+      border-color: rgba(59,130,246,0.3);
+    }
+    
+    :host-context(.theme-dark) .suggestions-header,
+    :host-context(.theme-dark) .history-header,
+    :host-context(.theme-dark) .results-header {
+      color: #e5e7eb;
+      border-bottom-color: rgba(59,130,246,0.2);
+    }
+    
+    :host-context(.theme-dark) .suggestion-item:hover,
+    :host-context(.theme-dark) .history-item:hover,
+    :host-context(.theme-dark) .result-item:hover {
+      background: rgba(59,130,246,0.1);
+    }
+    
+    :host-context(.theme-dark) .suggestion-title,
+    :host-context(.theme-dark) .result-title,
+    :host-context(.theme-dark) .history-text {
+      color: #f8fafc;
+    }
+    
+    :host-context(.theme-dark) .suggestion-subtitle,
+    :host-context(.theme-dark) .result-subtitle {
+      color: #cbd5e1;
+    }
+    
+    :host-context(.theme-dark) .glass-title { 
+      background: linear-gradient(135deg, #f8fafc 0%, #60a5fa 25%, #93c5fd 50%, #60a5fa 75%, #f8fafc 100%);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: titleGradient 8s ease-in-out infinite;
+      text-shadow: 0 2px 8px rgba(96,165,250,0.2);
+      filter: drop-shadow(0 1px 3px rgba(96,165,250,0.3));
+    }
+    
+    :host-context(.theme-dark) .user-info { 
+      color: #f8fafc; 
+    }
+    
+    :host-context(.theme-dark) .sidebar-link, 
+    :host-context(.theme-dark) .sidebar-sublink {
+      color: #f8fafc; 
+      background: rgba(30,41,59,0.9); 
+      border-color: rgba(59,130,246,0.3);
+    }
+    
+    :host-context(.theme-dark) .glass-button { 
+      color: #f8fafc; 
+      background: linear-gradient(135deg, rgba(59,130,246,0.9) 0%, rgba(37,99,235,0.9) 100%);
+      border-color: rgba(59,130,246,0.4); 
+    }
+    
+    :host-context(.theme-dark) .user-dropdown {
+      background: linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(37,99,235,0.15) 100%);
+      border-color: rgba(59,130,246,0.3);
+    }
+    
+    :host-context(.theme-dark) .user-dropdown:hover {
+      background: linear-gradient(135deg, rgba(59,130,246,0.25) 0%, rgba(37,99,235,0.25) 100%);
+      border-color: rgba(59,130,246,0.5);
+    }
+    
+    :host-context(.theme-dark) .user-info {
+      color: #f8fafc;
+    }
+    
+    :host-context(.theme-dark) .dropdown-arrow {
+      color: #60a5fa;
+    }
+    
+    :host-context(.theme-dark) .user-dropdown:hover .dropdown-arrow {
+      color: #93c5fd;
+    }
+    
+    :host-context(.theme-dark) .user-dropdown-menu {
+      background: rgba(30,41,59,0.98);
+      border-color: rgba(59,130,246,0.4);
+      box-shadow: 0 12px 40px rgba(59,130,246,0.3);
+    }
+    
+    :host-context(.theme-dark) .dropdown-item {
+      color: #f8fafc;
+    }
+    
+    :host-context(.theme-dark) .dropdown-item:hover {
+      background: linear-gradient(135deg, rgba(59,130,246,0.2) 0%, rgba(37,99,235,0.2) 100%);
+      color: #93c5fd;
+    }
+    
+    :host-context(.theme-dark) .search-input {
+      background: rgba(30,41,59,0.9);
+      border-color: rgba(59,130,246,0.3);
+      color: #f8fafc;
+    }
+    
+    :host-context(.theme-dark) .glass-select {
+      background: rgba(30,41,59,0.9);
+      border-color: rgba(59,130,246,0.3);
+      color: #f8fafc;
+    }
+    
+    :host-context(.theme-dark) .group-title {
+      color: #60a5fa;
+    }
+    
+    :host-context(.theme-dark) .breadcrumbs {
+      color: #94a3b8;
+    }
+    
+    :host-context(.theme-dark) .breadcrumbs a {
+      color: #60a5fa;
+    }
+    
+    :host-context(.theme-dark) .breadcrumbs a:hover {
+      color: #93c5fd;
     }
   `]
 })
 export class AppComponent implements OnInit {
-  authState: AuthState = {
-    isAuthenticated: false,
-    currentUser: null,
-    token: null
-  };
+  authState: AuthState = { isAuthenticated: false, currentUser: null, token: null };
+  leftSidebarOpen = false;
+  rightSidebarOpen = false;
+  bottomSidebarOpen = false;
+  userMenuOpen = false;
+  currentLang = 'ru';
+  theme: 'light' | 'dark' = 'light';
+  breadcrumbs: string[] = [];
+  
+  // UI настройки
+  uiSettings: any = {};
+  
+  // Поиск
+  searchQuery = '';
+  searchHistory: string[] = [];
+  searchResults: any[] = [];
+  searchSuggestions: any[] = [];
+  showSearchHistory = false;
+  showSearchResults = false;
+  showSuggestions = false;
 
   constructor(
     private translate: TranslateService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private userSettingsService: UserSettingsService
   ) {
-    // Настройка мультиязычности
     this.translate.setDefaultLang('ru');
     this.translate.use('ru');
-  }
-
-  ngOnInit(): void {
-    // Подписываемся на изменения состояния аутентификации
-    this.authService.authState$.subscribe(state => {
-      this.authState = state;
+    
+    // Добавляем fallback для переводов
+    this.translate.setTranslation('ru', {
+      COMMON: {
+        APP_TITLE: 'Wone IT - Business Solutions - Project Management',
+        ALL_RIGHTS_RESERVED: 'Все права защищены'
+      },
+      NAV: {
+        DASHBOARD: 'Дашборд',
+        PROJECTS: 'Проекты',
+        EMPLOYEES: 'Сотрудники',
+        ANALYTICS: 'Аналитика',
+        INVOICES: 'Счета'
+      },
+      AUTH: {
+        LOGOUT: 'Выйти'
+      },
+      HEADER: {
+        MENU: 'Меню',
+        SEARCH: 'Поиск...',
+        THEME_LIGHT: 'Темная тема',
+        THEME_DARK: 'Светлая тема',
+        HIERARCHY: 'Иерархия'
+      },
+      SIDEBAR: {
+        ACTIVE: 'Активные',
+        PLANNING: 'Планирование',
+        COMPLETED: 'Завершённые',
+        SENT: 'Отправленные',
+        OVERDUE: 'Просроченные',
+        PAID: 'Оплаченные',
+        HIERARCHY: 'Иерархия',
+        HIERARCHY_DESC: 'Здесь будет иерархический список: Направления → Проекты.',
+        HIERARCHY_FILTERS: 'Фильтры и быстрый выбор появятся позже.'
+      },
+      DASHBOARD: {
+        PROJECTS: 'Проекты',
+        TOTAL_PROJECTS: 'Всего проектов',
+        EMPLOYEES: 'Сотрудники',
+        TOTAL_EMPLOYEES: 'Всего сотрудников',
+        REVENUE: 'Выручка',
+        TOTAL_REVENUE: 'Общая выручка',
+        MARGIN: 'Маржа',
+        TOTAL_MARGIN: 'Общая маржа'
+      },
+      USER: {
+        PROFILE: 'Профиль',
+        SETTINGS: 'Настройки'
+      }
+    });
+    
+    // Добавляем английские переводы
+    this.translate.setTranslation('en', {
+      COMMON: {
+        APP_TITLE: 'Wone IT - Business Solutions - Project Management',
+        ALL_RIGHTS_RESERVED: 'All rights reserved'
+      },
+      NAV: {
+        DASHBOARD: 'Dashboard',
+        PROJECTS: 'Projects',
+        EMPLOYEES: 'Employees',
+        ANALYTICS: 'Analytics',
+        INVOICES: 'Invoices'
+      },
+      AUTH: {
+        LOGOUT: 'Logout'
+      },
+      HEADER: {
+        MENU: 'Menu',
+        SEARCH: 'Search...',
+        THEME_LIGHT: 'Dark theme',
+        THEME_DARK: 'Light theme',
+        HIERARCHY: 'Hierarchy'
+      },
+      SIDEBAR: {
+        ACTIVE: 'Active',
+        PLANNING: 'Planning',
+        COMPLETED: 'Completed',
+        SENT: 'Sent',
+        OVERDUE: 'Overdue',
+        PAID: 'Paid',
+        HIERARCHY: 'Hierarchy',
+        HIERARCHY_DESC: 'Hierarchical list will be here: Directions → Projects.',
+        HIERARCHY_FILTERS: 'Filters and quick selection will appear later.'
+      },
+      DASHBOARD: {
+        PROJECTS: 'Projects',
+        TOTAL_PROJECTS: 'Total Projects',
+        EMPLOYEES: 'Employees',
+        TOTAL_EMPLOYEES: 'Total Employees',
+        REVENUE: 'Revenue',
+        TOTAL_REVENUE: 'Total Revenue',
+        MARGIN: 'Margin',
+        TOTAL_MARGIN: 'Total Margin'
+      },
+      USER: {
+        PROFILE: 'Profile',
+        SETTINGS: 'Settings'
+      }
     });
   }
 
-  /**
-   * Обработчик выхода из системы
-   */
-  async onLogout(): Promise<void> {
-    await this.authService.logout();
-    this.router.navigate(['/login']);
+  ngOnInit(): void {
+    this.authService.authState$.subscribe(state => { this.authState = state; });
+    this.router.events.subscribe(() => this.updateBreadcrumbs());
+    this.updateBreadcrumbs();
+    
+    // Подписываемся на UI настройки
+    this.userSettingsService.settings$.subscribe(settings => {
+      this.uiSettings = settings.ui;
+      this.applyUISettings();
+    });
+    
+    // Загружаем текущие настройки
+    const currentSettings = this.userSettingsService.getSettings();
+    this.uiSettings = currentSettings.ui;
+    this.applyUISettings();
+    
+    // Загружаем сохраненный язык
+    if (currentSettings.ui.language) {
+      this.currentLang = currentSettings.ui.language;
+      this.translate.use(currentSettings.ui.language);
+    }
+    
+    // Принудительно загружаем переводы
+    this.translate.reloadLang('ru');
+    this.translate.reloadLang('en');
+    
+    // Логируем состояние переводов
+    console.log('Current language:', this.translate.currentLang);
+    console.log('Available languages:', this.translate.getLangs());
+    
+    // Проверяем, что переводы загружены
+    this.translate.get('COMMON.APP_TITLE').subscribe(
+      (value) => console.log('Translation loaded:', value),
+      (error) => console.error('Translation error:', error)
+    );
+    
+    // Добавляем обработчик клика вне меню для его закрытия
+    document.addEventListener('click', (event) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest('.user-dropdown')) {
+        this.closeUserMenu();
+      }
+    });
+    
+    // Обработчик изменения размера окна убран, так как используется relative позиционирование
+  }
+
+  async onLogout(): Promise<void> { await this.authService.logout(); this.router.navigate(['/login']); }
+
+  toggleLeftSidebar(): void { this.leftSidebarOpen = !this.leftSidebarOpen; }
+  closeLeftSidebar(): void { this.leftSidebarOpen = false; }
+
+  toggleRightSidebar(): void { this.rightSidebarOpen = !this.rightSidebarOpen; }
+  closeRightSidebar(): void { this.rightSidebarOpen = false; }
+  
+  toggleBottomSidebar(): void { this.bottomSidebarOpen = !this.bottomSidebarOpen; }
+  closeBottomSidebar(): void { this.bottomSidebarOpen = false; }
+  
+  toggleUserMenu(): void { 
+    if (this.userMenuOpen) {
+      this.closeUserMenu();
+    } else {
+      this.userMenuOpen = true;
+    }
+  }
+  
+  closeUserMenu(): void { 
+    this.userMenuOpen = false;
+  }
+
+  changeLang(lang: string): void {
+    this.currentLang = lang;
+    this.translate.use(lang);
+    
+    // Сохраняем язык в настройках пользователя
+    this.userSettingsService.updateSection('ui', { language: lang as 'ru' | 'en' });
+  }
+
+  applyUISettings(): void {
+    // Применяем настройки прозрачности и блюра к CSS переменным
+    if (this.uiSettings.transparency && this.uiSettings.blur) {
+      document.documentElement.style.setProperty(
+        '--forms-transparency', 
+        `${this.uiSettings.transparency.forms}%`
+      );
+      document.documentElement.style.setProperty(
+        '--widgets-transparency', 
+        `${this.uiSettings.transparency.widgets}%`
+      );
+      document.documentElement.style.setProperty(
+        '--sidebars-transparency', 
+        `${this.uiSettings.transparency.sidebars}%`
+      );
+      document.documentElement.style.setProperty(
+        '--forms-blur', 
+        `${this.uiSettings.blur.forms}px`
+      );
+      document.documentElement.style.setProperty(
+        '--widgets-blur', 
+        `${this.uiSettings.blur.widgets}px`
+      );
+      document.documentElement.style.setProperty(
+        '--sidebars-blur', 
+        `${this.uiSettings.blur.sidebars}px`
+      );
+    }
+  }
+
+  onLangChange(event: Event): void {
+    const value = (event.target as HTMLSelectElement).value;
+    if (value) { 
+      this.changeLang(value);
+      // Обновляем хлебные крошки при смене языка
+      setTimeout(() => {
+        this.updateBreadcrumbs();
+      }, 100);
+    }
+  }
+
+  toggleTheme(): void {
+    this.theme = this.theme === 'light' ? 'dark' : 'light';
+    const host = document.querySelector('body');
+    if (host) { host.classList.toggle('theme-dark', this.theme === 'dark'); }
+  }
+
+  onSearch(ev: any): void {
+    const q = (ev?.target?.value || '').trim();
+    this.searchQuery = q;
+    
+    if (q.length < 2) {
+      this.showSuggestions = false;
+      this.showSearchResults = false;
+      return;
+    }
+    
+    // Генерируем подсказки на основе введенного текста
+    this.generateSearchSuggestions(q);
+    this.showSuggestions = true;
+    this.showSearchResults = false;
+  }
+  
+  onSearchFocus(): void {
+    if (this.searchQuery.length >= 2) {
+      this.generateSearchSuggestions(this.searchQuery);
+      this.showSuggestions = true;
+    } else if (this.searchHistory.length > 0) {
+      this.showSearchHistory = true;
+    }
+  }
+  
+  onSearchBlur(): void {
+    // Небольшая задержка для возможности клика по элементам
+    setTimeout(() => {
+      this.showSuggestions = false;
+      this.showSearchHistory = false;
+      this.showSearchResults = false;
+    }, 200);
+  }
+  
+  generateSearchSuggestions(query: string): void {
+    const suggestions = [];
+    const queryLower = query.toLowerCase();
+    
+    // Поиск по разделам и подразделам на всех языках
+    const searchableItems = [
+      { title: 'Дашборд', subtitle: 'Dashboard', icon: '📊', language: 'RU/EN', route: '/dashboard' },
+      { title: 'Проекты', subtitle: 'Projects', icon: '🚀', language: 'RU/EN', route: '/projects' },
+      { title: 'Активные проекты', subtitle: 'Active Projects', icon: '🟢', language: 'RU/EN', route: '/projects?filter=active' },
+      { title: 'Планирование', subtitle: 'Planning', icon: '📋', language: 'RU/EN', route: '/projects?filter=planning' },
+      { title: 'Завершённые', subtitle: 'Completed', icon: '✅', language: 'RU/EN', route: '/projects?filter=completed' },
+      { title: 'Сотрудники', subtitle: 'Employees', icon: '👥', language: 'RU/EN', route: '/employees' },
+      { title: 'Аналитика', subtitle: 'Analytics', icon: '📈', language: 'RU/EN', route: '/analytics' },
+      { title: 'Счета', subtitle: 'Invoices', icon: '💰', language: 'RU/EN', route: '/invoices' },
+      { title: 'Отправленные', subtitle: 'Sent', icon: '📤', language: 'RU/EN', route: '/invoices?status=sent' },
+      { title: 'Просроченные', subtitle: 'Overdue', icon: '⚠️', language: 'RU/EN', route: '/invoices?status=overdue' },
+      { title: 'Оплаченные', subtitle: 'Paid', icon: '💳', language: 'RU/EN', route: '/invoices?status=paid' }
+    ];
+    
+    // Фильтруем по запросу (поиск на русском и английском)
+    const filtered = searchableItems.filter(item => 
+      item.title.toLowerCase().includes(queryLower) ||
+      item.subtitle.toLowerCase().includes(queryLower) ||
+      item.title.toLowerCase().includes(queryLower) ||
+      item.subtitle.toLowerCase().includes(queryLower)
+    );
+    
+    this.searchSuggestions = filtered.slice(0, 8); // Максимум 8 подсказок
+  }
+  
+  selectSuggestion(suggestion: any): void {
+    this.searchQuery = suggestion.title;
+    this.showSuggestions = false;
+    this.addToSearchHistory(suggestion.title);
+    this.router.navigate([suggestion.route]);
+  }
+  
+  selectHistoryItem(item: string): void {
+    this.searchQuery = item;
+    this.showSearchHistory = false;
+    this.generateSearchSuggestions(item);
+    this.showSuggestions = true;
+  }
+  
+  addToSearchHistory(query: string): void {
+    if (!this.searchHistory.includes(query)) {
+      this.searchHistory.unshift(query);
+      this.searchHistory = this.searchHistory.slice(0, 10); // Максимум 10 элементов
+    }
+  }
+  
+  clearSearchHistory(): void {
+    this.searchHistory = [];
+    this.showSearchHistory = false;
+  }
+  
+  getTimeAgo(query: string): string {
+    // Простая реализация - в реальном приложении здесь будет timestamp
+    return 'Недавно';
+  }
+  
+  navigateToSearchResult(result: any): void {
+    // TODO: implement navigation to search result
+    console.log('Navigate to:', result);
+    this.showSearchResults = false;
+  }
+  
+  onProfile(): void {
+    // TODO: navigate to profile page
+    console.log('Profile clicked');
+    this.closeUserMenu();
+  }
+  
+  onSettings(): void {
+    this.router.navigate(['/settings']);
+    this.closeUserMenu();
+  }
+
+  private updateBreadcrumbs(): void {
+    const url = this.router.url || '/';
+    const parts = url.split('?')[0].split('/').filter(Boolean);
+    
+    // Используем переводы для хлебных крошек
+    const breadcrumbMap: { [key: string]: string } = {
+      'dashboard': this.getTranslation('BREADCRUMBS.DASHBOARD', 'Дашборд'),
+      'projects': this.getTranslation('BREADCRUMBS.PROJECTS', 'Проекты'),
+      'employees': this.getTranslation('BREADCRUMBS.EMPLOYEES', 'Сотрудники'),
+      'analytics': this.getTranslation('BREADCRUMBS.ANALYTICS', 'Аналитика'),
+      'invoices': this.getTranslation('BREADCRUMBS.INVOICES', 'Счета'),
+      'login': this.getTranslation('AUTH.LOGIN_TITLE', 'Вход')
+    };
+    
+    this.breadcrumbs = parts.length ? 
+      parts.map(part => breadcrumbMap[part] || part) : 
+      [this.getTranslation('BREADCRUMBS.DASHBOARD', 'Дашборд')];
+  }
+
+  navigateTo(index: number): void {
+    const path = '/' + this.breadcrumbs.slice(0, index + 1).join('/');
+    this.router.navigate([path]);
+  }
+  
+  getTranslation(key: string, fallback: string): string {
+    const translation = this.translate.instant(key);
+    return translation !== key ? translation : fallback;
   }
 }
