@@ -1,20 +1,40 @@
 import { Injectable } from '@angular/core';
-// import PouchDB from 'pouchdb-browser';
-// import PouchDBFind from 'pouchdb-find';
-// import PouchDBReplication from 'pouchdb-replication';
+import { DatabaseConfigService } from './database-config.service';
+import { DatabaseMigrationService } from './database-migration.service';
 
-// Временная заглушка для PouchDB
+// Временная заглушка для PouchDB с возможностью легкого переключения на реальную PouchDB
+// Для активации реальной PouchDB раскомментируйте строки ниже и установите пакеты:
+// npm install pouchdb@7.3.1 pouchdb-find@7.3.1 pouchdb-replication@7.3.1
+
+/*
+import PouchDB from 'pouchdb';
+import PouchDBFind from 'pouchdb-find';
+import PouchDBReplication from 'pouchdb-replication';
+
+// Инициализация PouchDB с плагинами
+PouchDB.plugin(PouchDBFind);
+PouchDB.plugin(PouchDBReplication);
+*/
+
+// Улучшенная заглушка для PouchDB
 class MockPouchDB {
   private data: Map<string, any> = new Map();
+  private indexes: Map<string, any[]> = new Map();
   
-  constructor(name: string) {
-    console.log(`MockPouchDB created: ${name}`);
+  constructor(name: string, options?: any) {
+    console.log(`MockPouchDB created: ${name}`, options);
+    this.indexes.set('default', []);
   }
   
   async put(doc: any): Promise<any> {
-    const id = doc._id || doc.id || `doc_${Date.now()}`;
-    this.data.set(id, { ...doc, _id: id });
-    return { id, ok: true };
+    const id = doc._id || doc.id || `doc_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const docWithId = { ...doc, _id: id, _rev: `1-${Date.now()}` };
+    this.data.set(id, docWithId);
+    
+    // Обновляем индексы
+    this.updateIndexes(docWithId);
+    
+    return { id, ok: true, rev: docWithId._rev };
   }
   
   async get(id: string): Promise<any> {
@@ -24,35 +44,93 @@ class MockPouchDB {
   }
   
   async remove(doc: any): Promise<any> {
-    this.data.delete(doc._id || doc.id);
-    return { ok: true };
+    const existingDoc = await this.get(doc._id || doc.id);
+    this.data.delete(existingDoc._id);
+    
+    // Удаляем из индексов
+    this.removeFromIndexes(existingDoc);
+    
+    return { ok: true, id: existingDoc._id, rev: existingDoc._rev };
   }
   
-  async allDocs(options: any): Promise<any> {
+  async allDocs(options: any = {}): Promise<any> {
     const docs = Array.from(this.data.values());
-    return { rows: docs.map(doc => ({ doc })) };
+    let filteredDocs = docs;
+    
+    if (options.include_docs) {
+      filteredDocs = docs.map(doc => ({ doc }));
+    }
+    
+    return { 
+      rows: filteredDocs,
+      total_rows: docs.length,
+      offset: 0
+    };
   }
   
   async find(selector: any): Promise<any> {
     const docs = Array.from(this.data.values());
-    return { docs };
+    const filteredDocs = docs.filter(doc => this.matchesSelector(doc, selector));
+    
+    return { docs: filteredDocs };
   }
   
   async destroy(): Promise<void> {
     this.data.clear();
+    this.indexes.clear();
   }
   
-  async sync(remote: string): Promise<void> {
-    console.log(`Mock sync with: ${remote}`);
+  async sync(remote: string, options: any = {}): Promise<void> {
+    console.log(`Mock sync with: ${remote}`, options);
+    // Имитируем синхронизацию
+    await new Promise(resolve => setTimeout(resolve, 100));
   }
   
   async info(): Promise<any> {
-    return { doc_count: this.data.size };
+    return { 
+      doc_count: this.data.size,
+      update_seq: this.data.size,
+      db_name: 'mock_db'
+    };
   }
   
   async createIndex(options: any): Promise<any> {
     console.log('Mock createIndex:', options);
-    return { result: 'ok' };
+    const indexName = options.name || `index_${Date.now()}`;
+    this.indexes.set(indexName, []);
+    return { result: 'ok', name: indexName };
+  }
+  
+  private updateIndexes(doc: any): void {
+    // Простая индексация по основным полям
+    for (const [indexName, indexData] of this.indexes) {
+      if (indexName === 'default') continue;
+      
+      // Добавляем документ в индекс
+      indexData.push(doc);
+    }
+  }
+  
+  private removeFromIndexes(doc: any): void {
+    // Удаляем документ из индексов
+    for (const [indexName, indexData] of this.indexes) {
+      if (indexName === 'default') continue;
+      
+      const docIndex = indexData.findIndex(d => d._id === doc._id);
+      if (docIndex !== -1) {
+        indexData.splice(docIndex, 1);
+      }
+    }
+  }
+  
+  private matchesSelector(doc: any, selector: any): boolean {
+    // Простая реализация селектора
+    for (const [key, value] of Object.entries(selector)) {
+      if (doc[key] !== value) {
+        return false;
+      }
+    }
+    return true;
   }
 }
 
@@ -66,7 +144,7 @@ interface Database {
   allDocs: (options: any) => Promise<any>;
   find: (selector: any) => Promise<any>;
   destroy: () => Promise<void>;
-  sync: (remote: string) => Promise<void>;
+  sync: (remote: string, options?: any) => Promise<void>;
   info: () => Promise<any>;
   createIndex: (options: any) => Promise<any>;
 }
@@ -75,28 +153,83 @@ interface Database {
   providedIn: 'root'
 })
 export class DatabaseService {
-  private usersDb: Database;
-  private projectsDb: Database;
-  private timeEntriesDb: Database;
-  private invoicesDb: Database;
-  private paymentsDb: Database;
+  private usersDb!: Database;
+  private projectsDb!: Database;
+  private timeEntriesDb!: Database;
+  private invoicesDb!: Database;
+  private paymentsDb!: Database;
 
-  constructor() {
-    // Создание баз данных с заглушкой
-    this.usersDb = new PouchDB('users');
-    this.projectsDb = new PouchDB('projects');
-    this.timeEntriesDb = new PouchDB('time_entries');
-    this.invoicesDb = new PouchDB('invoices');
-    this.paymentsDb = new PouchDB('payments');
+  constructor(
+    private configService: DatabaseConfigService,
+    private migrationService: DatabaseMigrationService
+  ) {
+    this.initializeDatabases();
+  }
 
-    // Создание индексов для поиска
-    this.createIndexes();
+  private async initializeDatabases(): Promise<void> {
+    try {
+      const config = this.configService.getConfig();
+      
+      // Создание баз данных (пока заглушка, но с возможностью переключения на реальную PouchDB)
+      this.usersDb = new PouchDB('users', { 
+        adapter: config.adapter,
+        auto_compaction: config.autoCompaction
+      });
+      
+      this.projectsDb = new PouchDB('projects', { 
+        adapter: config.adapter,
+        auto_compaction: config.autoCompaction
+      });
+      
+      this.timeEntriesDb = new PouchDB('time_entries', { 
+        adapter: config.adapter,
+        auto_compaction: config.autoCompaction
+      });
+      
+      this.invoicesDb = new PouchDB('invoices', { 
+        adapter: config.adapter,
+        auto_compaction: config.autoCompaction
+      });
+      
+      this.paymentsDb = new PouchDB('payments', { 
+        adapter: config.adapter,
+        auto_compaction: config.autoCompaction
+      });
+
+      // Создание индексов для поиска
+      await this.createIndexes();
+      
+      // Проверка и выполнение миграций
+      await this.checkAndRunMigrations();
+      
+      // Инициализация синхронизации
+      this.initializeSync();
+      
+      console.log('Базы данных успешно инициализированы (MockPouchDB)');
+    } catch (error) {
+      console.error('Ошибка инициализации баз данных:', error);
+      throw error;
+    }
+  }
+
+  private async checkAndRunMigrations(): Promise<void> {
+    try {
+      const needsMigration = await this.migrationService.checkMigrations();
+      if (needsMigration) {
+        await this.migrationService.runMigrations();
+      }
+    } catch (error) {
+      console.error('Ошибка выполнения миграций:', error);
+      // Не прерываем инициализацию при ошибке миграций
+    }
   }
 
 
 
   private async createIndexes(): Promise<void> {
     try {
+      console.log('Создание индексов для PouchDB...');
+      
       // Индексы для пользователей
       await this.usersDb.createIndex({
         index: { fields: ['email', 'role', 'direction'] }
@@ -121,8 +254,34 @@ export class DatabaseService {
       await this.paymentsDb.createIndex({
         index: { fields: ['invoiceId', 'projectId', 'paymentDate'] }
       });
+      
+      console.log('Индексы PouchDB успешно созданы');
     } catch (error) {
-      console.error('Error creating indexes:', error);
+      console.error('Ошибка при создании индексов PouchDB:', error);
+    }
+  }
+
+  private initializeSync(): void {
+    try {
+      const config = this.configService.getConfig();
+      
+      if (config.syncEnabled && config.remoteUrl) {
+        console.log(`Настройка синхронизации с удаленным сервером: ${config.remoteUrl}`);
+        
+        if (config.syncInterval > 0) {
+          // Настройка периодической синхронизации
+          setInterval(() => {
+            this.syncWithRemote(config.remoteUrl!);
+          }, config.syncInterval);
+        }
+        
+        // Настройка непрерывной синхронизации
+        this.setupContinuousSync(config.remoteUrl);
+      } else {
+        console.log('Синхронизация PouchDB отключена (не настроена в конфигурации)');
+      }
+    } catch (error) {
+      console.error('Ошибка инициализации синхронизации:', error);
     }
   }
 
@@ -152,6 +311,7 @@ export class DatabaseService {
       });
       return result.docs.length > 0 ? result.docs[0] : null;
     } catch (error) {
+      console.error(`Ошибка при поиске пользователя по email ${email}:`, error);
       return null;
     }
   }
@@ -398,6 +558,20 @@ export class DatabaseService {
       });
       return result.rows.map((row: any) => row.doc);
     } catch (error) {
+      console.error('Ошибка получения всех платежей:', error);
+      return [];
+    }
+  }
+
+  // Метод для получения всех временных записей
+  async getAllTimeEntries(): Promise<any[]> {
+    try {
+      const result = await this.timeEntriesDb.allDocs({
+        include_docs: true
+      });
+      return result.rows.map((row: any) => row.doc);
+    } catch (error) {
+      console.error('Ошибка получения всех временных записей:', error);
       return [];
     }
   }
@@ -419,36 +593,80 @@ export class DatabaseService {
 
   // Методы для очистки данных
   async clearAllData(): Promise<void> {
-    await Promise.all([
-      this.usersDb.destroy(),
-      this.projectsDb.destroy(),
-      this.timeEntriesDb.destroy(),
-      this.invoicesDb.destroy(),
-      this.paymentsDb.destroy()
-    ]);
+    try {
+      console.log('Очистка всех данных PouchDB...');
+      
+      await Promise.all([
+        this.usersDb.destroy(),
+        this.projectsDb.destroy(),
+        this.timeEntriesDb.destroy(),
+        this.invoicesDb.destroy(),
+        this.paymentsDb.destroy()
+      ]);
 
-    // Пересоздаем базы
-    this.usersDb = new PouchDB('users');
-    this.projectsDb = new PouchDB('projects');
-    this.timeEntriesDb = new PouchDB('time_entries');
-    this.invoicesDb = new PouchDB('invoices');
-    this.paymentsDb = new PouchDB('payments');
+      // Пересоздаем базы с параметрами из конфигурации
+      const config = this.configService.getConfig();
+      this.usersDb = new PouchDB('users', { adapter: config.adapter, auto_compaction: config.autoCompaction });
+      this.projectsDb = new PouchDB('projects', { adapter: config.adapter, auto_compaction: config.autoCompaction });
+      this.timeEntriesDb = new PouchDB('time_entries', { adapter: config.adapter, auto_compaction: config.autoCompaction });
+      this.invoicesDb = new PouchDB('invoices', { adapter: config.adapter, auto_compaction: config.autoCompaction });
+      this.paymentsDb = new PouchDB('payments', { adapter: config.adapter, auto_compaction: config.autoCompaction });
 
-    await this.createIndexes();
+      await this.createIndexes();
+      console.log('Данные PouchDB успешно очищены и базы пересозданы');
+    } catch (error) {
+      console.error('Ошибка при очистке данных PouchDB:', error);
+      throw error;
+    }
   }
 
   // Методы для синхронизации с удаленными базами
   async syncWithRemote(remoteUrl: string): Promise<void> {
     try {
+      console.log(`Начало синхронизации с удаленным сервером: ${remoteUrl}`);
+      
+      const syncOptions = {
+        live: false, // Одноразовая синхронизация
+        retry: true, // Повторные попытки при ошибках
+        timeout: 30000 // Таймаут 30 секунд
+      };
+
       await Promise.all([
-        this.usersDb.sync(remoteUrl + '/users'),
-        this.projectsDb.sync(remoteUrl + '/projects'),
-        this.timeEntriesDb.sync(remoteUrl + '/time_entries'),
-        this.invoicesDb.sync(remoteUrl + '/invoices'),
-        this.paymentsDb.sync(remoteUrl + '/payments')
+        this.usersDb.sync(remoteUrl + '/users', syncOptions),
+        this.projectsDb.sync(remoteUrl + '/projects', syncOptions),
+        this.timeEntriesDb.sync(remoteUrl + '/time_entries', syncOptions),
+        this.invoicesDb.sync(remoteUrl + '/invoices', syncOptions),
+        this.paymentsDb.sync(remoteUrl + '/payments', syncOptions)
       ]);
+      
+      console.log('Синхронизация с удаленным сервером завершена успешно');
     } catch (error) {
-      console.error('Sync error:', error);
+      console.error('Ошибка синхронизации с удаленным сервером:', error);
+      throw error;
+    }
+  }
+
+  // Метод для настройки непрерывной синхронизации
+  setupContinuousSync(remoteUrl: string): void {
+    try {
+      console.log(`Настройка непрерывной синхронизации с: ${remoteUrl}`);
+      
+      const syncOptions = {
+        live: true, // Непрерывная синхронизация
+        retry: true,
+        timeout: 30000
+      };
+
+      // Настраиваем непрерывную синхронизацию для каждой базы
+      this.usersDb.sync(remoteUrl + '/users', syncOptions);
+      this.projectsDb.sync(remoteUrl + '/projects', syncOptions);
+      this.timeEntriesDb.sync(remoteUrl + '/time_entries', syncOptions);
+      this.invoicesDb.sync(remoteUrl + '/invoices', syncOptions);
+      this.paymentsDb.sync(remoteUrl + '/payments', syncOptions);
+      
+      console.log('Непрерывная синхронизация настроена');
+    } catch (error) {
+      console.error('Ошибка настройки непрерывной синхронизации:', error);
     }
   }
 
@@ -468,11 +686,83 @@ export class DatabaseService {
         projects: projectsInfo.doc_count,
         timeEntries: timeEntriesInfo.doc_count,
         invoices: invoicesInfo.doc_count,
-        payments: paymentsInfo.doc_count
+        payments: paymentsInfo.doc_count,
+        totalSize: 0, // TODO: Добавить расчет размера при необходимости
+        lastSync: new Date().toISOString() // TODO: Добавить реальное время последней синхронизации
       };
     } catch (error) {
-      console.error('Error getting database stats:', error);
+      console.error('Ошибка получения статистики базы данных:', error);
       return {};
+    }
+  }
+
+  // Метод для экспорта данных
+  async exportDatabase(): Promise<any> {
+    try {
+      const [users, projects, timeEntries, invoices, payments] = await Promise.all([
+        this.getAllUsers(),
+        this.getAllProjects(),
+        this.getAllTimeEntries(),
+        this.getAllInvoices(),
+        this.getAllPayments()
+      ]);
+
+      return {
+        exportDate: new Date().toISOString(),
+        version: '1.0.0',
+        data: {
+          users,
+          projects,
+          timeEntries,
+          invoices,
+          payments
+        }
+      };
+    } catch (error) {
+      console.error('Ошибка экспорта базы данных:', error);
+      throw error;
+    }
+  }
+
+  // Метод для импорта данных
+  async importDatabase(data: any): Promise<void> {
+    try {
+      console.log('Начало импорта данных в PouchDB...');
+      
+      if (data.users) {
+        for (const user of data.users) {
+          await this.createUser(user);
+        }
+      }
+      
+      if (data.projects) {
+        for (const project of data.projects) {
+          await this.createProject(project);
+        }
+      }
+      
+      if (data.timeEntries) {
+        for (const timeEntry of data.timeEntries) {
+          await this.createTimeEntry(timeEntry);
+        }
+      }
+      
+      if (data.invoices) {
+        for (const invoice of data.invoices) {
+          await this.createInvoice(invoice);
+        }
+      }
+      
+      if (data.payments) {
+        for (const payment of data.payments) {
+          await this.createPayment(payment);
+        }
+      }
+      
+      console.log('Импорт данных в PouchDB завершен успешно');
+    } catch (error) {
+      console.error('Ошибка импорта данных в PouchDB:', error);
+      throw error;
     }
   }
 }
