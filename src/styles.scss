@@ -1,0 +1,93 @@
+/* You can add global styles to this file, and also import other style files */
+@use 'styles/glassmorphism.scss';
+
+/* Глобальные стили для темной темы */
+.theme-dark {
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+  
+  /* Основной фон страницы */
+  body {
+    background-color: #0f172a !important;
+    color: #f8fafc !important;
+  }
+  
+  /* Фон для 3D ландшафта */
+  .landscape-container {
+    background-color: #000000 !important;
+  }
+  
+  /* Меню пользователя в темной теме */
+  .user-dropdown-menu {
+    background: rgba(15,23,42,0.98) !important;
+    border-color: rgba(59,130,246,0.4) !important;
+    backdrop-filter: blur(25px) !important;
+    box-shadow: 0 12px 40px rgba(59,130,246,0.3), 0 0 0 1px rgba(59,130,246,0.1) !important;
+    width: 100% !important;
+    min-width: 200px !important;
+  }
+  
+  .dropdown-item {
+    background: rgba(30,41,59,0.8) !important;
+    border-bottom: 1px solid rgba(59,130,246,0.1) !important;
+    color: #f8fafc !important;
+  }
+  
+  .dropdown-item:hover {
+    background: linear-gradient(135deg, rgba(59,130,246,0.25) 0%, rgba(37,99,235,0.25) 100%) !important;
+    color: #93c5fd !important;
+  }
+  
+  /* Контейнер меню пользователя */
+  .glass-user-menu {
+    position: relative !important;
+    z-index: 999999 !important;
+  }
+  
+  /* Убираем выделение текста для всех элементов */
+  .glass-title,
+  .group-title,
+  .suggestion-title,
+  .suggestion-subtitle,
+  .result-title,
+  .result-subtitle,
+  .history-text,
+  .history-time,
+  .user-info,
+  .dropdown-arrow,
+  .glass-footer p {
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+    -webkit-touch-callout: none !important;
+    caret-color: transparent !important;
+  }
+  
+
+  
+  /* Общие элементы */
+  * {
+    scrollbar-color: #475569 #1e293b;
+  }
+  
+  /* Скроллбары */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #1e293b;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #475569;
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+  }
+}
