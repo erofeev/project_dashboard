@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { DatabaseService } from './database.service';
 
 export interface Migration {
   version: number;
@@ -15,7 +14,7 @@ export class DatabaseMigrationService {
   private readonly MIGRATION_VERSION_KEY = 'db_migration_version';
   private currentVersion = 0;
 
-  constructor(private databaseService: DatabaseService) {
+  constructor() {
     this.loadCurrentVersion();
   }
 
@@ -50,8 +49,8 @@ export class DatabaseMigrationService {
         description: 'Создание базовой структуры базы данных',
         execute: async () => {
           console.log('Выполнение миграции: Initial Schema');
-          // Базовая структура уже создается в DatabaseService
-          // Индексы создаются автоматически при инициализации
+          // Базовая структура создается автоматически при инициализации DatabaseService
+          console.log('Миграция Initial Schema выполнена');
         }
       },
       {

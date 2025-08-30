@@ -53,7 +53,7 @@ export class DatabaseConfigService {
   private getDefaultConfig(): DatabaseConfig {
     return {
       name: 'project_management_db',
-      adapter: 'idb',
+      adapter: 'idb', // IndexedDB для браузера
       autoCompaction: true,
       syncEnabled: false,
       remoteUrl: undefined,
