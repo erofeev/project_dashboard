@@ -121,9 +121,7 @@ import { UserSettingsService } from './services/user-settings.service';
                       [title]="theme==='light' ? ('HEADER.THEME_LIGHT' | translate) : ('HEADER.THEME_DARK' | translate)">
                 {{ theme === 'light' ? '🌙' : '☀️' }}
               </button>
-              <button class="glass-button" (click)="toggleRightSidebar()" [title]="'HEADER.HIERARCHY' | translate">
-                ☰
-              </button>
+
             </div>
             <div class="glass-user-menu">
               <div class="user-dropdown" (click)="toggleUserMenu()" [class.open]="userMenuOpen">
