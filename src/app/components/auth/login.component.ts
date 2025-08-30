@@ -60,6 +60,13 @@ import { AuthService } from '../../services/auth.service';
           <div class="demo-credentials">
             <p class="demo-text">{{ 'AUTH.DEMO_CREDENTIALS' | translate }}</p>
             <p class="demo-email">admin@admin.ru / admin</p>
+            <button 
+              type="button" 
+              class="btn btn-secondary glassmorphism-btn" 
+              (click)="clearAuth()"
+              style="margin-top: 10px; font-size: 12px; padding: 8px 16px;">
+              Очистить аутентификацию (для тестирования)
+            </button>
           </div>
         </form>
 
@@ -193,6 +200,23 @@ import { AuthService } from '../../services/auth.service';
       transform: none;
     }
 
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
     .demo-credentials {
       margin-top: 20px;
       padding: 15px;
@@ -299,5 +323,21 @@ export class LoginComponent {
     } finally {
       this.isLoading = false;
     }
+  }
+
+  clearAuth(): void {
+    console.log('Starting clear auth process...');
+    this.successMessage = 'Аутентификация очищена. Перезагрузите страницу.';
+    
+    // Добавляем небольшую задержку перед очисткой, чтобы сообщение успело отобразиться
+    setTimeout(() => {
+      this.authService.forceClearAuth();
+      console.log('Authentication cleared via service');
+      
+      // Очищаем сообщение через 5 секунд
+      setTimeout(() => {
+        this.successMessage = '';
+      }, 5000);
+    }, 100);
   }
 }

@@ -28,7 +28,21 @@ import { UserSettingsService } from './services/user-settings.service';
     <!-- Панель управления 3D ландшафтом -->
     <app-landscape-control-panel></app-landscape-control-panel>
     
-    <div class="app-container" [class.sidebar-open]="leftSidebarOpen" *ngIf="authState.isAuthenticated">
+    <!-- Индикатор загрузки состояния авторизации -->
+    <div class="loading-overlay" *ngIf="!(authService.isInitialized$ | async)">
+      <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Загрузка...</p>
+      </div>
+    </div>
+    
+    <!-- Страница логина для неавторизованных пользователей -->
+    <div class="login-fullscreen" *ngIf="(authService.isInitialized$ | async) && !authState.isAuthenticated">
+      <router-outlet></router-outlet>
+    </div>
+    
+    <!-- Основной интерфейс приложения для авторизованных пользователей -->
+    <div class="app-container" [class.sidebar-open]="leftSidebarOpen" *ngIf="(authService.isInitialized$ | async) && authState.isAuthenticated">
       <header class="glass-header" [class.sidebar-open]="leftSidebarOpen">
         <div class="header-top-row">
           <div class="left-group">
@@ -272,6 +286,7 @@ import { UserSettingsService } from './services/user-settings.service';
 
       <main class="glass-main">
         <div class="glass-content-panel">
+          <!-- Единый роутер для всех страниц -->
           <router-outlet></router-outlet>
         </div>
       </main>
@@ -310,7 +325,7 @@ import { UserSettingsService } from './services/user-settings.service';
       <div class="backdrop" *ngIf="bottomSidebarOpen" (click)="closeBottomSidebar()"></div>
     </div>
 
-    <router-outlet *ngIf="!authState.isAuthenticated"></router-outlet>
+
   `,
   styles: [`
     .app-container {
@@ -345,6 +360,17 @@ import { UserSettingsService } from './services/user-settings.service';
     
     .glass-header.sidebar-open {
       left: 260px; /* Сдвигаем хедер вправо при открытии сайдбара */
+    }
+
+    /* Стили для страницы логина на весь экран */
+    .login-fullscreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1000000;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
     
     .header-top-row {
@@ -1992,7 +2018,7 @@ export class AppComponent implements OnInit {
   constructor(
     private translate: TranslateService,
     private router: Router,
-    private authService: AuthService,
+    public authService: AuthService,
     private userSettingsService: UserSettingsService
   ) {
     this.translate.setDefaultLang('ru');
@@ -2106,7 +2132,19 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.authState$.subscribe(state => { this.authState = state; });
+    console.log('AppComponent: ngOnInit - initializing...');
+    
+    // Подписываемся на изменения состояния авторизации
+    this.authService.authState$.subscribe(state => { 
+      console.log('AppComponent: auth state changed:', state);
+      this.authState = state; 
+    });
+    
+    // Подписываемся на состояние инициализации
+    this.authService.isInitialized$.subscribe(isInitialized => {
+      console.log('AppComponent: auth service initialized:', isInitialized);
+    });
+    
     this.router.events.subscribe(() => this.updateBreadcrumbs());
     this.updateBreadcrumbs();
     

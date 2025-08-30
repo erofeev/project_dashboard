@@ -19,28 +19,51 @@ export class AuthService {
     token: null
   });
 
+  private isInitializedSubject = new BehaviorSubject<boolean>(false);
+  
   public authState$ = this.authStateSubject.asObservable();
+  public isInitialized$ = this.isInitializedSubject.asObservable();
 
   constructor(private databaseService: DatabaseService) {
+    // Немедленно проверяем сохраненную авторизацию при создании сервиса
     this.checkStoredAuth();
   }
 
   private checkStoredAuth(): void {
+    console.log('AuthService: checking stored authentication...');
     const storedUser = localStorage.getItem('currentUser');
     const storedToken = localStorage.getItem('authToken');
+    
+    console.log('AuthService: storedUser =', storedUser ? 'exists' : 'not found');
+    console.log('AuthService: storedToken =', storedToken ? 'exists' : 'not found');
     
     if (storedUser && storedToken) {
       try {
         const user = JSON.parse(storedUser);
-        this.authStateSubject.next({
-          isAuthenticated: true,
-          currentUser: user,
-          token: storedToken
-        });
+        console.log('AuthService: parsed user =', user);
+        
+        // Проверяем валидность токена
+        if (this.isTokenValid(storedToken)) {
+          this.authStateSubject.next({
+            isAuthenticated: true,
+            currentUser: user,
+            token: storedToken
+          });
+          console.log('AuthService: user authenticated from stored data (valid token)');
+        } else {
+          console.log('AuthService: stored token is expired or invalid, clearing auth');
+          this.clearStoredAuth();
+        }
       } catch (error) {
+        console.error('AuthService: error parsing stored user:', error);
         this.clearStoredAuth();
       }
+    } else {
+      console.log('AuthService: no stored authentication data found');
     }
+    
+    // Отмечаем, что инициализация завершена
+    this.isInitializedSubject.next(true);
   }
 
   private clearStoredAuth(): void {
@@ -122,6 +145,23 @@ export class AuthService {
       currentUser: null,
       token: null
     });
+    
+    // Сбрасываем состояние инициализации при выходе
+    this.isInitializedSubject.next(false);
+  }
+
+  // Метод для принудительной очистки аутентификации (для тестирования)
+  forceClearAuth(): void {
+    console.log('AuthService: force clearing authentication');
+    this.clearStoredAuth();
+    this.authStateSubject.next({
+      isAuthenticated: false,
+      currentUser: null,
+      token: null
+    });
+    
+    // Сбрасываем состояние инициализации при принудительной очистке
+    this.isInitializedSubject.next(false);
   }
 
   private generateToken(user: User): string {
@@ -142,12 +182,39 @@ export class AuthService {
     return user.password === password || password === 'demo123';
   }
 
+  isTokenValid(token: string): boolean {
+    try {
+      const payload = JSON.parse(atob(token));
+      const now = Date.now();
+      const tokenAge = now - payload.timestamp;
+      const maxAge = 24 * 60 * 60 * 1000; // 24 часа
+      
+      console.log('AuthService: token age =', tokenAge, 'ms, max age =', maxAge, 'ms');
+      return tokenAge < maxAge;
+    } catch (error) {
+      console.error('AuthService: error parsing token:', error);
+      return false;
+    }
+  }
+
   getCurrentUser(): User | null {
     return this.authStateSubject.value.currentUser;
   }
 
   isAuthenticated(): boolean {
-    return this.authStateSubject.value.isAuthenticated;
+    const authState = this.authStateSubject.value;
+    const isAuth = authState.isAuthenticated && authState.token && this.isTokenValid(authState.token);
+    
+    console.log('AuthService: isAuthenticated() called, returning:', isAuth);
+    
+    // Если токен невалиден, но состояние показывает авторизацию, очищаем его
+    if (authState.isAuthenticated && (!authState.token || !this.isTokenValid(authState.token))) {
+      console.log('AuthService: invalid token detected, clearing auth state');
+      this.clearStoredAuth();
+      return false;
+    }
+    
+    return Boolean(isAuth);
   }
 
   hasRole(role: UserRole): boolean {
@@ -249,22 +316,7 @@ export class AuthService {
     return updatedUser;
   }
 
-  // Проверка токена
-  isTokenValid(): boolean {
-    const token = this.authStateSubject.value.token;
-    if (!token) return false;
-    
-    try {
-      const payload = JSON.parse(atob(token));
-      const now = Date.now();
-      const tokenAge = now - payload.timestamp;
-      
-      // Токен действителен 24 часа
-      return tokenAge < 24 * 60 * 60 * 1000;
-    } catch (error) {
-      return false;
-    }
-  }
+
 
   // Обновление токена
   refreshToken(): void {
