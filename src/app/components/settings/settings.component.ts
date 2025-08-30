@@ -130,6 +130,34 @@ import { Subscription } from 'rxjs';
                 </select>
               </div>
               
+              <!-- Настройки темы -->
+              <div class="settings-group">
+                <h3>{{ getTranslation('SETTINGS.UI.THEME_TITLE', 'Тема оформления') }}</h3>
+                <p class="setting-description">
+                  {{ getTranslation('SETTINGS.UI.THEME_DESCRIPTION', 'Выберите светлую или темную тему интерфейса') }}
+                </p>
+                
+                <div class="control-group">
+                  <label class="control-label">
+                    {{ getTranslation('SETTINGS.UI.THEME_MODE', 'Режим темы') }}
+                  </label>
+                  <div class="theme-toggle">
+                    <button 
+                      (click)="setTheme('light')"
+                      class="theme-button"
+                      [class.active]="uiSettings.theme === 'light'">
+                      ☀️ {{ getTranslation('SETTINGS.UI.THEME_LIGHT', 'Светлая') }}
+                    </button>
+                    <button 
+                      (click)="setTheme('dark')"
+                      class="theme-button"
+                      [class.active]="uiSettings.theme === 'dark'">
+                      🌙 {{ getTranslation('SETTINGS.UI.THEME_DARK', 'Темная') }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
               <!-- Настройки прозрачности и блюра -->
               <div class="settings-group">
                 <h3>{{ getTranslation('SETTINGS.UI.TRANSPARENCY_TITLE', 'Прозрачность и блюр') }}</h3>
@@ -246,18 +274,18 @@ import { Subscription } from 'rxjs';
                 </div>
               </div>
               
-              <!-- Быстрые пресеты -->
-              <div class="preset-section">
-                <h4>{{ getTranslation('SETTINGS.UI.PRESETS', 'Быстрые пресеты') }}</h4>
-                <div class="preset-buttons">
-                  <button 
-                    *ngFor="let scheme of presetSchemes | keyvalue" 
-                    (click)="applyPreset(scheme.key)"
-                    class="preset-button"
-                    [class.active]="landscapeSettings.colorScheme === scheme.key">
-                    {{ getPresetName(scheme.key) }}
-                  </button>
-                </div>
+              <!-- Пользовательский пресет -->
+              <div class="custom-preset-section">
+                <h4>{{ getTranslation('SETTINGS.UI.CUSTOM_PRESET', 'Пользовательский пресет') }}</h4>
+                <p class="setting-description">
+                  {{ getTranslation('SETTINGS.UI.CUSTOM_PRESET_DESCRIPTION', 'Сохраните текущие настройки как пользовательский пресет') }}
+                </p>
+                <button 
+                  (click)="saveAsCustomPreset()"
+                  class="preset-button custom"
+                  [class.active]="landscapeSettings.colorScheme === 'custom'">
+                  💾 {{ getTranslation('SETTINGS.UI.SAVE_CUSTOM', 'Сохранить текущий') }}
+                </button>
               </div>
             </div>
           </div>
@@ -495,50 +523,50 @@ import { Subscription } from 'rxjs';
     }
     
     .settings-group {
-      margin-bottom: 30px;
+      margin-bottom: 20px; /* Уменьшили с 30px */
     }
     
     .settings-group h3 {
-      margin: 0 0 15px 0;
-      font-size: 1.3rem;
+      margin: 0 0 12px 0; /* Уменьшили с 15px */
+      font-size: 1.2rem; /* Уменьшили с 1.3rem */
       color: #374151;
       font-weight: 600;
     }
     
     .setting-description {
-      margin: 0 0 25px 0;
+      margin: 0 0 18px 0; /* Уменьшили с 25px */
       color: #6b7280;
-      line-height: 1.6;
-      font-size: 14px;
+      line-height: 1.5; /* Уменьшили с 1.6 */
+      font-size: 13px; /* Уменьшили с 14px */
     }
     
     .control-group {
-      margin-bottom: 25px;
+      margin-bottom: 18px; /* Уменьшили с 25px */
     }
     
     .control-label {
       display: block;
-      margin-bottom: 10px;
+      margin-bottom: 8px; /* Уменьшили с 10px */
       font-weight: 600;
       color: #374151;
-      font-size: 14px;
+      font-size: 13px; /* Уменьшили с 14px */
     }
     
     .control-slider {
       width: 100%;
-      height: 8px;
-      border-radius: 4px;
+      height: 6px; /* Уменьшили с 8px */
+      border-radius: 3px; /* Уменьшили с 4px */
       background: rgba(59,130,246,0.2);
       outline: none;
       -webkit-appearance: none;
-      margin-bottom: 8px;
+      margin-bottom: 6px; /* Уменьшили с 8px */
     }
     
     .control-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 20px;
-      height: 20px;
+      width: 18px; /* Уменьшили с 20px */
+      height: 18px; /* Уменьшили с 20px */
       border-radius: 50%;
       background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
       cursor: pointer;
@@ -546,8 +574,8 @@ import { Subscription } from 'rxjs';
     }
     
     .control-slider::-moz-range-thumb {
-      width: 20px;
-      height: 20px;
+      width: 18px; /* Уменьшили с 20px */
+      height: 18px; /* Уменьшили с 20px */
       border-radius: 50%;
       background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
       cursor: pointer;
@@ -558,18 +586,18 @@ import { Subscription } from 'rxjs';
     .control-range {
       display: flex;
       justify-content: space-between;
-      font-size: 12px;
+      font-size: 11px; /* Уменьшили с 12px */
       color: #6b7280;
     }
     
     .control-select {
       width: 100%;
-      padding: 12px 16px;
+      padding: 10px 14px; /* Уменьшили padding */
       border: 2px solid rgba(59,130,246,0.2);
       border-radius: 8px;
       background: rgba(255,255,255,0.9);
       color: #374151;
-      font-size: 14px;
+      font-size: 13px; /* Уменьшили с 14px */
       cursor: pointer;
       transition: all 0.2s ease;
     }
@@ -623,6 +651,36 @@ import { Subscription } from 'rxjs';
       color: #1d4ed8;
     }
     
+    .custom-preset-section {
+      margin-top: 18px; /* Уменьшили с 24px */
+      padding-top: 16px; /* Уменьшили с 20px */
+      border-top: 1px solid rgba(59,130,246,0.2);
+    }
+    
+    .custom-preset-section h4 {
+      margin: 0 0 10px 0; /* Уменьшили с 12px */
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #374151;
+    }
+    
+    .preset-button.custom {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      border-color: #10b981;
+      color: white;
+    }
+    
+    .preset-button.custom:hover {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      border-color: #059669;
+    }
+    
+    .preset-button.custom.active {
+      background: linear-gradient(135deg, #047857 0%, #065f46 100%);
+      border-color: #047857;
+      box-shadow: 0 4px 16px rgba(16,185,129,0.3);
+    }
+    
     .coming-soon {
       text-align: center;
       color: #6b7280;
@@ -633,16 +691,16 @@ import { Subscription } from 'rxjs';
     
     /* Стили для фильтров */
     .filter-section {
-      margin-bottom: 25px;
-      padding: 20px;
+      margin-bottom: 18px; /* Уменьшили с 25px */
+      padding: 16px; /* Уменьшили с 20px */
       background: rgba(59,130,246,0.05);
       border-radius: 8px;
       border: 1px solid rgba(59,130,246,0.1);
     }
     
     .filter-section h4 {
-      margin: 0 0 15px 0;
-      font-size: 1.1rem;
+      margin: 0 0 12px 0; /* Уменьшили с 15px */
+      font-size: 1rem; /* Уменьшили с 1.1rem */
       color: #374151;
       font-weight: 600;
     }
@@ -650,40 +708,40 @@ import { Subscription } from 'rxjs';
     .checkbox-group {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px; /* Уменьшили с 12px */
     }
     
     .checkbox-item {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px; /* Уменьшили с 10px */
       cursor: pointer;
-      font-size: 14px;
+      font-size: 13px; /* Уменьшили с 14px */
       color: #374151;
     }
     
     .checkbox-item input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
+      width: 16px; /* Уменьшили с 18px */
+      height: 16px; /* Уменьшили с 18px */
       accent-color: #3b82f6;
     }
     
     .actions-section {
       display: flex;
-      gap: 15px;
-      margin-top: 30px;
-      padding-top: 25px;
+      gap: 12px; /* Уменьшили с 15px */
+      margin-top: 20px; /* Уменьшили с 30px */
+      padding-top: 18px; /* Уменьшили с 25px */
       border-top: 1px solid rgba(59,130,246,0.2);
     }
     
     .action-button {
-      padding: 12px 24px;
+      padding: 10px 20px; /* Уменьшили padding */
       border: 2px solid;
       border-radius: 8px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
-      font-size: 14px;
+      font-size: 13px; /* Уменьшили с 14px */
     }
     
     .action-button.primary {
@@ -706,6 +764,44 @@ import { Subscription } from 'rxjs';
     .action-button.secondary:hover {
       background: rgba(59,130,246,0.1);
       border-color: rgba(59,130,246,0.5);
+    }
+    
+    /* Стили для переключения темы */
+    .theme-toggle {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    
+    .theme-button {
+      flex: 1;
+      padding: 12px 20px;
+      border: 2px solid rgba(59, 130, 246, 0.2);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.8);
+      color: #374151;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    
+    .theme-button:hover {
+      border-color: rgba(59, 130, 246, 0.4);
+      background: rgba(255, 255, 255, 0.9);
+      transform: translateY(-2px);
+    }
+    
+    .theme-button.active {
+      border-color: #3b82f6;
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+      color: white;
+      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+    }
+    
+    .theme-button.active:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
     }
     
     /* Темная тема */
@@ -826,6 +922,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
     
     // Инициализируем UI настройки
     this.uiSettings = { ...userSettings.ui };
+    
+    // Инициализируем настройки ландшафта
+    this.landscapeSettings = { ...this.landscapeService.getCurrentSettings() };
   }
 
   ngOnDestroy(): void {
@@ -843,7 +942,11 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   updateLandscapeSettings(): void {
+    // Обновляем настройки ландшафта
     this.landscapeService.updateSettings(this.landscapeSettings);
+    
+    // Обновляем UI настройки, чтобы сохранить изменения
+    this.userSettingsService.updateSection('landscape', this.landscapeSettings);
   }
 
   applyPreset(schemeKey: string | number): void {
@@ -856,9 +959,17 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   getPresetName(schemeKey: string | number): string {
-    const key = schemeKey.toString().toUpperCase();
+    const key = schemeKey.toString().toUpperCase().replace('-', '_');
     const translationKey = `SETTINGS.UI.PRESET_NAMES.${key}`;
-    return this.getTranslation(translationKey, schemeKey.toString());
+    const translation = this.getTranslation(translationKey, '');
+    
+    // Если перевод не найден, используем fallback из presetSchemes
+    if (!translation) {
+      const scheme = this.presetSchemes[schemeKey.toString()];
+      return scheme ? scheme.name : schemeKey.toString();
+    }
+    
+    return translation;
   }
 
   updateAnalyticsFilters(): void {
@@ -883,6 +994,37 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   updateUISettings(): void {
-    this.userSettingsService.updateSection('ui', this.uiSettings);
+    // Сохраняем текущий активный пресет ландшафта
+    const currentLandscapeSettings = this.landscapeService.getCurrentSettings();
+    
+    // Обновляем только UI настройки, не затрагивая настройки ландшафта
+    this.userSettingsService.updateSection('ui', {
+      theme: this.uiSettings.theme,
+      language: this.uiSettings.language,
+      sidebarCollapsed: this.uiSettings.sidebarCollapsed,
+      animationsEnabled: this.uiSettings.animationsEnabled,
+      transparency: this.uiSettings.transparency,
+      blur: this.uiSettings.blur
+    });
+    
+    // Восстанавливаем настройки ландшафта, чтобы пресет не сбрасывался
+    this.landscapeService.updateSettings(currentLandscapeSettings);
+  }
+
+  setTheme(theme: 'light' | 'dark'): void {
+    this.uiSettings.theme = theme;
+    this.updateUISettings();
+    
+    // Применяем тему к body
+    const host = document.querySelector('body');
+    if (host) { 
+      host.classList.toggle('theme-dark', theme === 'dark'); 
+    }
+  }
+
+  saveAsCustomPreset(): void {
+    // Устанавливаем текущую схему как пользовательский пресет
+    this.landscapeSettings.colorScheme = 'custom';
+    this.updateLandscapeSettings();
   }
 }

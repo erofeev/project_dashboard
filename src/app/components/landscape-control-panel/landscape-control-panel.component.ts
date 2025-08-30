@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LandscapeControlService, LandscapeSettings } from '../../services/landscape-control.service';
+import { UserSettingsService } from '../../services/user-settings.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -9,7 +10,7 @@ import { Subscription } from 'rxjs';
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <div class="control-panel" [class.open]="isOpen">
+    <div class="control-panel" [class.open]="isOpen" [class.theme-dark]="currentTheme === 'dark'">
       <button class="toggle-button" (click)="togglePanel()" [title]="isOpen ? 'Скрыть панель' : 'Показать панель'">
         {{ isOpen ? '⚙️' : '🎨' }}
       </button>
@@ -256,33 +257,68 @@ import { Subscription } from 'rxjs';
     }
     
     /* Темная тема */
-    :host-context(.theme-dark) .panel-content {
+    :host-context(.theme-dark) .panel-content,
+    .theme-dark .panel-content {
       background: rgba(30, 41, 59, 0.95);
       border-color: rgba(59,130,246,0.3);
     }
     
-    :host-context(.theme-dark) .panel-header h3 {
+    :host-context(.theme-dark) .panel-header h3,
+    .theme-dark .panel-header h3 {
       color: #f8fafc;
     }
     
-    :host-context(.theme-dark) .control-group label {
+    :host-context(.theme-dark) .control-group label,
+    .theme-dark .control-group label {
       color: #e5e7eb;
     }
     
-    :host-context(.theme-dark) .select {
+    :host-context(.theme-dark) .select,
+    .theme-dark .select {
       background: rgba(30, 41, 59, 0.9);
       border-color: rgba(59,130,246,0.3);
       color: #f8fafc;
     }
     
-    :host-context(.theme-dark) .preset-button {
+    :host-context(.theme-dark) .preset-button,
+    .theme-dark .preset-button {
       background: rgba(30, 41, 59, 0.8);
       border-color: rgba(59,130,246,0.3);
       color: #e5e7eb;
     }
     
-    :host-context(.theme-dark) .preset-button:hover {
+    :host-context(.theme-dark) .preset-button:hover,
+    .theme-dark .preset-button:hover {
       background: rgba(59,130,246,0.2);
+    }
+    
+    /* Дополнительные стили для темной темы */
+    .theme-dark .control-panel {
+      background: rgba(15, 23, 42, 0.9);
+      border-color: rgba(59,130,246,0.3);
+    }
+    
+    .theme-dark .toggle-button {
+      background: rgba(30, 41, 59, 0.9);
+      border-color: rgba(59,130,246,0.3);
+      color: #f8fafc;
+    }
+    
+    .theme-dark .toggle-button:hover {
+      background: rgba(59,130,246,0.2);
+      border-color: rgba(59,130,246,0.5);
+    }
+    
+    .theme-dark .slider {
+      background: rgba(30, 41, 59, 0.9);
+    }
+    
+    .theme-dark .slider::-webkit-slider-thumb {
+      background: #3b82f6;
+    }
+    
+    .theme-dark .slider::-moz-range-thumb {
+      background: #3b82f6;
     }
   `]
 })
@@ -290,9 +326,14 @@ export class LandscapeControlPanelComponent implements OnInit, OnDestroy {
   isOpen = false;
   settings: LandscapeSettings;
   presetSchemes: { [key: string]: { name: string; description: string; colors: { r: number; g: number; b: number } } };
+  currentTheme: 'light' | 'dark' = 'light';
   private subscription!: Subscription;
+  private themeSubscription!: Subscription;
 
-  constructor(private landscapeService: LandscapeControlService) {
+  constructor(
+    private landscapeService: LandscapeControlService,
+    private userSettingsService: UserSettingsService
+  ) {
     this.settings = this.landscapeService.getCurrentSettings();
     this.presetSchemes = this.landscapeService.getPresetSchemes();
   }
@@ -301,11 +342,23 @@ export class LandscapeControlPanelComponent implements OnInit, OnDestroy {
     this.subscription = this.landscapeService.settings$.subscribe(settings => {
       this.settings = settings;
     });
+    
+    // Подписываемся на изменения темы
+    this.themeSubscription = this.userSettingsService.settings$.subscribe(settings => {
+      this.currentTheme = settings.ui.theme;
+    });
+    
+    // Инициализируем текущую тему
+    const userSettings = this.userSettingsService.getSettings();
+    this.currentTheme = userSettings.ui.theme;
   }
 
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
+    }
+    if (this.themeSubscription) {
+      this.themeSubscription.unsubscribe();
     }
   }
 

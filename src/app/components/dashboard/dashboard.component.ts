@@ -224,11 +224,13 @@ interface MetricData {
     .metric-card {
       background: linear-gradient(135deg, rgba(255,255,255,var(--widgets-transparency, 0.88)) 0%, rgba(248,250,252,var(--widgets-transparency, 0.88)) 100%);
       backdrop-filter: blur(var(--widgets-blur, 4px));
-      border-radius: 24px;
+      border-radius: 16px; /* Уменьшили с 24px */
       border: 2px solid rgba(59,130,246,0.2);
-      padding: 14px; /* Уменьшили в 2 раза с 28px */
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 8px 32px rgba(59,130,246,0.12);
+      padding: 9px; /* Уменьшили в 1.5 раза с 14px */
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                  background 0.3s ease,
+                  backdrop-filter 0.3s ease;
+      box-shadow: 0 5px 21px rgba(59,130,246,0.12); /* Уменьшили shadow */
       position: relative;
       overflow: hidden;
       cursor: pointer;
@@ -282,7 +284,7 @@ interface MetricData {
     }
     
     .metric-icon {
-      font-size: 2rem;
+      font-size: 1.3rem; /* Уменьшили в 1.5 раза с 2rem */
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
     }
     
@@ -413,15 +415,15 @@ interface MetricData {
     }
     
     .secondary-metric {
-      background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,250,252,0.9) 100%);
-      backdrop-filter: blur(15px);
+      background: linear-gradient(135deg, rgba(255,255,255,var(--widgets-transparency, 0.9)) 0%, rgba(248,250,252,var(--widgets-transparency, 0.9)) 100%);
+      backdrop-filter: blur(var(--widgets-blur, 15px));
       border-radius: 16px;
       border: 1px solid rgba(59,130,246,0.1);
       padding: 20px;
       display: flex;
       align-items: center;
       gap: 16px;
-      transition: all 0.3s ease;
+      transition: all 0.3s ease, background 0.3s ease, backdrop-filter 0.3s ease;
       box-shadow: 0 4px 16px rgba(59,130,246,0.08);
     }
     
@@ -458,6 +460,7 @@ interface MetricData {
       background: linear-gradient(135deg, rgba(15,23,42,var(--widgets-transparency, 0.85)) 0%, rgba(30,41,59,var(--widgets-transparency, 0.85)) 100%);
       border-color: rgba(59,130,246,0.25);
       box-shadow: 0 8px 32px rgba(59,130,246,0.15);
+      transition: background 0.3s ease, backdrop-filter 0.3s ease;
     }
     
     :host-context(.theme-dark) .metric-card:hover {
@@ -485,8 +488,9 @@ interface MetricData {
     }
     
     :host-context(.theme-dark) .secondary-metric {
-      background: linear-gradient(135deg, rgba(15,23,42,0.8) 0%, rgba(30,41,59,0.8) 100%);
+      background: linear-gradient(135deg, rgba(15,23,42,var(--widgets-transparency, 0.8)) 0%, rgba(30,41,59,var(--widgets-transparency, 0.8)) 100%);
       border-color: rgba(59,130,246,0.2);
+      transition: background 0.3s ease;
     }
     
     :host-context(.theme-dark) .secondary-label {

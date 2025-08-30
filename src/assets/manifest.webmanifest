@@ -1,6 +1,6 @@
 {
-  "name": "Wone IT - Business Solutions - Project Management",
-  "short_name": "Wone IT PM",
+  "name": "Wone IT - Project Control Center",
+  "short_name": "Wone IT PCC",
   "description": "Система управления проектами и бизнес-аналитики от Wone IT",
   "display": "standalone",
   "scope": "./",
@@ -9,9 +9,9 @@
   "background_color": "#ffffff",
   "icons": [
     {
-      "src": "../favicon.ico",
+      "src": "wone-it-logo.svg",
       "sizes": "any",
-      "type": "image/png",
+      "type": "image/svg+xml",
       "purpose": "any"
     }
   ]

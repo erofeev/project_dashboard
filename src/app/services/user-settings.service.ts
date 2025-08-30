@@ -26,7 +26,7 @@ export interface UserSettings {
     animationSpeed: number;
     pointSize: number;
     gridSize: number;
-    colorScheme: 'wone-it' | 'sunset' | 'ocean' | 'forest';
+    colorScheme: 'wone-it' | 'sunset' | 'ocean' | 'forest' | 'custom';
     enabled: boolean;
   };
   

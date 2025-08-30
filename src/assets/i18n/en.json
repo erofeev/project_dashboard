@@ -1,6 +1,6 @@
 {
   "COMMON": {
-    "APP_TITLE": "Wone IT - Business Solutions - Project Management",
+    "APP_TITLE": "Business Solutions",
     "ALL_RIGHTS_RESERVED": "All rights reserved"
   },
   "NAV": {
@@ -113,7 +113,16 @@
       "SIDEBARS_TRANSPARENCY": "Sidebars Transparency",
       "FORMS_BLUR": "Forms Blur",
       "WIDGETS_BLUR": "Widgets Blur",
-      "SIDEBARS_BLUR": "Sidebars Blur"
+      "SIDEBARS_BLUR": "Sidebars Blur",
+      "THEME_TITLE": "Theme",
+      "THEME_DESCRIPTION": "Choose light or dark interface theme",
+      "THEME_MODE": "Theme Mode",
+      "THEME_LIGHT": "Light",
+      "THEME_DARK": "Dark",
+      "PRESETS_DESCRIPTION": "Choose a ready-made settings scheme",
+      "CUSTOM_PRESET": "Custom Preset",
+      "CUSTOM_PRESET_DESCRIPTION": "Save current settings as a custom preset",
+      "SAVE_CUSTOM": "Save Current"
     },
     "FILTERS": {
       "TITLE": "Filter Settings",

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild, HostListener } from '@angular/core';
 import * as THREE from 'three';
 import { LandscapeControlService } from '../../services/landscape-control.service';
+import { UserSettingsService } from '../../services/user-settings.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -33,14 +34,19 @@ export class Landscape3dComponent implements OnInit, OnDestroy {
   private animationId: number = 0;
   private time: number = 0;
   private settingsSubscription!: Subscription;
+  private themeSubscription!: Subscription;
+  private currentTheme: 'light' | 'dark' = 'light';
 
   // Параметры сетки
-  private readonly GRID_SIZE = 100;
+  private GRID_SIZE = 100;
   private readonly POINT_SIZE = 2;
   private readonly ANIMATION_SPEED = 0.3; // Сделали медленнее
   private readonly WAVE_AMPLITUDE = 15;
 
-  constructor(private landscapeService: LandscapeControlService) {}
+  constructor(
+    private landscapeService: LandscapeControlService,
+    private userSettingsService: UserSettingsService
+  ) {}
 
   ngOnInit(): void {
     this.initThreeJS();
@@ -50,6 +56,19 @@ export class Landscape3dComponent implements OnInit, OnDestroy {
     this.settingsSubscription = this.landscapeService.settings$.subscribe(settings => {
       this.applySettings(settings);
     });
+
+    // Подписываемся на изменения темы
+    this.themeSubscription = this.userSettingsService.settings$.subscribe(settings => {
+      if (settings.ui.theme !== this.currentTheme) {
+        this.currentTheme = settings.ui.theme;
+        this.updateTheme();
+      }
+    });
+
+    // Инициализируем текущую тему
+    const userSettings = this.userSettingsService.getSettings();
+    this.currentTheme = userSettings.ui.theme;
+    this.updateTheme();
   }
 
   ngOnDestroy(): void {
@@ -61,6 +80,9 @@ export class Landscape3dComponent implements OnInit, OnDestroy {
     }
     if (this.settingsSubscription) {
       this.settingsSubscription.unsubscribe();
+    }
+    if (this.themeSubscription) {
+      this.themeSubscription.unsubscribe();
     }
   }
 
@@ -76,7 +98,13 @@ export class Landscape3dComponent implements OnInit, OnDestroy {
   private initThreeJS(): void {
     // Создаем сцену
     this.scene = new THREE.Scene();
-    this.scene.fog = new THREE.Fog(0x1a1a2e, 100, 200);
+    
+    // Настраиваем фон в зависимости от темы
+    if (this.currentTheme === 'dark') {
+      this.scene.fog = new THREE.Fog(0x000000, 100, 200); // Черный фон для темной темы
+    } else {
+      this.scene.fog = new THREE.Fog(0x1a1a2e, 100, 200); // Светлый фон для светлой темы
+    }
 
     // Создаем камеру
     this.camera = new THREE.PerspectiveCamera(
@@ -124,26 +152,29 @@ export class Landscape3dComponent implements OnInit, OnDestroy {
         const colorIntensity = Math.random() * 0.3 + 0.7;
         const variation = Math.random();
         
+        // Адаптируем интенсивность цветов в зависимости от темы
+        const themeMultiplier = this.currentTheme === 'dark' ? 1.2 : 1.0;
+        
         if (variation < 0.6) {
           // Основной фиолетовый цвет (как на баннере)
           colors.push(
-            0.6 * colorIntensity,  // R - фиолетовый
-            0.2 * colorIntensity,  // G
-            0.8 * colorIntensity   // B
+            Math.min(1.0, 0.6 * colorIntensity * themeMultiplier),  // R - фиолетовый
+            Math.min(1.0, 0.2 * colorIntensity * themeMultiplier),  // G
+            Math.min(1.0, 0.8 * colorIntensity * themeMultiplier)   // B
           );
         } else if (variation < 0.8) {
           // Красный акцент (как кнопка на баннере)
           colors.push(
-            0.9 * colorIntensity,  // R - красный
-            0.2 * colorIntensity,  // G
-            0.3 * colorIntensity   // B
+            Math.min(1.0, 0.9 * colorIntensity * themeMultiplier),  // R - красный
+            Math.min(1.0, 0.2 * colorIntensity * themeMultiplier),  // G
+            Math.min(1.0, 0.3 * colorIntensity * themeMultiplier)   // B
           );
         } else {
           // Светло-голубой (как элементы на экране ноутбука)
           colors.push(
-            0.4 * colorIntensity,  // R
-            0.7 * colorIntensity,  // G
-            0.9 * colorIntensity   // B
+            Math.min(1.0, 0.4 * colorIntensity * themeMultiplier),  // R
+            Math.min(1.0, 0.7 * colorIntensity * themeMultiplier),  // G
+            Math.min(1.0, 0.9 * colorIntensity * themeMultiplier)   // B
           );
         }
 
@@ -303,17 +334,45 @@ export class Landscape3dComponent implements OnInit, OnDestroy {
 
   // Обновляем размер сетки
   private updateGridSize(newSize: number): void {
+    // Очищаем старую геометрию и меш
+    if (this.mesh) {
+      this.scene.remove(this.mesh);
+      this.mesh.geometry.dispose();
+      if (Array.isArray(this.mesh.material)) {
+        this.mesh.material.forEach(mat => mat.dispose());
+      } else {
+        this.mesh.material.dispose();
+      }
+    }
     if (this.geometry) {
       this.geometry.dispose();
     }
     
+    // Обновляем размер сетки
+    this.GRID_SIZE = newSize;
+    
     // Пересоздаем геометрию с новым размером
     this.createGridGeometry();
+    
+    // Создаем новый меш
+    this.mesh = new THREE.Points(this.geometry, this.material);
+    this.scene.add(this.mesh);
   }
 
   // Обновляем цветовую схему
   private updateColorScheme(scheme: string): void {
     if (!this.geometry) return;
+    
+    // Очищаем старую геометрию и меш
+    if (this.mesh) {
+      this.scene.remove(this.mesh);
+      this.mesh.geometry.dispose();
+      if (Array.isArray(this.mesh.material)) {
+        this.mesh.material.forEach(mat => mat.dispose());
+      } else {
+        this.mesh.material.dispose();
+      }
+    }
     
     const colors: number[] = [];
     
@@ -321,28 +380,31 @@ export class Landscape3dComponent implements OnInit, OnDestroy {
       const colorIntensity = Math.random() * 0.3 + 0.7;
       const variation = Math.random();
       
+      // Адаптируем интенсивность цветов в зависимости от темы
+      const themeMultiplier = this.currentTheme === 'dark' ? 1.2 : 1.0;
+      
       if (scheme === 'wone-it') {
         // Стиль Wone IT с фиолетово-красными тонами как на баннере
         if (variation < 0.6) {
           // Основной фиолетовый цвет (как на баннере)
           colors.push(
-            0.6 * colorIntensity,  // R - фиолетовый
-            0.2 * colorIntensity,  // G
-            0.8 * colorIntensity   // B
+            Math.min(1.0, 0.6 * colorIntensity * themeMultiplier),  // R - фиолетовый
+            Math.min(1.0, 0.2 * colorIntensity * themeMultiplier),  // G
+            Math.min(1.0, 0.8 * colorIntensity * themeMultiplier)   // B
           );
         } else if (variation < 0.8) {
           // Красный акцент (как кнопка на баннере)
           colors.push(
-            0.9 * colorIntensity,  // R - красный
-            0.2 * colorIntensity,  // G
-            0.3 * colorIntensity   // B
+            Math.min(1.0, 0.9 * colorIntensity * themeMultiplier),  // R - красный
+            Math.min(1.0, 0.2 * colorIntensity * themeMultiplier),  // G
+            Math.min(1.0, 0.3 * colorIntensity * themeMultiplier)   // B
           );
         } else {
           // Светло-голубой (как элементы на экране ноутбука)
           colors.push(
-            0.4 * colorIntensity,  // R
-            0.7 * colorIntensity,  // G
-            0.9 * colorIntensity   // B
+            Math.min(1.0, 0.4 * colorIntensity * themeMultiplier),  // R
+            Math.min(1.0, 0.7 * colorIntensity * themeMultiplier),  // G
+            Math.min(1.0, 0.9 * colorIntensity * themeMultiplier)   // B
           );
         }
       } else {
@@ -355,13 +417,58 @@ export class Landscape3dComponent implements OnInit, OnDestroy {
         
         const colorScheme = colorMap[scheme as keyof typeof colorMap] || colorMap['sunset'];
         colors.push(
-          colorScheme.r * colorIntensity,
-          colorScheme.g * colorIntensity,
-          colorScheme.b * colorIntensity
+          Math.min(1.0, colorScheme.r * colorIntensity * themeMultiplier),
+          Math.min(1.0, colorScheme.g * colorIntensity * themeMultiplier),
+          Math.min(1.0, colorScheme.b * colorIntensity * themeMultiplier)
         );
       }
     }
     
+    // Обновляем цвета в геометрии
     this.geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+    
+    // Создаем новый меш с обновленной геометрией
+    this.mesh = new THREE.Points(this.geometry, this.material);
+    this.scene.add(this.mesh);
+  }
+
+  private updateTheme(): void {
+    if (this.currentTheme === 'dark') {
+      // Темная тема - черный фон
+      this.scene.fog = new THREE.Fog(0x000000, 100, 200);
+      this.renderer.setClearColor(0x000000, 0);
+      
+      // Также обновляем освещение для темной темы
+      if (this.scene.children.length > 0) {
+        this.scene.children.forEach(child => {
+          if (child instanceof THREE.AmbientLight) {
+            child.intensity = 0.3; // Уменьшаем общее освещение
+          }
+        });
+      }
+      
+      // Обновляем цвета точек для лучшей видимости в темной теме
+      if (this.geometry && this.material) {
+        this.updateColorScheme(this.landscapeService.getCurrentSettings().colorScheme);
+      }
+    } else {
+      // Светлая тема - светлый фон
+      this.scene.fog = new THREE.Fog(0x1a1a2e, 100, 200);
+      this.renderer.setClearColor(0x000000, 0);
+      
+      // Восстанавливаем стандартное освещение для светлой темы
+      if (this.scene.children.length > 0) {
+        this.scene.children.forEach(child => {
+          if (child instanceof THREE.AmbientLight) {
+            child.intensity = 0.6; // Стандартное освещение
+          }
+        });
+      }
+      
+      // Обновляем цвета точек для светлой темы
+      if (this.geometry && this.material) {
+        this.updateColorScheme(this.landscapeService.getCurrentSettings().colorScheme);
+      }
+    }
   }
 }

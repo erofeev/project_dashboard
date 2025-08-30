@@ -29,13 +29,13 @@ import { UserSettingsService } from './services/user-settings.service';
     <app-landscape-control-panel></app-landscape-control-panel>
     
     <div class="app-container" [class.sidebar-open]="leftSidebarOpen" *ngIf="authState.isAuthenticated">
-      <header class="glass-header">
+      <header class="glass-header" [class.sidebar-open]="leftSidebarOpen">
         <div class="header-top-row">
           <div class="left-group">
             <button class="burger glass-button" (click)="toggleLeftSidebar()" aria-label="{{ 'HEADER.MENU' | translate }}">
               &#9776;
             </button>
-            <img src="favicon.ico?v=4" alt="Wone IT Logo" class="app-logo">
+            <img src="assets/wone-it-logo.svg" alt="Wone IT Logo" class="app-logo">
             <h1 class="glass-title">{{ getTranslation('COMMON.APP_TITLE', 'Wone IT - Business Solutions - Project Management') }}</h1>
           </div>
 
@@ -131,16 +131,13 @@ import { UserSettingsService } from './services/user-settings.service';
                   {{ authState.currentUser?.name || 'Пользователь' }}
                 </span>
                 <span class="dropdown-arrow">▼</span>
-                <div class="user-dropdown-menu" *ngIf="userMenuOpen">
-                  <div class="dropdown-item" (click)="onLogout()">
-                    {{ getTranslation('AUTH.LOGOUT', 'Выйти') }}
-                  </div>
-                  <div class="dropdown-item" (click)="onProfile()">
-                    {{ getTranslation('USER.PROFILE', 'Профиль') }}
-                  </div>
-                  <div class="dropdown-item" (click)="onSettings()">
-                    {{ getTranslation('USER.SETTINGS', 'Настройки') }}
-                  </div>
+              </div>
+              <div class="user-dropdown-menu" *ngIf="userMenuOpen">
+                <div class="dropdown-item" (click)="onLogout()">
+                  {{ getTranslation('AUTH.LOGOUT', 'Выйти') }}
+                </div>
+                <div class="dropdown-item" (click)="onSettings()">
+                  {{ getTranslation('USER.SETTINGS', 'Настройки') }}
                 </div>
               </div>
             </div>
@@ -225,6 +222,43 @@ import { UserSettingsService } from './services/user-settings.service';
         </nav>
       </aside>
 
+      <!-- Кнопка правого сайдбара -->
+      <button class="right-sidebar-toggle" 
+              (click)="toggleRightSidebar()" 
+              [class.active]="rightSidebarOpen"
+              aria-label="Открыть/закрыть иерархию">
+        <div class="star-container">
+          <div class="star-star">★</div>
+          <div class="star-rays">
+            <div class="ray ray-1"></div>
+            <div class="ray ray-2"></div>
+            <div class="ray ray-3"></div>
+            <div class="ray ray-4"></div>
+            <div class="ray ray-5"></div>
+            <div class="ray ray-6"></div>
+            <div class="ray ray-7"></div>
+            <div class="ray ray-8"></div>
+          </div>
+          <div class="star-glow"></div>
+          
+          <!-- Частицы фейерверка -->
+          <div class="firework-particles">
+            <div class="particle particle-1"></div>
+            <div class="particle particle-2"></div>
+            <div class="particle particle-3"></div>
+            <div class="particle particle-4"></div>
+            <div class="particle particle-5"></div>
+            <div class="particle particle-6"></div>
+            <div class="particle particle-7"></div>
+            <div class="particle particle-8"></div>
+            <div class="particle particle-9"></div>
+            <div class="particle particle-10"></div>
+            <div class="particle particle-11"></div>
+            <div class="particle particle-12"></div>
+          </div>
+        </div>
+      </button>
+
       <!-- Right sidebar placeholder (hierarchy) -->
       <aside class="glass-sidebar right" [class.open]="rightSidebarOpen"
              aria-hidden="{{!rightSidebarOpen}}">
@@ -284,25 +318,35 @@ import { UserSettingsService } from './services/user-settings.service';
     .app-container {
       transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       margin-left: 0;
+      padding-top: 0; /* Убираем padding-top, так как хедер фиксированный */
     }
     
     .app-container.sidebar-open {
-      margin-left: 300px;
+      margin-left: 260px; /* Сдвигаем контент вправо при открытии сайдбара */
     }
     
     .glass-header { 
       display: flex; 
       flex-direction: column;
-      padding: 16px 24px 8px 24px; 
-      margin-bottom: 16px; 
+      padding: 6px 20px 3px 20px; /* Уменьшили padding еще больше */
+      margin-bottom: 6px; /* Уменьшили margin еще больше */
       background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(240,248,255,0.95) 100%);
       backdrop-filter: blur(20px); 
-      border-radius: 20px; 
+      border-radius: 16px; /* Уменьшили border-radius */
       border: 2px solid rgba(59,130,246,0.2);
-      box-shadow: 0 8px 32px rgba(59,130,246,0.15);
-      gap: 12px; 
-      position: relative;
-      z-index: 999999 !important;
+      box-shadow: 0 6px 24px rgba(59,130,246,0.15); /* Уменьшили shadow */
+      gap: 6px; /* Уменьшили gap еще больше */
+      position: fixed; /* Фиксируем хедер */
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 110px; /* Высота хедера с учетом хлебных крошек */
+      z-index: 999999;
+      transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Добавляем плавный переход */
+    }
+    
+    .glass-header.sidebar-open {
+      left: 260px; /* Сдвигаем хедер вправо при открытии сайдбара */
     }
     
     .header-top-row {
@@ -319,8 +363,8 @@ import { UserSettingsService } from './services/user-settings.service';
     }
     
     .app-logo {
-      width: 32px;
-      height: 32px;
+      width: 62px; /* Уменьшили в 1.2 раза с 75px */
+      height: 62px; /* Уменьшили в 1.2 раза с 75px */
       object-fit: contain;
       filter: drop-shadow(0 2px 4px rgba(59,130,246,0.2));
       transition: all 0.2s ease;
@@ -357,13 +401,13 @@ import { UserSettingsService } from './services/user-settings.service';
     }
     
     .search-input { 
-      width: 180px;
-      padding: 12px 16px; 
-      border-radius: 20px;
+      width: 160px; /* Уменьшили с 180px */
+      padding: 10px 14px; /* Уменьшили padding */
+      border-radius: 16px; /* Уменьшили border-radius */
       border: 2px solid rgba(59,130,246,0.2); 
       background: rgba(255,255,255,0.9);
       backdrop-filter: blur(10px); 
-      font-size: 14px;
+      font-size: 13px; /* Уменьшили font-size */
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       color: #1e293b;
       box-shadow: 0 2px 8px rgba(59,130,246,0.1);
@@ -596,29 +640,286 @@ import { UserSettingsService } from './services/user-settings.service';
       position: fixed; 
       top: 0; 
       bottom: 0; 
-      width: 300px; 
+      width: 260px; /* Уменьшили с 300px */
       transform: translateX(-100%);
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-      background: linear-gradient(180deg, rgba(255,255,255,var(--sidebars-transparency, 0.85)) 0%, rgba(248,250,252,var(--sidebars-transparency, 0.85)) 100%); 
-      backdrop-filter: blur(var(--sidebars-blur, 25px));
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                  background 0.3s ease,
+                  backdrop-filter 0.3s ease; 
+      background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(240,248,255,0.85) 50%, rgba(236,254,255,0.9) 100%); /* Красивый градиент */
+      backdrop-filter: blur(2px); /* Установили явный блюр 2px */
       border-right: 2px solid rgba(59,130,246,0.25); 
       z-index: 1000; 
-      padding: 24px 20px; 
-      box-shadow: 4px 0 24px rgba(59,130,246,0.12);
+      padding: 20px 16px; /* Уменьшили padding */
+      box-shadow: 0 8px 32px rgba(59,130,246,0.15), 0 0 0 1px rgba(59,130,246,0.1);
     }
     
     .glass-sidebar.right { 
-      top: 120px; /* Начинаем от места, где заканчивается хедер */
+      top: 110px; /* Начинаем ниже хедера с хлебными крошками */
       right: 0; 
       left: auto; 
       transform: translateX(100%); 
       border-right: 0;
       border-left: 2px solid rgba(59,130,246,0.3); 
-      height: calc(100vh - 120px); /* Высота от хедера до низа экрана */
+      height: calc(100vh - 110px); /* Высота от хедера до низа экрана */
+      width: 260px;
+      z-index: 1000;
+      padding: 20px 16px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(240,248,255,0.85) 50%, rgba(236,254,255,0.9) 100%);
+      backdrop-filter: blur(2px);
+      box-shadow: -4px 0 24px rgba(59,130,246,0.12);
+    }
+
+    /* Кнопка правого сайдбара */
+    .right-sidebar-toggle {
+      position: fixed;
+      right: 0; /* Всегда прижата к правому краю */
+      top: calc(110px + 35px); /* Позиционируем под хедером с хлебными крошками по центру */
+      transform: none; /* Убираем translateY */
+      z-index: 999;
+      background: transparent; /* Полностью прозрачный фон */
+      backdrop-filter: none; /* Убираем блюр */
+      border: none; /* Убираем окантовку */
+      border-radius: 50px 0 0 50px; /* Полукруглая */
+      padding: 20px 16px;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: none; /* Убираем тень */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      min-width: 70px;
+      min-height: 70px;
+    }
+
+    .right-sidebar-toggle:hover {
+      transform: translateX(-2px);
+    }
+
+    .right-sidebar-toggle.active {
+      right: 260px; /* Когда сайдбар открыт, кнопка прижата к его левой границе */
+      border-radius: 0 50px 50px 0; /* Полукруглая справа */
+    }
+
+    /* Анимированная звездочка с фейерверком */
+    .star-container {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .star-star {
+      font-size: 2.2rem;
+      color: #ffd700; /* Золотистый цвет */
+      text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 40px rgba(255, 0, 0, 0.8), 0 0 60px rgba(128, 0, 128, 0.6);
+      animation: star-twinkle 4s ease-in-out infinite;
+      z-index: 3;
+      position: relative;
+      filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.8));
+    }
+
+    .star-rays {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .ray {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 2px;
+      height: 30px;
+      background: linear-gradient(to bottom, transparent, rgba(255, 215, 0, 0.8), rgba(255, 0, 0, 1), rgba(128, 0, 128, 0.8), transparent);
+      transform-origin: center;
+      animation: ray-firework 3s ease-in-out infinite;
+      border-radius: 1px;
+      box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+    }
+
+    .ray-1 { transform: translate(-50%, -50%) rotate(0deg); animation-delay: 0s; }
+    .ray-2 { transform: translate(-50%, -50%) rotate(45deg); animation-delay: 0.1s; }
+    .ray-3 { transform: translate(-50%, -50%) rotate(90deg); animation-delay: 0.2s; }
+    .ray-4 { transform: translate(-50%, -50%) rotate(135deg); animation-delay: 0.3s; }
+    .ray-5 { transform: translate(-50%, -50%) rotate(180deg); animation-delay: 0.4s; }
+    .ray-6 { transform: translate(-50%, -50%) rotate(225deg); animation-delay: 0.5s; }
+    .ray-7 { transform: translate(-50%, -50%) rotate(270deg); animation-delay: 0.6s; }
+    .ray-8 { transform: translate(-50%, -50%) rotate(315deg); animation-delay: 0.7s; }
+
+    .star-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, rgba(255, 215, 0, 0.4) 0%, rgba(255, 0, 0, 0.2) 30%, rgba(128, 0, 128, 0.1) 60%, transparent 80%);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      animation: glow-pulse 3s ease-in-out infinite;
+      z-index: 0;
+      filter: blur(0.5px);
+    }
+
+    @keyframes star-twinkle {
+      0%, 100% { 
+        opacity: 0.8; 
+        transform: scale(1) rotate(0deg);
+        filter: brightness(1) hue-rotate(0deg);
+      }
+      25% { 
+        opacity: 1; 
+        transform: scale(1.15) rotate(45deg);
+        filter: brightness(1.4) hue-rotate(45deg);
+      }
+      50% { 
+        opacity: 0.9; 
+        transform: scale(0.9) rotate(90deg);
+        filter: brightness(0.8) hue-rotate(90deg);
+      }
+      75% { 
+        opacity: 1; 
+        transform: scale(1.1) rotate(135deg);
+        filter: brightness(1.3) hue-rotate(135deg);
+      }
+    }
+
+    @keyframes ray-firework {
+      0% { 
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(var(--ray-angle, 0deg)) scale(0.3);
+        filter: brightness(0.5);
+      }
+      20% { 
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(var(--ray-angle, 0deg)) scale(1.2);
+        filter: brightness(1.5);
+      }
+      40% { 
+        opacity: 0.8;
+        transform: translate(-50%, -50%) rotate(var(--ray-angle, 0deg)) scale(1);
+        filter: brightness(1.2);
+      }
+      60% { 
+        opacity: 0.6;
+        transform: translate(-50%, -50%) rotate(var(--ray-angle, 0deg)) scale(0.8);
+        filter: brightness(0.9);
+      }
+      80% { 
+        opacity: 0.4;
+        transform: translate(-50%, -50%) rotate(var(--ray-angle, 0deg)) scale(0.6);
+        filter: brightness(0.7);
+      }
+      100% { 
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(var(--ray-angle, 0deg)) scale(0.4);
+        filter: brightness(0.5);
+      }
+    }
+
+    @keyframes glow-pulse {
+      0%, 100% { 
+        opacity: 0.2; 
+        transform: translate(-50%, -50%) scale(1);
+        filter: blur(1px);
+      }
+      50% { 
+        opacity: 0.4; 
+        transform: translate(-50%, -50%) scale(1.3);
+        filter: blur(0.5px);
+      }
+    }
+
+    /* Устанавливаем углы для лучей */
+    .ray-1 { --ray-angle: 0deg; }
+    .ray-2 { --ray-angle: 45deg; }
+    .ray-3 { --ray-angle: 90deg; }
+    .ray-4 { --ray-angle: 135deg; }
+    .ray-5 { --ray-angle: 180deg; }
+    .ray-6 { --ray-angle: 225deg; }
+    .ray-7 { --ray-angle: 270deg; }
+    .ray-8 { --ray-angle: 315deg; }
+
+    /* Частицы фейерверка */
+    .firework-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffd700, #ff0000, #800080);
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      animation: none;
+    }
+
+    .particle-1 { --particle-angle: 0deg; --particle-distance: 60px; }
+    .particle-2 { --particle-angle: 30deg; --particle-distance: 55px; }
+    .particle-3 { --particle-angle: 60deg; --particle-distance: 65px; }
+    .particle-4 { --particle-angle: 90deg; --particle-distance: 50px; }
+    .particle-5 { --particle-angle: 120deg; --particle-distance: 70px; }
+    .particle-6 { --particle-angle: 150deg; --particle-distance: 45px; }
+    .particle-7 { --particle-angle: 180deg; --particle-distance: 58px; }
+    .particle-8 { --particle-angle: 210deg; --particle-distance: 52px; }
+    .particle-9 { --particle-angle: 240deg; --particle-distance: 68px; }
+    .particle-10 { --particle-angle: 270deg; --particle-distance: 48px; }
+    .particle-11 { --particle-angle: 300deg; --particle-distance: 62px; }
+    .particle-12 { --particle-angle: 330deg; --particle-distance: 54px; }
+
+    /* Анимация фейерверка при клике */
+    .right-sidebar-toggle:active .particle {
+      animation: firework-explosion 0.8s ease-out forwards;
+    }
+
+    @keyframes firework-explosion {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+      }
+      20% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(
+          calc(-50% + var(--particle-distance) * cos(var(--particle-angle))),
+          calc(-50% + var(--particle-distance) * sin(var(--particle-angle)))
+        ) scale(0.3);
+      }
     }
     
     .glass-sidebar.left { 
       left: 0; 
+      top: 0; /* Начинаем с самого верха экрана */
+      bottom: 0;
+      width: 260px;
+      transform: translateX(-100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                  background 0.3s ease,
+                  backdrop-filter 0.3s ease; 
+      background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(240,248,255,0.85) 50%, rgba(236,254,255,0.9) 100%);
+      backdrop-filter: blur(2px);
+      border-right: 2px solid rgba(59,130,246,0.25); 
+      z-index: 1000; 
+      padding: 20px 16px;
+      box-shadow: 4px 0 24px rgba(59,130,246,0.15), 0 0 0 1px rgba(59,130,246,0.1);
     }
     
 
@@ -641,6 +942,9 @@ import { UserSettingsService } from './services/user-settings.service';
       border-top: 2px solid rgba(59,130,246,0.3);
       border-radius: 24px 24px 0 0;
       z-index: 1000;
+      background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(240,248,255,0.85) 50%, rgba(236,254,255,0.9) 100%); /* Красивый градиент */
+      backdrop-filter: blur(2px); /* Добавили блюр 2px */
+      box-shadow: 0 -8px 32px rgba(59,130,246,0.15), 0 0 0 1px rgba(59,130,246,0.1);
     }
     
     .glass-sidebar.bottom.open {
@@ -840,7 +1144,7 @@ import { UserSettingsService } from './services/user-settings.service';
 
     .glass-title { 
       margin: 0; 
-      font-size: 1.4rem; 
+      font-size: 1.2rem; /* Уменьшили с 1.4rem */
       font-weight: 700; 
       background: linear-gradient(135deg, #1e293b 0%, #3b82f6 25%, #1d4ed8 50%, #3b82f6 75%, #1e293b 100%);
       background-size: 300% 300%;
@@ -869,7 +1173,7 @@ import { UserSettingsService } from './services/user-settings.service';
     
     .glass-main { 
       min-height: calc(100vh - 200px); 
-      padding: 0 24px 60px 24px;
+      padding: 120px 24px 60px 24px; /* Отступ сверху для хедера с хлебными крошками */
       transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       z-index: 1;
@@ -885,6 +1189,7 @@ import { UserSettingsService } from './services/user-settings.service';
       margin-bottom: 24px;
       position: relative;
       z-index: 1;
+      transition: background 0.3s ease, backdrop-filter 0.3s ease;
     }
     
     .glass-footer { 
@@ -987,7 +1292,9 @@ import { UserSettingsService } from './services/user-settings.service';
       align-items: center;
       gap: 12px;
       position: relative;
-      z-index: 999999 !important;
+      z-index: 999999;
+      flex-direction: column;
+      align-items: flex-end;
     }
     
     .user-dropdown {
@@ -1003,7 +1310,46 @@ import { UserSettingsService } from './services/user-settings.service';
       box-shadow: 0 4px 16px rgba(59,130,246,0.15);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       backdrop-filter: blur(10px);
-      z-index: 999999 !important;
+      z-index: 999999;
+      overflow: hidden;
+    }
+    
+    .user-dropdown::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.8s ease;
+    }
+    
+    .user-dropdown:hover::before {
+      left: 100%;
+    }
+    
+    /* Дополнительное переливание для светлой темы */
+    .user-dropdown::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, 
+        rgba(59,130,246,0.05) 0%, 
+        rgba(37,99,235,0.05) 25%, 
+        rgba(59,130,246,0.05) 50%, 
+        rgba(37,99,235,0.05) 75%, 
+        rgba(59,130,246,0.05) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    
+    .user-dropdown:hover::after {
+      opacity: 1;
     }
     
     .user-dropdown:hover {
@@ -1043,9 +1389,9 @@ import { UserSettingsService } from './services/user-settings.service';
     }
     
     .user-dropdown-menu {
-      position: absolute !important;
-      top: 100% !important;
-      right: 0 !important;
+      position: absolute;
+      top: 100%;
+      right: 0;
       background: rgba(255,255,255,0.98);
       backdrop-filter: blur(20px);
       border-radius: 16px;
@@ -1053,13 +1399,26 @@ import { UserSettingsService } from './services/user-settings.service';
       box-shadow: 0 12px 40px rgba(59,130,246,0.2);
       padding: 8px 0;
       min-width: 160px;
-      z-index: 999999 !important;
-      margin-top: 8px !important;
+      z-index: 999999;
+      margin-top: 8px;
       opacity: 0;
       transform: translateY(-10px) scale(0.95);
       animation: dropdownSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
       transform-origin: top right;
-      pointer-events: auto !important;
+      pointer-events: auto;
+      overflow: hidden;
+      width: 100%;
+      min-width: 200px;
+    }
+    
+    .user-dropdown-menu::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(59,130,246,0.3), transparent);
     }
     
     @keyframes dropdownSlideIn {
@@ -1072,7 +1431,7 @@ import { UserSettingsService } from './services/user-settings.service';
     .dropdown-item {
       padding: 12px 20px;
       cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       color: rgba(30, 41, 59, 0.8);
       font-size: 14px;
       font-weight: 600;
@@ -1082,11 +1441,48 @@ import { UserSettingsService } from './services/user-settings.service';
       backdrop-filter: blur(10px);
     }
     
+    .dropdown-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(59,130,246,0.15), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .dropdown-item:hover::before {
+      left: 100%;
+    }
+    
+    /* Дополнительное переливание для элементов меню в светлой теме */
+    .dropdown-item::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, 
+        rgba(59,130,246,0.03) 0%, 
+        rgba(37,99,235,0.03) 50%, 
+        rgba(59,130,246,0.03) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    
+    .dropdown-item:hover::after {
+      opacity: 1;
+    }
+    
     .dropdown-item:hover {
       background: linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(37,99,235,0.15) 100%);
       color: #1d4ed8;
       transform: translateX(4px);
       backdrop-filter: blur(15px);
+      box-shadow: 0 2px 8px rgba(59,130,246,0.1);
     }
     
     .dropdown-item:active {
@@ -1115,12 +1511,12 @@ import { UserSettingsService } from './services/user-settings.service';
     :host-context(.theme-dark) .glass-header, 
     :host-context(.theme-dark) .glass-sidebar,
     :host-context(.theme-dark) .glass-content-panel { 
-      background: linear-gradient(135deg, rgba(15,23,42,0.98) 0%, rgba(30,41,59,0.98) 100%); 
+      background: linear-gradient(135deg, rgba(15,23,42,var(--sidebars-transparency, 0.98)) 0%, rgba(30,41,59,var(--sidebars-transparency, 0.98)) 100%); 
       border-color: rgba(59,130,246,0.3); 
     }
     
     :host-context(.theme-dark) .glass-sidebar.bottom {
-      background: linear-gradient(135deg, rgba(15,23,42,0.98) 0%, rgba(30,41,59,0.98) 100%);
+      background: linear-gradient(135deg, rgba(15,23,42,var(--sidebars-transparency, 0.98)) 0%, rgba(30,41,59,var(--sidebars-transparency, 0.98)) 100%);
       border-top-color: rgba(59,130,246,0.4);
     }
     
@@ -1227,19 +1623,23 @@ import { UserSettingsService } from './services/user-settings.service';
     :host-context(.theme-dark) .user-dropdown {
       background: linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(37,99,235,0.15) 100%);
       border-color: rgba(59,130,246,0.3);
+      box-shadow: 0 4px 16px rgba(59,130,246,0.2);
     }
     
     :host-context(.theme-dark) .user-dropdown:hover {
       background: linear-gradient(135deg, rgba(59,130,246,0.25) 0%, rgba(37,99,235,0.25) 100%);
       border-color: rgba(59,130,246,0.5);
+      box-shadow: 0 8px 24px rgba(59,130,246,0.35);
     }
     
     :host-context(.theme-dark) .user-info {
       color: #f8fafc;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
     }
     
     :host-context(.theme-dark) .dropdown-arrow {
       color: #60a5fa;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
     }
     
     :host-context(.theme-dark) .user-dropdown:hover .dropdown-arrow {
@@ -1247,18 +1647,30 @@ import { UserSettingsService } from './services/user-settings.service';
     }
     
     :host-context(.theme-dark) .user-dropdown-menu {
-      background: rgba(30,41,59,0.98);
+      background: rgba(15,23,42,0.98);
       border-color: rgba(59,130,246,0.4);
-      box-shadow: 0 12px 40px rgba(59,130,246,0.3);
+      box-shadow: 0 12px 40px rgba(59,130,246,0.3), 0 0 0 1px rgba(59,130,246,0.1);
+      backdrop-filter: blur(25px);
+    }
+    
+    :host-context(.theme-dark) .user-dropdown-menu::before {
+      background: linear-gradient(90deg, transparent, rgba(59,130,246,0.5), transparent);
     }
     
     :host-context(.theme-dark) .dropdown-item {
       color: #f8fafc;
+      background: rgba(30,41,59,0.6);
+      border-bottom: 1px solid rgba(59,130,246,0.1);
     }
     
     :host-context(.theme-dark) .dropdown-item:hover {
       background: linear-gradient(135deg, rgba(59,130,246,0.2) 0%, rgba(37,99,235,0.2) 100%);
       color: #93c5fd;
+      box-shadow: 0 2px 8px rgba(59,130,246,0.2);
+    }
+    
+    :host-context(.theme-dark) .dropdown-item::before {
+      background: linear-gradient(90deg, transparent, rgba(59,130,246,0.2), transparent);
     }
     
     :host-context(.theme-dark) .search-input {
@@ -1287,6 +1699,42 @@ import { UserSettingsService } from './services/user-settings.service';
     
     :host-context(.theme-dark) .breadcrumbs a:hover {
       color: #93c5fd;
+    }
+    
+    /* Дополнительные стили для темной темы - исправление фона */
+    :host-context(.theme-dark) .user-dropdown-menu {
+      background: rgba(15,23,42,0.98) !important;
+      border-color: rgba(59,130,246,0.4) !important;
+      backdrop-filter: blur(25px) !important;
+    }
+    
+    :host-context(.theme-dark) .dropdown-item {
+      background: rgba(30,41,59,0.8) !important;
+      border-bottom: 1px solid rgba(59,130,246,0.1) !important;
+    }
+    
+    :host-context(.theme-dark) .dropdown-item:hover {
+      background: linear-gradient(135deg, rgba(59,130,246,0.25) 0%, rgba(37,99,235,0.25) 100%) !important;
+    }
+    
+    /* Стили для класса .theme-dark (альтернативный способ) */
+    .theme-dark .user-dropdown-menu {
+      background: rgba(15,23,42,0.98) !important;
+      border-color: rgba(59,130,246,0.4) !important;
+      backdrop-filter: blur(25px) !important;
+      width: 100% !important;
+      min-width: 200px !important;
+    }
+    
+    .theme-dark .dropdown-item {
+      background: rgba(30,41,59,0.8) !important;
+      border-bottom: 1px solid rgba(59,130,246,0.1) !important;
+      color: #f8fafc !important;
+    }
+    
+    .theme-dark .dropdown-item:hover {
+      background: linear-gradient(135deg, rgba(59,130,246,0.25) 0%, rgba(37,99,235,0.25) 100%) !important;
+      color: #93c5fd !important;
     }
   `]
 })
@@ -1324,7 +1772,7 @@ export class AppComponent implements OnInit {
     // Добавляем fallback для переводов
     this.translate.setTranslation('ru', {
       COMMON: {
-        APP_TITLE: 'Wone IT - Business Solutions - Project Management',
+        APP_TITLE: 'Business Solutions',
         ALL_RIGHTS_RESERVED: 'Все права защищены'
       },
       NAV: {
@@ -1374,7 +1822,7 @@ export class AppComponent implements OnInit {
     // Добавляем английские переводы
     this.translate.setTranslation('en', {
       COMMON: {
-        APP_TITLE: 'Wone IT - Business Solutions - Project Management',
+        APP_TITLE: 'Business Solutions',
         ALL_RIGHTS_RESERVED: 'All rights reserved'
       },
       NAV: {
@@ -1444,6 +1892,15 @@ export class AppComponent implements OnInit {
       this.translate.use(currentSettings.ui.language);
     }
     
+    // Загружаем сохраненную тему
+    if (currentSettings.ui.theme) {
+      this.theme = currentSettings.ui.theme;
+      const host = document.querySelector('body');
+      if (host) { 
+        host.classList.toggle('theme-dark', this.theme === 'dark'); 
+      }
+    }
+    
     // Принудительно загружаем переводы
     this.translate.reloadLang('ru');
     this.translate.reloadLang('en');
@@ -1461,7 +1918,7 @@ export class AppComponent implements OnInit {
     // Добавляем обработчик клика вне меню для его закрытия
     document.addEventListener('click', (event) => {
       const target = event.target as HTMLElement;
-      if (!target.closest('.user-dropdown')) {
+      if (!target.closest('.glass-user-menu')) {
         this.closeUserMenu();
       }
     });
@@ -1503,6 +1960,8 @@ export class AppComponent implements OnInit {
   applyUISettings(): void {
     // Применяем настройки прозрачности и блюра к CSS переменным
     if (this.uiSettings.transparency && this.uiSettings.blur) {
+      console.log('Applying UI settings:', this.uiSettings);
+      
       document.documentElement.style.setProperty(
         '--forms-transparency', 
         `${this.uiSettings.transparency.forms}%`
@@ -1527,6 +1986,9 @@ export class AppComponent implements OnInit {
         '--sidebars-blur', 
         `${this.uiSettings.blur.sidebars}px`
       );
+      
+      // Принудительно обновляем стили
+      document.documentElement.style.setProperty('--force-update', Date.now().toString());
     }
   }
 
@@ -1545,6 +2007,9 @@ export class AppComponent implements OnInit {
     this.theme = this.theme === 'light' ? 'dark' : 'light';
     const host = document.querySelector('body');
     if (host) { host.classList.toggle('theme-dark', this.theme === 'dark'); }
+    
+    // Сохраняем тему в настройки пользователя
+    this.userSettingsService.updateSection('ui', { theme: this.theme });
   }
 
   onSearch(ev: any): void {

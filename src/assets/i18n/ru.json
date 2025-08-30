@@ -1,6 +1,6 @@
 {
   "COMMON": {
-    "APP_TITLE": "Wone IT - Business Solutions - Project Management",
+    "APP_TITLE": "Business Solutions",
     "ALL_RIGHTS_RESERVED": "Все права защищены"
   },
   "NAV": {
@@ -113,7 +113,16 @@
       "SIDEBARS_TRANSPARENCY": "Прозрачность сайдбаров",
       "FORMS_BLUR": "Блюр форм",
       "WIDGETS_BLUR": "Блюр виджетов",
-      "SIDEBARS_BLUR": "Блюр сайдбаров"
+      "SIDEBARS_BLUR": "Блюр сайдбаров",
+      "THEME_TITLE": "Тема оформления",
+      "THEME_DESCRIPTION": "Выберите светлую или темную тему интерфейса",
+      "THEME_MODE": "Режим темы",
+      "THEME_LIGHT": "Светлая",
+      "THEME_DARK": "Темная",
+      "PRESETS_DESCRIPTION": "Выберите готовую схему настроек",
+      "CUSTOM_PRESET": "Пользовательский пресет",
+      "CUSTOM_PRESET_DESCRIPTION": "Сохраните текущие настройки как пользовательский пресет",
+      "SAVE_CUSTOM": "Сохранить текущий"
     },
     "FILTERS": {
       "TITLE": "Настройки фильтров",
