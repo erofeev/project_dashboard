@@ -368,6 +368,12 @@ import { UserSettingsService } from './services/user-settings.service';
       object-fit: contain;
       filter: drop-shadow(0 2px 4px rgba(59,130,246,0.2));
       transition: all 0.2s ease;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      cursor: default !important;
+      caret-color: transparent !important;
     }
     
 
@@ -452,6 +458,12 @@ import { UserSettingsService } from './services/user-settings.service';
       font-size: 0.9rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      cursor: default !important;
+      caret-color: transparent !important;
     }
     
     .suggestions-items,
@@ -469,6 +481,12 @@ import { UserSettingsService } from './services/user-settings.service';
       align-items: center;
       gap: 12px;
       border-bottom: 1px solid rgba(59,130,246,0.05);
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      cursor: default !important;
+      caret-color: transparent !important;
     }
     
     .suggestion-item:last-child,
@@ -501,6 +519,12 @@ import { UserSettingsService } from './services/user-settings.service';
       color: #1e293b;
       font-size: 0.95rem;
       margin-bottom: 2px;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      cursor: default !important;
+      caret-color: transparent !important;
     }
     
     .suggestion-subtitle,
@@ -508,6 +532,12 @@ import { UserSettingsService } from './services/user-settings.service';
       color: #64748b;
       font-size: 0.85rem;
       margin-bottom: 2px;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      cursor: default !important;
+      caret-color: transparent !important;
     }
     
     .suggestion-lang {
@@ -520,18 +550,36 @@ import { UserSettingsService } from './services/user-settings.service';
       padding: 2px 6px;
       border-radius: 4px;
       display: inline-block;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      cursor: default !important;
+      caret-color: transparent !important;
     }
     
     .history-text {
       flex: 1;
       color: #1e293b;
       font-weight: 500;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      cursor: default !important;
+      caret-color: transparent !important;
     }
     
     .history-time {
       color: #94a3b8;
       font-size: 0.8rem;
       font-style: italic;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      cursor: default !important;
+      caret-color: transparent !important;
     }
     
     .clear-history {
@@ -542,6 +590,12 @@ import { UserSettingsService } from './services/user-settings.service';
       padding: 4px 8px;
       border-radius: 6px;
       transition: all 0.2s ease;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      cursor: pointer !important;
+      caret-color: transparent !important;
     }
     
     .clear-history:hover {
@@ -560,6 +614,11 @@ import { UserSettingsService } from './services/user-settings.service';
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      caret-color: transparent !important;
     }
     
     .glass-select:hover {
@@ -625,6 +684,11 @@ import { UserSettingsService } from './services/user-settings.service';
       color: #3b82f6;
       transition: color 0.2s ease;
       font-weight: 500;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      caret-color: transparent !important;
     }
     
     .breadcrumbs a:hover {
@@ -685,6 +749,11 @@ import { UserSettingsService } from './services/user-settings.service';
       gap: 10px;
       min-width: 70px;
       min-height: 70px;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      caret-color: transparent !important;
     }
 
     .right-sidebar-toggle:hover {
@@ -714,6 +783,12 @@ import { UserSettingsService } from './services/user-settings.service';
       z-index: 3;
       position: relative;
       filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.8));
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      cursor: pointer !important;
+      caret-color: transparent !important;
     }
 
     .star-rays {
@@ -1068,6 +1143,12 @@ import { UserSettingsService } from './services/user-settings.service';
       letter-spacing: 0.5px;
       margin-bottom: 4px;
       color: #3b82f6;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      cursor: default !important;
+      caret-color: transparent !important;
     }
 
     .sidebar-link { 
@@ -1080,6 +1161,12 @@ import { UserSettingsService } from './services/user-settings.service';
       border: 2px solid rgba(59,130,246,0.2);
       transition: all 0.2s ease; 
       font-size: 14px;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      cursor: pointer !important;
+      caret-color: transparent !important;
     }
     
     .sidebar-link:hover { 
@@ -1114,6 +1201,12 @@ import { UserSettingsService } from './services/user-settings.service';
       border: 1px solid rgba(59,130,246,0.2);
       transition: all 0.2s ease; 
       font-size: 13px;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      cursor: pointer !important;
+      caret-color: transparent !important;
     }
     
     .sidebar-sublink:hover { 
@@ -1141,7 +1234,7 @@ import { UserSettingsService } from './services/user-settings.service';
       margin: 0; 
       font-size: 1.2rem; /* Уменьшили с 1.4rem */
       font-weight: 700; 
-      background: linear-gradient(135deg, #1e293b 0%, #3b82f6 25%, #1d4ed8 50%, #3b82f6 75%, #1e293b 100%);
+      background: linear-gradient(135deg, #1e293b 0%, #3b82f6 25%, #1d4ed8 50%, #3b82f6 75%, #3b82f6 100%);
       background-size: 300% 300%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -1149,6 +1242,12 @@ import { UserSettingsService } from './services/user-settings.service';
       animation: titleGradient 8s ease-in-out infinite;
       text-shadow: 0 2px 8px rgba(59,130,246,0.15);
       filter: drop-shadow(0 1px 3px rgba(59,130,246,0.2));
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      cursor: default !important;
+      caret-color: transparent !important;
     }
     
     @keyframes titleGradient {
@@ -1221,6 +1320,12 @@ import { UserSettingsService } from './services/user-settings.service';
       font-size: 11px;
       line-height: 1.2;
       pointer-events: none;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      cursor: default !important;
+      caret-color: transparent !important;
     }
 
     .glass-button { 
@@ -1233,6 +1338,11 @@ import { UserSettingsService } from './services/user-settings.service';
       transition: all 0.2s ease; 
       border: 2px solid rgba(59,130,246,0.3);
       font-weight: 600;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      caret-color: transparent !important;
       font-size: 14px;
       box-shadow: 0 2px 8px rgba(59,130,246,0.2);
     }
@@ -1263,13 +1373,28 @@ import { UserSettingsService } from './services/user-settings.service';
     .suggestion-item,
     .history-item,
     .result-item,
-    .breadcrumbs a {
-      user-select: none;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      -webkit-tap-highlight-color: transparent;
-      -webkit-touch-callout: none;
+    .breadcrumbs a,
+    .suggestion-title,
+    .suggestion-subtitle,
+    .suggestion-lang,
+    .result-title,
+    .result-subtitle,
+    .history-text,
+    .history-time,
+    .suggestions-header,
+    .history-header,
+    .results-header,
+    .user-info,
+    .dropdown-arrow,
+    .glass-footer p {
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      -webkit-tap-highlight-color: transparent !important;
+      -webkit-touch-callout: none !important;
+      cursor: default !important;
+      caret-color: transparent !important;
     }
     
     /* Убираем outline и курсор на фокусе для кнопок */
@@ -1609,6 +1734,10 @@ import { UserSettingsService } from './services/user-settings.service';
       animation: titleGradient 8s ease-in-out infinite;
       text-shadow: 0 2px 8px rgba(96,165,250,0.2);
       filter: drop-shadow(0 1px 3px rgba(96,165,250,0.3));
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
     }
     
     :host-context(.theme-dark) .user-info { 
@@ -1934,6 +2063,17 @@ export class AppComponent implements OnInit {
       const target = event.target as HTMLElement;
       if (!target.closest('.glass-user-menu')) {
         this.closeUserMenu();
+      }
+      
+      // Убираем текстовый курсор после клика на неедактируемых элементах
+      if (target && !target.matches('input, textarea, select, [contenteditable="true"]')) {
+        setTimeout(() => {
+          if (window.getSelection) {
+            window.getSelection()?.removeAllRanges();
+          }
+          target.blur();
+          document.body.focus();
+        }, 1);
       }
     });
     
