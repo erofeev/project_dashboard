@@ -117,7 +117,7 @@ import { UserSettingsService } from './services/user-settings.service';
                 <option value="ru">RU</option>
                 <option value="en">EN</option>
               </select>
-              <button class="glass-button" (click)="toggleTheme()"
+              <button class="theme-toggle-button" (click)="toggleTheme()"
                       [title]="theme==='light' ? ('HEADER.THEME_LIGHT' | translate) : ('HEADER.THEME_DARK' | translate)">
                 {{ theme === 'light' ? '🌙' : '☀️' }}
               </button>
@@ -1347,6 +1347,76 @@ import { UserSettingsService } from './services/user-settings.service';
       box-shadow: 0 2px 8px rgba(59,130,246,0.2);
     }
     
+    /* Специальная кнопка смены темы - более гармоничная */
+    .theme-toggle-button {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(100, 116, 139, 0.2);
+      font-weight: 500;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      caret-color: transparent !important;
+      font-size: 16px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      min-width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .theme-toggle-button:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #475569;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      border-color: rgba(100, 116, 139, 0.3);
+    }
+    
+    .theme-toggle-button:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Анимация для эмодзи в кнопке смены темы */
+    .theme-toggle-button {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .theme-toggle-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .theme-toggle-button:hover::before {
+      left: 100%;
+    }
+    
+    /* Анимация для эмодзи */
+    .theme-toggle-button:hover {
+      animation: emojiBounce 0.6s ease;
+    }
+    
+    @keyframes emojiBounce {
+      0%, 100% { transform: translateY(-1px) scale(1); }
+      50% { transform: translateY(-3px) scale(1.1); }
+    }
+    
     .glass-button:hover { 
       background: linear-gradient(135deg, rgba(59,130,246,1) 0%, rgba(37,99,235,1) 100%); 
       transform: translateY(-1px);
@@ -1401,7 +1471,8 @@ import { UserSettingsService } from './services/user-settings.service';
     .glass-button:focus,
     .sidebar-link:focus,
     .sidebar-sublink:focus,
-    .dropdown-item:focus {
+    .dropdown-item:focus,
+    .theme-toggle-button:focus {
       outline: none;
       cursor: pointer;
     }
@@ -1411,6 +1482,7 @@ import { UserSettingsService } from './services/user-settings.service';
     .sidebar-link,
     .sidebar-sublink,
     .dropdown-item,
+    .theme-toggle-button,
     .history-item,
     .result-item,
     .breadcrumbs a {
@@ -1755,6 +1827,26 @@ import { UserSettingsService } from './services/user-settings.service';
       color: #f8fafc; 
       background: linear-gradient(135deg, rgba(59,130,246,0.9) 0%, rgba(37,99,235,0.9) 100%);
       border-color: rgba(59,130,246,0.4); 
+    }
+    
+    /* Стили для кнопки смены темы в темной теме */
+    :host-context(.theme-dark) .theme-toggle-button {
+      background: rgba(15, 23, 42, 0.3);
+      color: #94a3b8;
+      border-color: rgba(148, 163, 184, 0.2);
+      backdrop-filter: blur(15px);
+    }
+    
+    :host-context(.theme-dark) .theme-toggle-button:hover {
+      background: rgba(15, 23, 42, 0.5);
+      color: #cbd5e1;
+      border-color: rgba(148, 163, 184, 0.4);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Анимация для темной темы */
+    :host-context(.theme-dark) .theme-toggle-button::before {
+      background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.1), transparent);
     }
     
     :host-context(.theme-dark) .user-dropdown {
