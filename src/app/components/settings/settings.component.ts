@@ -1,16 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LandscapeControlService, LandscapeSettings } from '../../services/landscape-control.service';
 import { UserSettingsService, UserSettings } from '../../services/user-settings.service';
+import { ERMService } from '../../services/erm.service';
 import { Subscription } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslateModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule],
   template: `
     <div class="settings-container">
       <div class="settings-header">
@@ -58,10 +60,10 @@ import { Subscription } from 'rxjs';
                   [(ngModel)]="landscapeSettings.waveAmplitude"
                   (input)="updateLandscapeSettings()"
                   class="control-slider">
-                <div class="control-range">
-                  <span>5</span>
-                  <span>30</span>
-                </div>
+                              <div class="control-range">
+                <span>{{ getTranslation('SETTINGS.UI.RANGE_MIN', '5') }}</span>
+                <span>{{ getTranslation('SETTINGS.UI.RANGE_MAX', '30') }}</span>
+              </div>
               </div>
               
               <div class="control-group">
@@ -76,10 +78,10 @@ import { Subscription } from 'rxjs';
                   [(ngModel)]="landscapeSettings.animationSpeed"
                   (input)="updateLandscapeSettings()"
                   class="control-slider">
-                <div class="control-range">
-                  <span>0.1</span>
-                  <span>2.0</span>
-                </div>
+                              <div class="control-range">
+                <span>{{ getTranslation('SETTINGS.UI.RANGE_MIN_SPEED', '0.1') }}</span>
+                <span>{{ getTranslation('SETTINGS.UI.RANGE_MAX_SPEED', '2.0') }}</span>
+              </div>
               </div>
               
               <div class="control-group">
@@ -94,10 +96,10 @@ import { Subscription } from 'rxjs';
                   [(ngModel)]="landscapeSettings.pointSize"
                   (input)="updateLandscapeSettings()"
                   class="control-slider">
-                <div class="control-range">
-                  <span>1</span>
-                  <span>5</span>
-                </div>
+                              <div class="control-range">
+                <span>{{ getTranslation('SETTINGS.UI.RANGE_MIN_SIZE', '1') }}</span>
+                <span>{{ getTranslation('SETTINGS.UI.RANGE_MAX_SIZE', '5') }}</span>
+              </div>
               </div>
               
               <div class="control-group">
@@ -112,10 +114,10 @@ import { Subscription } from 'rxjs';
                   [(ngModel)]="landscapeSettings.gridSize"
                   (input)="updateLandscapeSettings()"
                   class="control-slider">
-                <div class="control-range">
-                  <span>50</span>
-                  <span>150</span>
-                </div>
+                              <div class="control-range">
+                <span>{{ getTranslation('SETTINGS.UI.RANGE_MIN_GRID', '50') }}</span>
+                <span>{{ getTranslation('SETTINGS.UI.RANGE_MAX_GRID', '150') }}</span>
+              </div>
               </div>
               
               <div class="control-group">
@@ -178,8 +180,8 @@ import { Subscription } from 'rxjs';
                     (input)="updateUISettings()"
                     class="control-slider">
                   <div class="control-range">
-                    <span>50%</span>
-                    <span>95%</span>
+                    <span>{{ getTranslation('SETTINGS.UI.RANGE_MIN_TRANSPARENCY', '50%') }}</span>
+                    <span>{{ getTranslation('SETTINGS.UI.RANGE_MAX_TRANSPARENCY', '95%') }}</span>
                   </div>
                 </div>
                 
@@ -196,8 +198,8 @@ import { Subscription } from 'rxjs';
                     (input)="updateUISettings()"
                     class="control-slider">
                   <div class="control-range">
-                    <span>70%</span>
-                    <span>95%</span>
+                    <span>{{ getTranslation('SETTINGS.UI.RANGE_MIN_WIDGETS', '70%') }}</span>
+                    <span>{{ getTranslation('SETTINGS.UI.RANGE_MAX_WIDGETS', '95%') }}</span>
                   </div>
                 </div>
                 
@@ -214,8 +216,8 @@ import { Subscription } from 'rxjs';
                     (input)="updateUISettings()"
                     class="control-slider">
                   <div class="control-range">
-                    <span>70%</span>
-                    <span>95%</span>
+                    <span>{{ getTranslation('SETTINGS.UI.RANGE_MIN_SIDEBARS', '70%') }}</span>
+                    <span>{{ getTranslation('SETTINGS.UI.RANGE_MAX_SIDEBARS', '95%') }}</span>
                   </div>
                 </div>
                 
@@ -232,8 +234,8 @@ import { Subscription } from 'rxjs';
                     (input)="updateUISettings()"
                     class="control-slider">
                   <div class="control-range">
-                    <span>0px</span>
-                    <span>20px</span>
+                    <span>{{ getTranslation('SETTINGS.UI.RANGE_MIN_FORMS_BLUR', '0px') }}</span>
+                    <span>{{ getTranslation('SETTINGS.UI.RANGE_MAX_FORMS_BLUR', '20px') }}</span>
                   </div>
                 </div>
                 
@@ -250,8 +252,8 @@ import { Subscription } from 'rxjs';
                     (input)="updateUISettings()"
                     class="control-slider">
                   <div class="control-range">
-                    <span>0px</span>
-                    <span>20px</span>
+                    <span>{{ getTranslation('SETTINGS.UI.RANGE_MIN_WIDGETS_BLUR', '0px') }}</span>
+                    <span>{{ getTranslation('SETTINGS.UI.RANGE_MAX_WIDGETS_BLUR', '20px') }}</span>
                   </div>
                 </div>
                 
@@ -268,8 +270,8 @@ import { Subscription } from 'rxjs';
                     (input)="updateUISettings()"
                     class="control-slider">
                   <div class="control-range">
-                    <span>10px</span>
-                    <span>50px</span>
+                    <span>{{ getTranslation('SETTINGS.UI.RANGE_MIN_SIDEBARS_BLUR', '10px') }}</span>
+                    <span>{{ getTranslation('SETTINGS.UI.RANGE_MAX_SIDEBARS_BLUR', '50px') }}</span>
                   </div>
                 </div>
               </div>
@@ -385,20 +387,89 @@ import { Subscription } from 'rxjs';
             </div>
           </div>
           
-          <!-- Другие разделы (заглушки) -->
+          <!-- Настройки аккаунта -->
           <div *ngIf="activeSection === 'account'" class="section-content">
             <h2 class="section-title">{{ getTranslation('SETTINGS.ACCOUNT.TITLE', 'Настройки аккаунта') }}</h2>
-            <p class="coming-soon">{{ getTranslation('SETTINGS.COMING_SOON', 'Скоро будет доступно') }}</p>
+            
+            <!-- Настройки ERM -->
+            <div class="settings-group">
+              <h3>{{ getTranslation('SETTINGS.ACCOUNT.ERM_TITLE', 'Настройки ERM системы') }}</h3>
+              <p class="setting-description">
+                {{ getTranslation('SETTINGS.ACCOUNT.ERM_DESCRIPTION', 'Настройте подключение к ERM системе для автоматического обновления данных') }}
+              </p>
+              
+              <form [formGroup]="ermForm" (ngSubmit)="saveERMSettings()" class="erm-form">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="control-label">
+                      {{ getTranslation('SETTINGS.ACCOUNT.ERM_URL', 'URL ERM системы') }} *
+                    </label>
+                    <input 
+                      type="url" 
+                      formControlName="baseUrl"
+                      placeholder="{{ getTranslation('SETTINGS.ACCOUNT.ERM_URL_PLACEHOLDER', 'https://your-erm-system.com') }}"
+                      class="control-input"
+                      [class.error]="ermForm.get('baseUrl')?.invalid && ermForm.get('baseUrl')?.touched">
+                    <div class="error-message" *ngIf="ermForm.get('baseUrl')?.invalid && ermForm.get('baseUrl')?.touched">
+                      {{ getTranslation('SETTINGS.ACCOUNT.ERM_URL_ERROR', 'Введите корректный URL') }}
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="control-label">
+                      {{ getTranslation('SETTINGS.ACCOUNT.ERM_API_KEY', 'API ключ') }} *
+                    </label>
+                    <input 
+                      type="password" 
+                      formControlName="apiKey"
+                      placeholder="{{ getTranslation('SETTINGS.ACCOUNT.ERM_API_KEY_PLACEHOLDER', 'your-api-key') }}"
+                      class="control-input"
+                      [class.error]="ermForm.get('apiKey')?.invalid && ermForm.get('apiKey')?.touched">
+                    <div class="error-message" *ngIf="ermForm.get('apiKey')?.invalid && ermForm.get('apiKey')?.touched">
+                      {{ getTranslation('SETTINGS.ACCOUNT.ERM_API_KEY_ERROR', 'Введите API ключ') }}
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="form-actions">
+                  <button 
+                    type="button" 
+                    (click)="testERMConnection()"
+                    [disabled]="!ermForm.valid || isTestingConnection"
+                    class="control-button secondary">
+                    <span *ngIf="!isTestingConnection">🔗</span>
+                    <span *ngIf="isTestingConnection" class="spinner">⏳</span>
+                    {{ getTranslation('SETTINGS.ACCOUNT.TEST_CONNECTION', 'Проверить подключение') }}
+                  </button>
+                  
+                  <button 
+                    type="submit" 
+                    [disabled]="!ermForm.valid || isSaving"
+                    class="control-button primary">
+                    <span *ngIf="!isSaving">💾</span>
+                    <span *ngIf="isSaving" class="spinner">⏳</span>
+                    {{ getTranslation('SETTINGS.ACCOUNT.SAVE_SETTINGS', 'Сохранить настройки') }}
+                  </button>
+                </div>
+                
+                <div class="connection-status" *ngIf="connectionStatus">
+                  <div class="status-message" [class]="connectionStatus.type">
+                    <span class="status-icon">{{ connectionStatus.icon }}</span>
+                    {{ connectionStatus.message }}
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
           
           <div *ngIf="activeSection === 'notifications'" class="section-content">
             <h2 class="section-title">{{ getTranslation('SETTINGS.NOTIFICATIONS.TITLE', 'Уведомления') }}</h2>
-            <p class="coming-soon">{{ getTranslation('SETTINGS.COMING_SOON', 'Скоро будет доступно') }}</p>
+            <p class="coming-soon">{{ getTranslation('SETTINGS.NOTIFICATIONS.COMING_SOON', 'Скоро будет доступно') }}</p>
           </div>
           
           <div *ngIf="activeSection === 'privacy'" class="section-content">
             <h2 class="section-title">{{ getTranslation('SETTINGS.PRIVACY.TITLE', 'Конфиденциальность') }}</h2>
-            <p class="coming-soon">{{ getTranslation('SETTINGS.COMING_SOON', 'Скоро будет доступно') }}</p>
+            <p class="coming-soon">{{ getTranslation('SETTINGS.PRIVACY.COMING_SOON', 'Скоро будет доступно') }}</p>
           </div>
         </div>
       </div>
@@ -876,6 +947,192 @@ import { Subscription } from 'rxjs';
         font-size: 2rem;
       }
     }
+
+    /* Стили для ERM формы */
+    .erm-form {
+      background: rgba(255,255,255,0.8);
+      border: 2px solid rgba(59,130,246,0.2);
+      border-radius: 16px;
+      padding: 24px;
+      backdrop-filter: blur(15px);
+      margin-top: 20px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .control-input {
+      padding: 12px 16px;
+      border: 2px solid rgba(59,130,246,0.2);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.9);
+      font-size: 14px;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .control-input:focus {
+      outline: none;
+      border-color: rgba(59,130,246,0.5);
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+    }
+
+    .control-input.error {
+      border-color: #ef4444;
+      box-shadow: 0 0 0 3px rgba(239,68,68,0.1);
+    }
+
+    .error-message {
+      color: #ef4444;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .control-button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border: 2px solid transparent;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .control-button.primary {
+      background: linear-gradient(135deg, rgba(59,130,246,0.9) 0%, rgba(37,99,235,0.9) 100%);
+      color: white;
+      border-color: rgba(59,130,246,0.3);
+    }
+
+    .control-button.primary:hover:not(:disabled) {
+      background: linear-gradient(135deg, rgba(59,130,246,1) 0%, rgba(37,99,235,1) 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(59,130,246,0.3);
+    }
+
+    .control-button.secondary {
+      background: rgba(255,255,255,0.9);
+      color: #374151;
+      border-color: rgba(59,130,246,0.3);
+    }
+
+    .control-button.secondary:hover:not(:disabled) {
+      background: rgba(59,130,246,0.1);
+      border-color: rgba(59,130,246,0.5);
+    }
+
+    .control-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .spinner {
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .connection-status {
+      margin-top: 20px;
+    }
+
+    .status-message {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+
+    .status-message.success {
+      background: rgba(34,197,94,0.1);
+      border: 2px solid rgba(34,197,94,0.3);
+      color: #166534;
+    }
+
+    .status-message.error {
+      background: rgba(239,68,68,0.1);
+      border: 2px solid rgba(239,68,68,0.3);
+      color: #dc2626;
+    }
+
+    .status-message.info {
+      background: rgba(59,130,246,0.1);
+      border: 2px solid rgba(59,130,246,0.3);
+      color: #1d4ed8;
+    }
+
+    .status-icon {
+      font-size: 18px;
+    }
+
+    /* Темная тема для ERM формы */
+    :host-context(.theme-dark) .erm-form {
+      background: rgba(30,41,59,0.8);
+      border-color: rgba(59,130,246,0.3);
+    }
+
+    :host-context(.theme-dark) .control-input {
+      background: rgba(15,23,42,0.9);
+      border-color: rgba(59,130,246,0.3);
+      color: #f8fafc;
+    }
+
+    :host-context(.theme-dark) .control-input:focus {
+      border-color: rgba(59,130,246,0.6);
+    }
+
+    :host-context(.theme-dark) .control-button.secondary {
+      background: rgba(30,41,59,0.9);
+      color: #e5e7eb;
+      border-color: rgba(59,130,246,0.3);
+    }
+
+    :host-context(.theme-dark) .control-button.secondary:hover:not(:disabled) {
+      background: rgba(59,130,246,0.2);
+    }
+
+    /* Адаптивность для ERM формы */
+    @media (max-width: 768px) {
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .form-actions {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .control-button {
+        width: 100%;
+        justify-content: center;
+      }
+    }
   `]
 })
 export class SettingsComponent implements OnInit, OnDestroy {
@@ -890,27 +1147,79 @@ export class SettingsComponent implements OnInit, OnDestroy {
   // UI настройки
   uiSettings: any;
   
+  // ERM настройки
+  ermForm: FormGroup;
+  isTestingConnection = false;
+  isSaving = false;
+  connectionStatus: { type: string; message: string; icon: string } | null = null;
+  
   private subscription!: Subscription;
 
-  settingsSections = [
-    { id: 'ui', title: 'Интерфейс', icon: '🎨' },
-    { id: 'filters', title: 'Фильтры', icon: '🔍' },
-    { id: 'account', title: 'Аккаунт', icon: '👤' },
-    { id: 'notifications', title: 'Уведомления', icon: '🔔' },
-    { id: 'privacy', title: 'Конфиденциальность', icon: '🔒' }
-  ];
+  settingsSections: { id: string; title: string; icon: string }[] = [];
 
   constructor(
     private router: Router,
     private landscapeService: LandscapeControlService,
     private userSettingsService: UserSettingsService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private ermService: ERMService,
+    private fb: FormBuilder
   ) {
-    this.landscapeSettings = this.landscapeService.getCurrentSettings();
-    this.presetSchemes = this.landscapeService.getPresetSchemes();
+    // Инициализируем настройки ландшафта с безопасными значениями по умолчанию
+    this.landscapeSettings = this.landscapeService.getCurrentSettings() || {
+      waveAmplitude: 15,
+      animationSpeed: 1.0,
+      pointSize: 2,
+      gridSize: 100,
+      colorScheme: 'wone-it'
+    } as LandscapeSettings;
+    
+    this.presetSchemes = this.landscapeService.getPresetSchemes() || {};
+    
+    // Инициализируем UI настройки с безопасными значениями по умолчанию
+    this.uiSettings = {
+      theme: 'light',
+      transparency: {
+        forms: 80,
+        widgets: 85,
+        sidebars: 90
+      },
+      blur: {
+        forms: 5,
+        widgets: 8,
+        sidebars: 15
+      }
+    };
+    
+    // Инициализируем фильтры с безопасными значениями по умолчанию
+    this.projectFilters = {
+      status: [],
+      priority: []
+    };
+    
+    this.analyticsFilters = {
+      timeRange: 'month',
+      chartType: 'line',
+      showTrends: false
+    };
+    
+    // Инициализируем форму ERM настроек
+    this.ermForm = this.fb.group({
+      baseUrl: ['', [Validators.required, Validators.pattern('https?://.+')]],
+      apiKey: ['', Validators.required]
+    });
   }
 
   ngOnInit(): void {
+    // Инициализируем разделы настроек
+    this.settingsSections = [
+      { id: 'ui', title: this.getTranslation('SETTINGS.SECTIONS.UI', 'Интерфейс'), icon: '🎨' },
+      { id: 'filters', title: this.getTranslation('SETTINGS.SECTIONS.FILTERS', 'Фильтры'), icon: '🔍' },
+      { id: 'account', title: this.getTranslation('SETTINGS.SECTIONS.ACCOUNT', 'Аккаунт'), icon: '👤' },
+      { id: 'notifications', title: this.getTranslation('SETTINGS.SECTIONS.NOTIFICATIONS', 'Уведомления'), icon: '🔔' },
+      { id: 'privacy', title: this.getTranslation('SETTINGS.SECTIONS.PRIVACY', 'Конфиденциальность'), icon: '🔒' }
+    ];
+
     this.subscription = this.landscapeService.settings$.subscribe(settings => {
       this.landscapeSettings = settings;
     });
@@ -925,6 +1234,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
     
     // Инициализируем настройки ландшафта
     this.landscapeSettings = { ...this.landscapeService.getCurrentSettings() };
+    
+    // Загружаем ERM настройки
+    this.loadERMSettings();
   }
 
   ngOnDestroy(): void {
@@ -956,6 +1268,117 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   getTranslation(key: string, fallback: string): string {
     return this.translateService.instant(key) || fallback;
+  }
+
+  /**
+   * Загружает настройки ERM из базы данных
+   */
+  private async loadERMSettings(): Promise<void> {
+    try {
+      const settings = await this.ermService.getERMSettings();
+      if (settings) {
+        this.ermForm.patchValue({
+          baseUrl: settings.baseUrl || '',
+          apiKey: settings.apiKey || ''
+        });
+      }
+    } catch (error) {
+      console.error('Ошибка загрузки настроек ERM:', error);
+    }
+  }
+
+  /**
+   * Сохраняет настройки ERM
+   */
+  async saveERMSettings(): Promise<void> {
+    if (this.ermForm.invalid) {
+      return;
+    }
+
+    this.isSaving = true;
+    this.connectionStatus = null;
+
+    try {
+      const formValue = this.ermForm.value;
+      await this.ermService.saveERMSettings({
+        baseUrl: formValue.baseUrl,
+        apiKey: formValue.apiKey
+      });
+
+      this.connectionStatus = {
+        type: 'success',
+        message: this.getTranslation('SETTINGS.ACCOUNT.SETTINGS_SAVED', 'Настройки успешно сохранены'),
+        icon: '✅'
+      };
+
+      // Очищаем статус через 3 секунды
+      setTimeout(() => {
+        this.connectionStatus = null;
+      }, 3000);
+
+    } catch (error: any) {
+      this.connectionStatus = {
+        type: 'error',
+        message: this.getTranslation('SETTINGS.ACCOUNT.SAVE_ERROR', 'Ошибка сохранения настроек') + ': ' + (error.message || 'Неизвестная ошибка'),
+        icon: '❌'
+      };
+    } finally {
+      this.isSaving = false;
+    }
+  }
+
+  /**
+   * Тестирует подключение к ERM системе
+   */
+  async testERMConnection(): Promise<void> {
+    if (this.ermForm.invalid) {
+      return;
+    }
+
+    this.isTestingConnection = true;
+    this.connectionStatus = null;
+
+    try {
+      // Сначала сохраняем настройки
+      await this.saveERMSettings();
+      
+      this.connectionStatus = {
+        type: 'info',
+        message: this.getTranslation('SETTINGS.ACCOUNT.TESTING_CONNECTION', 'Проверка подключения...'),
+        icon: '⏳'
+      };
+
+      // Тестируем подключение
+      const isConnected = await firstValueFrom(this.ermService.checkERMConnection());
+      
+      if (isConnected) {
+        this.connectionStatus = {
+          type: 'success',
+          message: this.getTranslation('SETTINGS.ACCOUNT.CONNECTION_SUCCESS', 'Подключение к ERM системе успешно!'),
+          icon: '✅'
+        };
+      } else {
+        this.connectionStatus = {
+          type: 'error',
+          message: this.getTranslation('SETTINGS.ACCOUNT.CONNECTION_FAILED', 'Не удалось подключиться к ERM системе. Проверьте URL и API ключ.'),
+          icon: '❌'
+        };
+      }
+
+      // Очищаем статус через 5 секунд
+      setTimeout(() => {
+        this.connectionStatus = null;
+      }, 5000);
+
+    } catch (error: any) {
+      this.connectionStatus = {
+        type: 'error',
+        message: this.getTranslation('SETTINGS.ACCOUNT.TEST_ERROR', 'Ошибка проверки подключения') + ': ' + (error.message || 'Неизвестная ошибка'),
+        icon: '❌'
+      };
+    } finally {
+      this.isTestingConnection = false;
+    }
   }
 
   getPresetName(schemeKey: string | number): string {

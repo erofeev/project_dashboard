@@ -31,6 +31,8 @@ export class DatabaseService {
   private usersDb!: Database;
   private projectsDb!: Database;
   private timeEntriesDb!: Database;
+  private activitiesDb!: Database;
+  private ermSettingsDb!: Database;
   private invoicesDb!: Database;
   private paymentsDb!: Database;
 
@@ -54,6 +56,8 @@ export class DatabaseService {
       this.usersDb = new PouchDB('users', dbOptions);
       this.projectsDb = new PouchDB('projects', dbOptions);
       this.timeEntriesDb = new PouchDB('time_entries', dbOptions);
+      this.activitiesDb = new PouchDB('activities', dbOptions);
+      this.ermSettingsDb = new PouchDB('erm_settings', dbOptions);
       this.invoicesDb = new PouchDB('invoices', dbOptions);
       this.paymentsDb = new PouchDB('payments', dbOptions);
 
@@ -104,6 +108,16 @@ export class DatabaseService {
       // Индексы для временных записей
       await this.timeEntriesDb.createIndex({
         index: { fields: ['userId', 'projectId', 'date'] }
+      });
+
+      // Индексы для активностей
+      await this.activitiesDb.createIndex({
+        index: { fields: ['name', 'isDefault'] }
+      });
+
+      // Индексы для настроек ЕРМ
+      await this.ermSettingsDb.createIndex({
+        index: { fields: ['userId'] }
       });
 
       // Индексы для счетов
@@ -201,6 +215,22 @@ export class DatabaseService {
   async deleteUser(id: string): Promise<void> {
     const doc = await this.usersDb.get(id);
     await this.usersDb.remove(doc);
+  }
+
+  /**
+   * Получает текущего авторизованного пользователя
+   * В реальном приложении это должно быть из AuthService
+   */
+  async getCurrentUser(): Promise<any> {
+    try {
+      // Временная реализация - получаем первого пользователя
+      // В реальном приложении здесь должна быть интеграция с AuthService
+      const users = await this.getAllUsers();
+      return users.length > 0 ? users[0] : null;
+    } catch (error) {
+      console.error('Error getting current user:', error);
+      return null;
+    }
   }
 
   // Методы для работы с проектами
@@ -313,6 +343,162 @@ export class DatabaseService {
   async deleteTimeEntry(id: string): Promise<void> {
     const doc = await this.timeEntriesDb.get(id);
     await this.timeEntriesDb.remove(doc);
+  }
+
+  // Методы для работы с активностями
+  async createActivity(activity: any): Promise<any> {
+    const doc = {
+      _id: activity.id || `activity_${Date.now()}`,
+      ...activity,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+    return await this.activitiesDb.put(doc);
+  }
+
+  async getActivity(id: string): Promise<any> {
+    try {
+      return await this.activitiesDb.get(id);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async getAllActivities(): Promise<any[]> {
+    try {
+      const result = await this.activitiesDb.find({
+        selector: {}
+      });
+      return result.docs;
+    } catch (error) {
+      return [];
+    }
+  }
+
+  async updateActivity(activity: any): Promise<any> {
+    const doc = await this.activitiesDb.get(activity._id || activity.id);
+    const updatedDoc = {
+      ...doc,
+      ...activity,
+      updatedAt: new Date().toISOString()
+    };
+    return await this.activitiesDb.put(updatedDoc);
+  }
+
+  async deleteActivity(id: string): Promise<void> {
+    const doc = await this.activitiesDb.get(id);
+    await this.activitiesDb.remove(doc);
+  }
+
+  // Методы для создания или обновления (upsert)
+  async createOrUpdateUser(user: any): Promise<any> {
+    try {
+      const existingUser = await this.getUserByEmail(user.email);
+      if (existingUser) {
+        return await this.updateUser({ ...existingUser, ...user });
+      } else {
+        return await this.createUser(user);
+      }
+    } catch (error) {
+      console.error('Error in createOrUpdateUser:', error);
+      throw error;
+    }
+  }
+
+  async createOrUpdateProject(project: any): Promise<any> {
+    try {
+      const existingProject = await this.getProject(project.id);
+      if (existingProject) {
+        return await this.updateProject({ ...existingProject, ...project });
+      } else {
+        return await this.createProject(project);
+      }
+    } catch (error) {
+      console.error('Error in createOrUpdateProject:', error);
+      throw error;
+    }
+  }
+
+  async createOrUpdateTimeEntry(timeEntry: any): Promise<any> {
+    try {
+      const existingEntry = await this.getTimeEntry(timeEntry.id);
+      if (existingEntry) {
+        return await this.updateTimeEntry({ ...existingEntry, ...timeEntry });
+      } else {
+        return await this.createTimeEntry(timeEntry);
+      }
+    } catch (error) {
+      console.error('Error in createOrUpdateTimeEntry:', error);
+      throw error;
+    }
+  }
+
+  async createOrUpdateActivity(activity: any): Promise<any> {
+    try {
+      const existingActivity = await this.getActivity(activity.id);
+      if (existingActivity) {
+        return await this.updateActivity({ ...existingActivity, ...activity });
+      } else {
+        return await this.createActivity(activity);
+      }
+    } catch (error) {
+      console.error('Error in createOrUpdateActivity:', error);
+      throw error;
+    }
+  }
+
+  // Методы для работы с настройками ЕРМ
+  async saveERMSettings(settings: any): Promise<any> {
+    try {
+      // Ищем существующие настройки для пользователя
+      const existingSettings = await this.getERMSettings(settings.userId);
+      
+      if (existingSettings) {
+        // Обновляем существующие настройки
+        const updatedSettings = {
+          ...existingSettings,
+          ...settings,
+          updatedAt: new Date().toISOString()
+        };
+        return await this.ermSettingsDb.put(updatedSettings);
+      } else {
+        // Создаем новые настройки
+        const newSettings = {
+          _id: `erm_settings_${settings.userId}`,
+          ...settings,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        };
+        return await this.ermSettingsDb.put(newSettings);
+      }
+    } catch (error) {
+      console.error('Error saving ERM settings:', error);
+      throw error;
+    }
+  }
+
+  async getERMSettings(userId: string): Promise<any> {
+    try {
+      const result = await this.ermSettingsDb.find({
+        selector: { userId: userId }
+      });
+      return result.docs.length > 0 ? result.docs[0] : null;
+    } catch (error) {
+      console.error('Error getting ERM settings:', error);
+      return null;
+    }
+  }
+
+  async deleteERMSettings(userId: string): Promise<void> {
+    try {
+      const settings = await this.getERMSettings(userId);
+      if (settings) {
+        await this.ermSettingsDb.remove(settings);
+      }
+    } catch (error) {
+      console.error('Error deleting ERM settings:', error);
+      throw error;
+    }
   }
 
   // Методы для работы со счетами

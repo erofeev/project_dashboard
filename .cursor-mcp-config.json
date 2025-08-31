@@ -5,6 +5,12 @@
       "args": ["./dist/couchdb-index.js"],
       "env": {},
       "cwd": "infrastructure/mcp-server/pouchdb-mcp-server"
+    },
+    "easyredmine": {
+      "command": "node",
+      "args": ["./dist/easyredmine-index.js"],
+      "env": {},
+      "cwd": "infrastructure/mcp-server/easyredmine-mcp-server"
     }
   }
 }

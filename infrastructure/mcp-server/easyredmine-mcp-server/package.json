@@ -1,0 +1,26 @@
+{
+  "name": "easyredmine-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for EasyRedmine integration",
+  "main": "dist/easyredmine-index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/easyredmine-index.js",
+    "start:easyredmine": "npm run build && npm run start",
+    "dev": "ts-node src/easyredmine-index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["mcp", "easyredmine", "redmine", "api"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.0"
+  }
+}

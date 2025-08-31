@@ -126,6 +126,35 @@ import { UserSettingsService } from './services/user-settings.service';
           </div>
 
           <div class="right-group">
+            <!-- Кнопка администрирования - только для админов -->
+            <div class="admin-dropdown" *ngIf="isAdmin()">
+              <button class="admin-button glass-button" 
+                      (click)="navigateToAdmin()" 
+                      [title]="getTranslation('HEADER.ADMINISTRATION', 'Администрирование')">
+                <i class="admin-icon">⚙️</i>
+                <span class="button-text">{{ getTranslation('HEADER.ADMINISTRATION', 'Администрирование') }}</span>
+              </button>
+            </div>
+
+            <!-- Кнопка обновления данных - для всех кроме сотрудников -->
+            <div class="data-update-dropdown" *ngIf="canUserUpdateData()">
+              <button class="data-update-button glass-button" 
+                      (click)="toggleDataUpdateMenu()" 
+                      [class.open]="dataUpdateMenuOpen"
+                      [title]="getTranslation('HEADER.DATA_UPDATE', 'Обновление данных')">
+                <i class="data-update-icon">🔄</i>
+                <span class="button-text">{{ getTranslation('HEADER.DATA_UPDATE', 'Обновление данных') }}</span>
+                <span class="dropdown-arrow">▼</span>
+              </button>
+              <div class="data-update-menu" *ngIf="dataUpdateMenuOpen">
+                <div class="dropdown-item" (click)="navigateToERMUpdate()">
+                  <i class="menu-icon">📊</i>
+                  {{ getTranslation('HEADER.ERM_IMPORT', 'Импорт данных из ЕРМ') }}
+                </div>
+                <!-- Здесь можно добавить другие пункты меню -->
+              </div>
+            </div>
+
             <div class="toggles">
               <select class="glass-select" [value]="currentLang" (change)="onLangChange($event)">
                 <option value="ru">RU</option>
@@ -1991,6 +2020,182 @@ import { UserSettingsService } from './services/user-settings.service';
       background: linear-gradient(135deg, rgba(59,130,246,0.25) 0%, rgba(37,99,235,0.25) 100%) !important;
       color: #93c5fd !important;
     }
+
+    /* Стили для кнопки администрирования */
+    .admin-dropdown {
+      position: relative;
+      margin-right: 12px;
+    }
+
+    .admin-button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: linear-gradient(135deg, rgba(239,68,68,0.9) 0%, rgba(220,38,38,0.9) 100%);
+      border: 2px solid rgba(239,68,68,0.3);
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(239,68,68,0.2);
+      user-select: none;
+    }
+
+    .admin-button:hover {
+      background: linear-gradient(135deg, rgba(239,68,68,1) 0%, rgba(220,38,38,1) 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(239,68,68,0.3);
+      border-color: rgba(239,68,68,0.5);
+    }
+
+    .admin-icon {
+      font-size: 16px;
+    }
+
+    /* Стили для кнопки обновления данных */
+    .data-update-dropdown {
+      position: relative;
+      margin-right: 12px;
+    }
+
+    .data-update-button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: linear-gradient(135deg, rgba(34,197,94,0.9) 0%, rgba(22,163,74,0.9) 100%);
+      border: 2px solid rgba(34,197,94,0.3);
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(34,197,94,0.2);
+      user-select: none;
+    }
+
+    .data-update-button:hover {
+      background: linear-gradient(135deg, rgba(34,197,94,1) 0%, rgba(22,163,74,1) 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(34,197,94,0.3);
+      border-color: rgba(34,197,94,0.5);
+    }
+
+    .data-update-button.open {
+      background: linear-gradient(135deg, rgba(34,197,94,1) 0%, rgba(22,163,74,1) 100%);
+      border-color: rgba(34,197,94,0.5);
+    }
+
+    .data-update-icon {
+      font-size: 16px;
+    }
+
+    .dropdown-arrow {
+      font-size: 12px;
+      transition: transform 0.2s ease;
+    }
+
+    .data-update-button.open .dropdown-arrow {
+      transform: rotate(180deg);
+    }
+
+    .data-update-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(34,197,94,0.2);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      margin-top: 4px;
+      min-width: 200px;
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      color: #374151;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border-bottom: 1px solid rgba(34,197,94,0.1);
+    }
+
+    .dropdown-item:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-item:hover {
+      background: linear-gradient(135deg, rgba(34,197,94,0.1) 0%, rgba(22,163,74,0.1) 100%);
+      color: #059669;
+    }
+
+    .menu-icon {
+      font-size: 16px;
+    }
+
+    /* Темная тема для кнопок */
+    :host-context(.theme-dark) .admin-button {
+      background: linear-gradient(135deg, rgba(239,68,68,0.8) 0%, rgba(220,38,38,0.8) 100%);
+      border-color: rgba(239,68,68,0.4);
+    }
+
+    :host-context(.theme-dark) .admin-button:hover {
+      background: linear-gradient(135deg, rgba(239,68,68,0.9) 0%, rgba(220,38,38,0.9) 100%);
+      border-color: rgba(239,68,68,0.6);
+    }
+
+    :host-context(.theme-dark) .data-update-button {
+      background: linear-gradient(135deg, rgba(34,197,94,0.8) 0%, rgba(22,163,74,0.8) 100%);
+      border-color: rgba(34,197,94,0.4);
+    }
+
+    :host-context(.theme-dark) .data-update-button:hover {
+      background: linear-gradient(135deg, rgba(34,197,94,0.9) 0%, rgba(22,163,74,0.9) 100%);
+      border-color: rgba(34,197,94,0.6);
+    }
+
+    :host-context(.theme-dark) .data-update-menu {
+      background: rgba(15,23,42,0.95);
+      border-color: rgba(34,197,94,0.3);
+    }
+
+    :host-context(.theme-dark) .dropdown-item {
+      color: #f8fafc;
+      border-bottom-color: rgba(34,197,94,0.2);
+    }
+
+    :host-context(.theme-dark) .dropdown-item:hover {
+      background: linear-gradient(135deg, rgba(34,197,94,0.2) 0%, rgba(22,163,74,0.2) 100%);
+      color: #4ade80;
+    }
+
+    /* Адаптивность для мобильных устройств */
+    @media (max-width: 768px) {
+      .admin-button,
+      .data-update-button {
+        padding: 8px 12px;
+        font-size: 12px;
+        gap: 4px;
+      }
+
+      .button-text {
+        display: none;
+      }
+
+      .admin-dropdown,
+      .data-update-dropdown {
+        margin-right: 8px;
+      }
+    }
   `]
 })
 export class AppComponent implements OnInit {
@@ -1999,6 +2204,7 @@ export class AppComponent implements OnInit {
   rightSidebarOpen = false;
   bottomSidebarOpen = false;
   userMenuOpen = false;
+  dataUpdateMenuOpen = false;
   currentLang = 'ru';
   theme: 'light' | 'dark' = 'light';
   breadcrumbs: string[] = [];
@@ -2048,7 +2254,9 @@ export class AppComponent implements OnInit {
         HIERARCHY: 'Иерархия',
         GO_TO_DASHBOARD: 'Перейти на дашборд',
         LOGO_CLICK: 'Кликните для перехода на главную страницу',
-        TITLE_CLICK: 'Кликните для перехода на главную страницу'
+        TITLE_CLICK: 'Кликните для перехода на главную страницу',
+        DATA_UPDATE: 'Обновление данных',
+        ERM_IMPORT: 'Импорт данных из ЕРМ'
       },
       SIDEBAR: {
         ACTIVE: 'Активные',
@@ -2101,7 +2309,9 @@ export class AppComponent implements OnInit {
         HIERARCHY: 'Hierarchy',
         GO_TO_DASHBOARD: 'Go to Dashboard',
         LOGO_CLICK: 'Click to go to main page',
-        TITLE_CLICK: 'Click to go to main page'
+        TITLE_CLICK: 'Click to go to main page',
+        DATA_UPDATE: 'Data Update',
+        ERM_IMPORT: 'Import data from ERM'
       },
       SIDEBAR: {
         ACTIVE: 'Active',
@@ -2193,6 +2403,11 @@ export class AppComponent implements OnInit {
       const target = event.target as HTMLElement;
       if (!target.closest('.glass-user-menu')) {
         this.closeUserMenu();
+      }
+      
+      // Закрываем меню обновления данных
+      if (!target.closest('.data-update-dropdown')) {
+        this.closeDataUpdateMenu();
       }
       
       // Убираем текстовый курсор после клика на неедактируемых элементах
@@ -2441,5 +2656,49 @@ export class AppComponent implements OnInit {
   getTranslation(key: string, fallback: string): string {
     const translation = this.translate.instant(key);
     return translation !== key ? translation : fallback;
+  }
+
+  /**
+   * Проверяет, может ли пользователь видеть кнопку обновления данных
+   * (все кроме роли "сотрудник")
+   */
+  canUserUpdateData(): boolean {
+    const currentUser = this.authService.getCurrentUser();
+    return currentUser?.role === 'superadmin' || 
+           currentUser?.role === 'admin' || 
+           currentUser?.role === 'general_director' || 
+           currentUser?.role === 'director' || 
+           currentUser?.role === 'project_manager';
+  }
+
+  /**
+   * Проверяет, является ли пользователь администратором
+   * (только superadmin и admin)
+   */
+  isAdmin(): boolean {
+    const currentUser = this.authService.getCurrentUser();
+    return currentUser?.role === 'superadmin' || 
+           currentUser?.role === 'admin';
+  }
+
+  toggleDataUpdateMenu(): void { 
+    if (this.dataUpdateMenuOpen) {
+      this.closeDataUpdateMenu();
+    } else {
+      this.dataUpdateMenuOpen = true;
+    }
+  }
+  
+  closeDataUpdateMenu(): void { 
+    this.dataUpdateMenuOpen = false;
+  }
+
+  navigateToERMUpdate(): void {
+    this.router.navigate(['/admin']);
+    this.closeDataUpdateMenu();
+  }
+
+  navigateToAdmin(): void {
+    this.router.navigate(['/admin']);
   }
 }

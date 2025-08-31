@@ -80,11 +80,11 @@ export class AuthService {
         if (!user) {
           // Создаем демо-пользователя если его нет
           const demoUser: Omit<User, 'id' | 'createdAt' | 'updatedAt'> = {
-            name: 'Администратор',
+            name: 'Суперадминистратор',
             email: 'admin@admin.ru',
             phone: '+7 (999) 123-45-67',
-            role: UserRole.GENERAL_DIRECTOR,
-            direction: 'Все направления',
+            role: UserRole.SUPERADMIN,
+            direction: 'system',
             salary: 150000,
             hourlyRate: 1000,
             workingDaysPerMonth: 22,
@@ -93,8 +93,22 @@ export class AuthService {
             isActive: true
           };
           
-          const createdUser = await this.databaseService.createUser(demoUser);
-          user = createdUser;
+          await this.databaseService.createUser(demoUser);
+          // Получаем полный объект пользователя из базы
+          user = await this.databaseService.getUserByEmail(email);
+        }
+        
+        // Убеждаемся, что у пользователя правильная роль
+        if (user && user.role !== 'superadmin') {
+          // Обновляем роль пользователя на superadmin
+          const updatedUser = {
+            ...user,
+            name: 'Суперадминистратор',
+            role: 'superadmin',
+            direction: 'system'
+          };
+          await this.databaseService.updateUser(updatedUser);
+          user = await this.databaseService.getUserByEmail(email);
         }
 
         const token = this.generateToken(user);

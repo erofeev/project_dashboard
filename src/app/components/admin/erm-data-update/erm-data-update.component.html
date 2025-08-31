@@ -1,0 +1,161 @@
+<div class="erm-data-update">
+  
+  <!-- Форма настроек обновления -->
+  <mat-card class="config-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>settings</mat-icon>
+        Настройки обновления данных
+      </mat-card-title>
+      <mat-card-subtitle>
+        Выберите период и типы данных для обновления из ЕРМ системы
+      </mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <form [formGroup]="updateForm" class="update-form">
+        
+        <!-- Информация о настройках -->
+        <div class="form-section">
+          <h4>Настройки подключения к ЕРМ</h4>
+          <div class="info-message">
+            <mat-icon>info</mat-icon>
+            <span>Настройки подключения к ERM системе находятся в разделе "Настройки → Аккаунт"</span>
+          </div>
+        </div>
+        
+        <mat-divider></mat-divider>
+        
+        <!-- Выбор периода -->
+        <div class="form-section">
+          <h4>Период обновления</h4>
+          <div class="date-inputs">
+            <mat-form-field appearance="outline" class="date-field">
+              <mat-label>Начальная дата</mat-label>
+              <input matInput type="date" formControlName="startDate" required>
+              <mat-error *ngIf="updateForm.get('startDate')?.hasError('required')">
+                Начальная дата обязательна
+              </mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="date-field">
+              <mat-label>Конечная дата</mat-label>
+              <input matInput type="date" formControlName="endDate" required>
+              <mat-error *ngIf="updateForm.get('endDate')?.hasError('required')">
+                Конечная дата обязательна
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        
+        <mat-divider></mat-divider>
+        
+        <!-- Выбор типов данных -->
+        <div class="form-section">
+          <h4>Типы данных для обновления</h4>
+          <div class="checkbox-group">
+            <mat-checkbox formControlName="updateUsers" color="primary">
+              Пользователи и их настройки
+            </mat-checkbox>
+            
+            <mat-checkbox formControlName="updateProjects" color="primary">
+              Проекты и их параметры
+            </mat-checkbox>
+            
+            <mat-checkbox formControlName="updateTimeEntries" color="primary">
+              Временные записи
+            </mat-checkbox>
+            
+            <mat-checkbox formControlName="updateActivities" color="primary">
+              Активности и категории работ
+            </mat-checkbox>
+          </div>
+        </div>
+        
+        <!-- Кнопки действий -->
+        <div class="form-actions">
+          <button 
+            mat-raised-button 
+            color="primary" 
+            [disabled]="!isFormValid"
+            (click)="handleUpdateData()"
+            class="update-button"
+          >
+            <mat-icon *ngIf="!isUpdating">sync</mat-icon>
+            <mat-icon *ngIf="isUpdating" class="rotating">sync</mat-icon>
+            {{ isUpdating ? 'Обновление...' : 'Обновить данные из ЕРМ' }}
+          </button>
+        </div>
+        
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Прогресс обновления -->
+  <mat-card class="progress-card" *ngIf="isUpdating">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>trending_up</mat-icon>
+        Прогресс обновления
+      </mat-card-title>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <div class="progress-info">
+        <div class="progress-step">{{ currentStep }}</div>
+        <div class="progress-percentage">{{ progress }}%</div>
+      </div>
+      
+      <mat-progress-bar 
+        mode="determinate" 
+        [value]="progress"
+        class="progress-bar"
+      ></mat-progress-bar>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Лог выполнения -->
+  <mat-card class="logs-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>list_alt</mat-icon>
+        Лог выполнения операций
+      </mat-card-title>
+      <mat-card-subtitle>
+        Детальная информация о процессе обновления данных
+      </mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <div class="logs-header">
+        <span class="logs-count">Записей: {{ logs.length }}</span>
+        <button 
+          mat-button 
+          color="warn" 
+          (click)="clearLogs()"
+          [disabled]="logs.length === 0"
+        >
+          <mat-icon>clear_all</mat-icon>
+          Очистить лог
+        </button>
+      </div>
+      
+      <div class="logs-container">
+        <div 
+          *ngFor="let log of logs; trackBy: trackByLog" 
+          class="log-entry"
+          [class.log-error]="log.includes('Ошибка')"
+          [class.log-success]="log.includes('успешно')"
+        >
+          {{ log }}
+        </div>
+        
+        <div *ngIf="logs.length === 0" class="logs-empty">
+          <mat-icon>info</mat-icon>
+          <p>Лог пуст. Запустите обновление данных для просмотра информации.</p>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+</div>

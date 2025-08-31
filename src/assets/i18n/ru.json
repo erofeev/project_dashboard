@@ -64,7 +64,10 @@
     "MENU": "Меню",
     "THEME_LIGHT": "Темная тема",
     "THEME_DARK": "Светлая тема",
-    "HIERARCHY": "Иерархия"
+    "HIERARCHY": "Иерархия",
+    "DATA_UPDATE": "Обновление данных",
+    "ERM_IMPORT": "Импорт данных из ЕРМ",
+    "ADMINISTRATION": "Администрирование"
   },
   "PROJECTS": {
     "TITLE": "Проекты",
@@ -122,7 +125,27 @@
       "PRESETS_DESCRIPTION": "Выберите готовую схему настроек",
       "CUSTOM_PRESET": "Пользовательский пресет",
       "CUSTOM_PRESET_DESCRIPTION": "Сохраните текущие настройки как пользовательский пресет",
-      "SAVE_CUSTOM": "Сохранить текущий"
+      "SAVE_CUSTOM": "Сохранить текущий",
+      "RANGE_MIN": "5",
+      "RANGE_MAX": "30",
+      "RANGE_MIN_SPEED": "0.1",
+      "RANGE_MAX_SPEED": "2.0",
+      "RANGE_MIN_SIZE": "1",
+      "RANGE_MAX_SIZE": "5",
+      "RANGE_MIN_GRID": "50",
+      "RANGE_MAX_GRID": "150",
+      "RANGE_MIN_TRANSPARENCY": "50%",
+      "RANGE_MAX_TRANSPARENCY": "95%",
+      "RANGE_MIN_WIDGETS": "70%",
+      "RANGE_MAX_WIDGETS": "95%",
+      "RANGE_MIN_SIDEBARS": "70%",
+      "RANGE_MAX_SIDEBARS": "95%",
+      "RANGE_MIN_FORMS_BLUR": "0px",
+      "RANGE_MAX_FORMS_BLUR": "20px",
+      "RANGE_MIN_WIDGETS_BLUR": "0px",
+      "RANGE_MAX_WIDGETS_BLUR": "20px",
+      "RANGE_MIN_SIDEBARS_BLUR": "10px",
+      "RANGE_MAX_SIDEBARS_BLUR": "50px"
     },
     "FILTERS": {
       "TITLE": "Настройки фильтров",
@@ -153,13 +176,38 @@
       "SAVE": "Сохранить настройки"
     },
     "ACCOUNT": {
-      "TITLE": "Настройки аккаунта"
+      "TITLE": "Настройки аккаунта",
+      "ERM_TITLE": "Настройки ERM системы",
+      "ERM_DESCRIPTION": "Настройте подключение к ERM системе для автоматического обновления данных",
+      "ERM_URL": "URL ERM системы",
+      "ERM_URL_PLACEHOLDER": "https://your-erm-system.com",
+      "ERM_URL_ERROR": "Введите корректный URL",
+      "ERM_API_KEY": "API ключ",
+      "ERM_API_KEY_PLACEHOLDER": "your-api-key",
+      "ERM_API_KEY_ERROR": "Введите API ключ",
+      "TEST_CONNECTION": "Проверить подключение",
+      "SAVE_SETTINGS": "Сохранить настройки",
+      "SETTINGS_SAVED": "Настройки успешно сохранены",
+      "SAVE_ERROR": "Ошибка сохранения настроек",
+      "TESTING_CONNECTION": "Проверка подключения...",
+      "CONNECTION_SUCCESS": "Подключение к ERM системе успешно!",
+      "CONNECTION_FAILED": "Не удалось подключиться к ERM системе. Проверьте URL и API ключ.",
+      "TEST_ERROR": "Ошибка проверки подключения"
     },
     "NOTIFICATIONS": {
-      "TITLE": "Уведомления"
+      "TITLE": "Уведомления",
+      "COMING_SOON": "Функция уведомлений будет доступна в ближайшее время"
     },
     "PRIVACY": {
-      "TITLE": "Конфиденциальность"
+      "TITLE": "Конфиденциальность",
+      "COMING_SOON": "Настройки конфиденциальности будут доступны в ближайшее время"
+    },
+    "SECTIONS": {
+      "UI": "Интерфейс",
+      "FILTERS": "Фильтры",
+      "ACCOUNT": "Аккаунт",
+      "NOTIFICATIONS": "Уведомления",
+      "PRIVACY": "Конфиденциальность"
     }
   }
 }

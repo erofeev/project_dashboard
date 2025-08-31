@@ -64,7 +64,10 @@
     "MENU": "Menu",
     "THEME_LIGHT": "Dark theme",
     "THEME_DARK": "Light theme",
-    "HIERARCHY": "Hierarchy"
+    "HIERARCHY": "Hierarchy",
+    "DATA_UPDATE": "Data Update",
+    "ERM_IMPORT": "Import data from ERM",
+    "ADMINISTRATION": "Administration"
   },
   "PROJECTS": {
     "TITLE": "Projects",
@@ -153,13 +156,58 @@
       "SAVE": "Save Settings"
     },
     "ACCOUNT": {
-      "TITLE": "Account Settings"
+      "TITLE": "Account Settings",
+      "ERM_TITLE": "ERM Integration",
+      "ERM_DESCRIPTION": "Configure connection to EasyRedmine system",
+      "ERM_URL": "ERM URL",
+      "ERM_URL_PLACEHOLDER": "https://your-erm-instance.com",
+      "ERM_API_KEY": "API Key",
+      "ERM_API_KEY_PLACEHOLDER": "Enter your ERM API key",
+      "TEST_CONNECTION": "Test Connection",
+      "SAVE_SETTINGS": "Save Settings",
+      "SETTINGS_SAVED": "Settings saved successfully",
+      "CONNECTION_SUCCESS": "Connection successful",
+      "CONNECTION_FAILED": "Connection failed",
+      "SAVE_ERROR": "Error saving settings",
+      "TEST_ERROR": "Error testing connection",
+      "TESTING_CONNECTION": "Testing connection..."
     },
     "NOTIFICATIONS": {
-      "TITLE": "Notifications"
+      "TITLE": "Notifications",
+      "COMING_SOON": "Notification settings will be available soon"
     },
     "PRIVACY": {
-      "TITLE": "Privacy"
+      "TITLE": "Privacy",
+      "COMING_SOON": "Privacy settings will be available soon"
+    },
+    "SECTIONS": {
+      "UI": "Interface",
+      "FILTERS": "Filters",
+      "ACCOUNT": "Account",
+      "NOTIFICATIONS": "Notifications",
+      "PRIVACY": "Privacy"
+    },
+    "UI": {
+      "RANGE_MIN": "Min",
+      "RANGE_MAX": "Max",
+      "RANGE_MIN_SPEED": "Slow",
+      "RANGE_MAX_SPEED": "Fast",
+      "RANGE_MIN_SIZE": "Small",
+      "RANGE_MAX_SIZE": "Large",
+      "RANGE_MIN_GRID": "Fine",
+      "RANGE_MAX_GRID": "Coarse",
+      "RANGE_MIN_TRANSPARENCY": "Opaque",
+      "RANGE_MAX_TRANSPARENCY": "Transparent",
+      "RANGE_MIN_WIDGETS": "Opaque",
+      "RANGE_MAX_WIDGETS": "Transparent",
+      "RANGE_MIN_SIDEBARS": "Opaque",
+      "RANGE_MAX_SIDEBARS": "Transparent",
+      "RANGE_MIN_FORMS_BLUR": "None",
+      "RANGE_MAX_FORMS_BLUR": "Strong",
+      "RANGE_MIN_WIDGETS_BLUR": "None",
+      "RANGE_MAX_WIDGETS_BLUR": "Strong",
+      "RANGE_MIN_SIDEBARS_BLUR": "None",
+      "RANGE_MAX_SIDEBARS_BLUR": "Strong"
     }
   }
 }
