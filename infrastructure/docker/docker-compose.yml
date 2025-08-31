@@ -21,7 +21,7 @@ services:
     container_name: project-management-fauxton
     restart: unless-stopped
     ports:
-      - "8080:8000"
+      - "8888:8000"
     environment:
       - COUCHDB_URL=http://couchdb:5984
     depends_on:

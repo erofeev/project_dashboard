@@ -44,7 +44,7 @@ npm run system:status
 - **CouchDB**: База данных NoSQL
 - **Fauxton**: Веб-интерфейс для управления CouchDB
 - **Порт CouchDB**: 5984
-- **Порт Fauxton**: 8080
+- **Порт Fauxton**: 8888
 - **Логин**: admin / admin123
 
 ### MCP Сервер
@@ -65,7 +65,7 @@ npm run system:status
 - **Пароль**: admin123
 
 ### Fauxton (веб-интерфейс)
-- **URL**: http://localhost:8080
+- **URL**: http://localhost:8888
 - **Пользователь**: admin
 - **Пароль**: admin123
 

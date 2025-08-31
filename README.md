@@ -77,7 +77,7 @@ npm run system:status
 
 ### Через веб-интерфейс
 - **CouchDB API**: http://localhost:5984
-- **Fauxton (веб-интерфейс)**: http://localhost:8080
+- **Fauxton (веб-интерфейс)**: http://localhost:8888
 - **Angular App**: http://localhost:4200
 
 ### Через MCP сервер
@@ -102,8 +102,8 @@ curl -X POST http://localhost:3000/mcp \
 - **Базы данных**: users, projects, time_entries, invoices, payments, settings
 
 ### Fauxton настройки
-- **Порт**: 8080
-- **Доступ**: http://localhost:8080
+- **Порт**: 8888
+- **Доступ**: http://localhost:8888
 - **Пользователь**: admin
 - **Пароль**: admin123
 - **Функции**: управление документами, запросы, мониторинг
@@ -182,7 +182,7 @@ npm run system:restart
 npm run system:logs:fauxton
 
 # Проверка доступности
-curl http://localhost:8080
+curl http://localhost:8888
 ```
 
 ### Проблемы с MCP сервером
@@ -244,7 +244,7 @@ cd infrastructure/mcp-server && npm run start:couchdb
 - **Мониторинг** - просмотр статистики и метрик
 
 ### Доступ:
-1. Откройте http://localhost:8080
+1. Откройте http://localhost:8888
 2. Войдите с учетными данными **admin / admin123**
 3. Перейдите в раздел "Databases"
 4. Выберите нужную базу данных
