@@ -1,5 +1,5 @@
 // ========================================
-// MAIN APP LAYOUT - GLASSMORPHISM NAVIGATION
+// MAIN APP LAYOUT - PROFESSIONAL GLASSMORPHISM NAVIGATION
 // ========================================
 
 @use './themes/variables' as *;
@@ -18,44 +18,20 @@
   z-index: 1;
 }
 
-// === ПРЕМИАЛЬНАЯ ВЕРХНЯЯ ПАНЕЛЬ ===
+// === ПРОФЕССИОНАЛЬНАЯ ВЕРХНЯЯ ПАНЕЛЬ ===
 .app-topbar {
   grid-area: topbar;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.12) 0%,
-    rgba(255, 255, 255, 0.06) 100%
-  );
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 
-    0 4px 32px rgba(0, 0, 0, 0.08),
-    0 0 48px rgba(79, 70, 229, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+  background: var(--surface-primary);
+  backdrop-filter: var(--blur-light);
+  -webkit-backdrop-filter: var(--blur-light);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-subtle);
   display: flex;
   align-items: center;
-  padding: 0 var(--spacing-xl);
+  padding: 0 var(--spacing-lg);
   z-index: 1000;
   position: relative;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-
-  // Тонкая светящаяся линия снизу
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(79, 70, 229, 0.3) 50%,
-      transparent 100%
-    );
-  }
+  transition: var(--transition-smooth);
 }
 
 .topbar-content {
@@ -66,27 +42,22 @@
 }
 
 .app-title {
-  font-size: 1.4rem;
-  font-weight: 700;
+  font-size: 1.25rem;
+  font-weight: 600;
   margin: 0;
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #06b6d4 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 0 0 20px rgba(79, 70, 229, 0.3);
-  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
 }
 
 // === СТАТУС ИНИЦИАЛИЗАЦИИ ===
 .init-status {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  padding: 0.3rem 0.8rem;
-  border-radius: 15px;
-  background: rgba(16, 185, 129, 0.1);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  background: rgba(5, 150, 105, 0.08);
   color: var(--color-profit);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  animation: pulse 1.5s infinite;
+  border: 1px solid rgba(5, 150, 105, 0.2);
 }
 
 // === ДЕБАГ КОНТРОЛЫ ===
@@ -147,39 +118,16 @@
   }
 }
 
-// === ПРЕМИАЛЬНОЕ БОКОВОЕ МЕНЮ ===
+// === ПРОФЕССИОНАЛЬНОЕ БОКОВОЕ МЕНЮ ===
 .app-sidebar {
   grid-area: sidebar;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.08) 0%,
-    rgba(255, 255, 255, 0.04) 100%
-  );
-  border-right: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 
-    inset -1px 0 0 rgba(255, 255, 255, 0.1),
-    4px 0 32px rgba(0, 0, 0, 0.06),
-    0 0 48px rgba(79, 70, 229, 0.05);
-  padding: var(--spacing-xl) 0;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: var(--surface-secondary);
+  border-right: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-subtle);
+  padding: var(--spacing-lg) 0;
+  backdrop-filter: var(--blur-light);
+  -webkit-backdrop-filter: var(--blur-light);
   position: relative;
-  
-  // Тонкая светящаяся линия справа
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 1px;
-    height: 100%;
-    background: linear-gradient(
-      180deg,
-      transparent 0%,
-      rgba(79, 70, 229, 0.3) 50%,
-      transparent 100%
-    );
-  }
 }
 
 .nav-menu {
@@ -198,89 +146,42 @@
 .nav-link {
   display: flex;
   align-items: center;
-  gap: var(--spacing-md);
-  padding: var(--spacing-lg) var(--spacing-xl);
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 600;
-  font-size: 0.9rem;
-  letter-spacing: 0.02em;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: 0 28px 28px 0;
-  margin: var(--spacing-xs) var(--spacing-md) var(--spacing-xs) 0;
-  position: relative;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  
-  // Скрытое свечение
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      90deg,
-      rgba(79, 70, 229, 0.1) 0%,
-      rgba(124, 58, 237, 0.05) 100%
-    );
-    border-radius: 0 28px 28px 0;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: var(--transition-smooth);
+  border-radius: var(--radius-md);
+  margin: var(--spacing-xs) var(--spacing-sm);
   
   &:hover {
-    background: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.12) 0%,
-      rgba(255, 255, 255, 0.06) 100%
-    );
-    color: rgba(255, 255, 255, 0.95);
-    transform: translateX(8px);
-    box-shadow: 
-      0 4px 20px rgba(0, 0, 0, 0.1),
-      0 0 32px rgba(79, 70, 229, 0.15);
-    
-    &::before {
-      opacity: 1;
-    }
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-primary);
+    transform: translateX(4px);
   }
   
   &.active {
-    background: linear-gradient(
-      90deg,
-      rgba(79, 70, 229, 0.15) 0%,
-      rgba(124, 58, 237, 0.1) 100%
-    );
-    color: rgba(255, 255, 255, 1);
-    border-right: 3px solid rgba(79, 70, 229, 0.8);
-    box-shadow: 
-      0 6px 28px rgba(0, 0, 0, 0.12),
-      0 0 48px rgba(79, 70, 229, 0.25),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    
-    &::before {
-      opacity: 1;
-    }
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--color-neutral);
+    border-left: 3px solid var(--color-neutral);
   }
 }
 
 .nav-icon {
-  font-size: 1.3rem;
-  width: 24px;
+  font-size: 1.1rem;
+  width: 20px;
   text-align: center;
-  opacity: 0.85;
-  filter: drop-shadow(0 0 8px rgba(79, 70, 229, 0.2));
-  transition: all 0.3s ease;
+  opacity: 0.8;
+  transition: var(--transition-smooth);
   
   .nav-link:hover & {
     opacity: 1;
-    transform: scale(1.1) translateX(2px);
-    filter: drop-shadow(0 0 12px rgba(79, 70, 229, 0.4));
   }
   
   .nav-link.active & {
     opacity: 1;
-    transform: scale(1.15);
-    filter: drop-shadow(0 0 16px rgba(79, 70, 229, 0.6));
   }
 }
 
@@ -293,22 +194,24 @@
   grid-area: content;
   padding: var(--spacing-lg);
   overflow-y: auto;
-  background: rgba(255, 255, 255, 0.01);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: transparent;
   
-  // Контент должен красиво прокручиваться
+  // Профессиональная прокрутка
   &::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
   
   &::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.05);
   }
   
   &::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    
+    &:hover {
+      background: rgba(0, 0, 0, 0.3);
+    }
   }
 }
 
@@ -409,29 +312,23 @@
 
 // === ТЕМНАЯ ТЕМА ===
 [data-theme="dark"] {
-  .app-title {
-    background: linear-gradient(135deg, #93c5fd, #34d399);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
   .nav-link {
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--text-secondary);
     
     &:hover {
-      color: #93c5fd;
+      color: var(--text-primary);
     }
     
     &.active {
-      color: white;
+      color: var(--color-neutral);
     }
   }
   
   .lang-toggle-btn {
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--text-secondary);
     
     &:hover {
-      color: #93c5fd;
+      color: var(--color-neutral);
     }
   }
 }
