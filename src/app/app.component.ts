@@ -210,6 +210,16 @@ import { UserSettingsService } from './services/user-settings.service';
           </div>
 
           <div class="menu-group">
+            <div class="group-title">{{ getTranslation('NAV.TIME_TRACKING', 'Учет времени') }}</div>
+            <a routerLink="/time-entries" routerLinkActive="active"
+               [routerLinkActiveOptions]="{ exact: true }" (click)="closeLeftSidebar()"
+               class="sidebar-link">
+              {{ getTranslation('NAV.TIME_ENTRIES', 'Записи времени') }}
+            </a>
+
+          </div>
+
+          <div class="menu-group">
             <div class="group-title">{{ getTranslation('NAV.PROJECTS', 'Проекты') }}</div>
             <a routerLink="/projects" routerLinkActive="active"
                [routerLinkActiveOptions]="{ exact: true }" (click)="closeLeftSidebar()"
@@ -300,13 +310,84 @@ import { UserSettingsService } from './services/user-settings.service';
         </div>
       </button>
 
-      <!-- Right sidebar placeholder (hierarchy) -->
+      <!-- Right sidebar (project hierarchy & quick filters) -->
       <aside class="glass-sidebar right" [class.open]="rightSidebarOpen"
              aria-hidden="{{!rightSidebarOpen}}">
         <div class="right-sidebar-content">
-          <div class="group-title">{{ 'SIDEBAR.HIERARCHY' | translate }}</div>
-          <p>{{ 'SIDEBAR.HIERARCHY_DESC' | translate }}</p>
-          <p>{{ 'SIDEBAR.HIERARCHY_FILTERS' | translate }}</p>
+          <div class="sidebar-section">
+            <div class="group-title">{{ 'SIDEBAR.PROJECT_HIERARCHY' | translate }}</div>
+            <div class="hierarchy-tree">
+              <div class="tree-node">
+                <div class="node-header">
+                  <i class="pi pi-folder text-blue-400"></i>
+                  <span>Направление Alpha</span>
+                </div>
+                <div class="node-children">
+                  <div class="child-node">
+                    <i class="pi pi-file text-green-400"></i>
+                    <span>Проект Alpha-1</span>
+                  </div>
+                  <div class="child-node">
+                    <i class="pi pi-file text-yellow-400"></i>
+                    <span>Проект Alpha-2</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="tree-node">
+                <div class="node-header">
+                  <i class="pi pi-folder text-blue-400"></i>
+                  <span>Направление Beta</span>
+                </div>
+                <div class="node-children">
+                  <div class="child-node">
+                    <i class="pi pi-file text-green-400"></i>
+                    <span>Проект Beta-1</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-section">
+            <div class="group-title">{{ 'SIDEBAR.QUICK_FILTERS' | translate }}</div>
+            <div class="quick-filters">
+              <div class="filter-item" (click)="applyQuickFilter('today')">
+                <i class="pi pi-calendar text-blue-400"></i>
+                <span>{{ 'FILTERS.TODAY' | translate }}</span>
+              </div>
+              <div class="filter-item" (click)="applyQuickFilter('week')">
+                <i class="pi pi-calendar text-green-400"></i>
+                <span>{{ 'FILTERS.THIS_WEEK' | translate }}</span>
+              </div>
+              <div class="filter-item" (click)="applyQuickFilter('month')">
+                <i class="pi pi-calendar text-yellow-400"></i>
+                <span>{{ 'FILTERS.THIS_MONTH' | translate }}</span>
+              </div>
+              <div class="filter-item" (click)="applyQuickFilter('active-projects')">
+                <i class="pi pi-play text-green-400"></i>
+                <span>{{ 'FILTERS.ACTIVE_PROJECTS' | translate }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-section">
+            <div class="group-title">{{ 'SIDEBAR.RECENT_ACTIVITY' | translate }}</div>
+            <div class="activity-feed">
+              <div class="activity-item">
+                <div class="activity-time">10:30</div>
+                <div class="activity-text">Обновлена запись времени</div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-time">09:15</div>
+                <div class="activity-text">Создан новый проект</div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-time">08:45</div>
+                <div class="activity-text">Выставлен счет</div>
+              </div>
+            </div>
+          </div>
         </div>
       </aside>
 
@@ -1074,6 +1155,115 @@ import { UserSettingsService } from './services/user-settings.service';
     
     .glass-sidebar.bottom.open {
       transform: translateY(0);
+    }
+    
+    /* Стили для правого сайдбара */
+    .right-sidebar-content {
+      padding: 1rem;
+      height: 100%;
+      overflow-y: auto;
+    }
+    
+    .sidebar-section {
+      margin-bottom: 2rem;
+    }
+    
+    .sidebar-section .group-title {
+      margin-bottom: 1rem;
+    }
+    
+    .hierarchy-tree {
+      margin-left: 0.5rem;
+    }
+    
+    .tree-node {
+      margin-bottom: 1rem;
+    }
+    
+    .node-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      background: rgba(59, 130, 246, 0.1);
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .node-header:hover {
+      background: rgba(59, 130, 246, 0.2);
+    }
+    
+    .node-children {
+      margin-left: 1.5rem;
+    }
+    
+    .child-node {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      margin-bottom: 0.25rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .child-node:hover {
+      background: rgba(59, 130, 246, 0.1);
+    }
+    
+    .quick-filters {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .filter-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(59, 130, 246, 0.1);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .filter-item:hover {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.3);
+      transform: translateX(2px);
+    }
+    
+    .activity-feed {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .activity-item {
+      padding: 0.75rem;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(59, 130, 246, 0.1);
+      border-radius: 6px;
+      border-left: 3px solid rgba(59, 130, 246, 0.5);
+    }
+    
+    .activity-time {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+    
+    .activity-text {
+      font-size: 0.875rem;
+      color: #f8fafc;
+      line-height: 1.4;
     }
     
     .bottom-sidebar-content {
@@ -2435,6 +2625,32 @@ export class AppComponent implements OnInit {
   
   toggleBottomSidebar(): void { this.bottomSidebarOpen = !this.bottomSidebarOpen; }
   closeBottomSidebar(): void { this.bottomSidebarOpen = false; }
+
+  applyQuickFilter(filterType: string): void {
+    // Логика применения быстрых фильтров
+    console.log('Applying quick filter:', filterType);
+    
+    // В зависимости от текущей страницы применяем соответствующий фильтр
+    const currentRoute = this.router.url;
+    
+    switch (filterType) {
+      case 'today':
+        // Фильтр по сегодняшнему дню
+        break;
+      case 'week':
+        // Фильтр по текущей неделе
+        break;
+      case 'month':
+        // Фильтр по текущему месяцу
+        break;
+      case 'active-projects':
+        // Фильтр по активным проектам
+        break;
+    }
+    
+    // Закрываем правый сайдбар после применения фильтра
+    this.closeRightSidebar();
+  }
   
   toggleUserMenu(): void { 
     if (this.userMenuOpen) {

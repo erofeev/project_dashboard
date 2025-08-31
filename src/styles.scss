@@ -1,6 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @use 'styles/glassmorphism.scss';
 
+/* PrimeNG Theme Import - Временно отключено до решения проблем с путями */
+/* @import 'primeng/themes/aura-dark-blue/theme.css'; */
+/* @import 'primeng/core/core.css'; */
+/* @import 'primeicons/primeicons.css'; */
+/* @import 'primeflex/primeflex.css'; */
+@import 'styles/primeng-glassmorphism.scss';
+
 /* Глобальные стили для темной темы */
 .theme-dark {
   background-color: #0f172a !important;

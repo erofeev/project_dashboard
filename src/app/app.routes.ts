@@ -11,6 +11,12 @@ export const routes: Routes = [
     canActivate: [AuthGuard]
   },
   { 
+    path: 'time-entries', 
+    loadComponent: () => import('./components/simple-data-table/simple-data-table.component').then(m => m.SimpleDataTableComponent),
+    canActivate: [AuthGuard]
+  },
+
+  { 
     path: 'projects', 
     loadComponent: () => import('./components/projects/projects.component').then(m => m.ProjectsComponent),
     canActivate: [AuthGuard]
