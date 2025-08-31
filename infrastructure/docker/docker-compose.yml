@@ -1,0 +1,40 @@
+services:
+  couchdb:
+    image: couchdb:latest
+    container_name: project-management-couchdb
+    restart: unless-stopped
+    ports:
+      - "5984:5984"
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=admin123
+      - COUCHDB_SINGLE_NODE=true
+      - COUCHDB_UUID=decafbaddecafbaddecafbaddecafbad
+    volumes:
+      - couchdb_data:/opt/couchdb/data
+      - couchdb_config:/opt/couchdb/etc
+    networks:
+      - project-network
+
+  fauxton:
+    image: 3apaxicom/fauxton:latest
+    container_name: project-management-fauxton
+    restart: unless-stopped
+    ports:
+      - "8080:8000"
+    environment:
+      - COUCHDB_URL=http://couchdb:5984
+    depends_on:
+      - couchdb
+    networks:
+      - project-network
+
+volumes:
+  couchdb_data:
+    driver: local
+  couchdb_config:
+    driver: local
+
+networks:
+  project-network:
+    driver: bridge

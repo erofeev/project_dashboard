@@ -1,0 +1,16 @@
+{
+  "name": "couchdb-init-scripts",
+  "version": "1.0.0",
+  "description": "Скрипты инициализации CouchDB для проекта управления проектами",
+  "main": "init-couchdb.js",
+  "scripts": {
+    "init": "node init-couchdb.js",
+    "check": "node check-couchdb.js"
+  },
+  "dependencies": {
+    "nano": "^10.1.2"
+  },
+  "keywords": ["couchdb", "init", "database"],
+  "author": "Wone IT",
+  "license": "MIT"
+}

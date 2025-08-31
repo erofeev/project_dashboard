@@ -1,0 +1,55 @@
+# Cursor Rules для MCP сервера PouchDB
+
+## MCP Сервер
+- MCP сервер находится в `infrastructure/mcp-server/pouchdb-mcp-server/`
+- Использует `couchdb-index.js` для подключения к CouchDB
+- Поддерживает инструменты для работы с базами данных: users, projects, time_entries, invoices, payments
+
+## Доступные инструменты
+- `get_user_count` - количество пользователей
+- `get_all_users` - список всех пользователей
+- `get_user_by_email` - пользователь по email
+- `create_user` - создание пользователя
+- `get_database_stats` - статистика по всем базам
+- `get_project_count`, `get_time_entries_count`, `get_invoice_count`, `get_payment_count`
+
+## База данных
+- CouchDB работает на localhost:5984
+- Учетные данные: admin/admin123
+- Fauxton доступен на localhost:8080
+
+## Использование
+Для получения данных через MCP используйте соответствующие инструменты, например:
+- Получить список всех пользователей
+- Создать нового пользователя
+- Получить статистику базы данных
+
+## MCP Конфигурация для Cursor
+
+```json
+{
+  "mcpServers": {
+    "pouchdb": {
+      "command": "node",
+      "args": ["./dist/couchdb-index.js"],
+      "env": {},
+      "cwd": "infrastructure/mcp-server/pouchdb-mcp-server"
+    }
+  }
+}
+```
+
+## Инструкция по настройке
+
+1. Скопируйте JSON конфигурацию выше
+2. В Cursor перейдите в **Settings** → **Extensions** → **MCP**
+3. Добавьте новый MCP сервер с указанными параметрами
+4. Перезапустите Cursor
+5. Убедитесь, что MCP сервер запущен: `npm run start:couchdb`
+
+## Тестирование
+
+После настройки вы сможете использовать команды:
+- "Покажи всех пользователей в базе данных"
+- "Сколько проектов в системе?"
+- "Создай нового пользователя test@example.com"
