@@ -107,6 +107,19 @@ import { Three3DService, Landscape3DConfig, PerformanceMetrics } from '../../../
               class="control-slider"
             >
           </div>
+          
+          <div class="control-group">
+            <label>Угол обзора:</label>
+            <select 
+              [value]="config.cameraAngle || 'diagonal'"
+              (change)="updateCameraAngle($event)"
+              class="control-select"
+            >
+              <option value="diagonal">Диагональный</option>
+              <option value="top">Сверху</option>
+              <option value="side">Сбоку</option>
+            </select>
+          </div>
         </div>
       }
     </div>
@@ -120,13 +133,16 @@ export class AnimatedLandscapeComponent implements OnInit, OnDestroy, AfterViewI
   
   // === INPUT PROPERTIES ===
   @Input() config: Landscape3DConfig = {
-    gridSize: 80,
-    animationSpeed: 1.2,
-    waveAmplitude: 1.8,
+    gridSize: 100,
+    animationSpeed: 0.8,
+    waveAmplitude: 2.0,
     particleSize: 2.5,
     colorScheme: 'wone-it',
     enableDroplets: true,
-    quality: 'medium'
+    quality: 'high',
+    landscapeHeight: 5,
+    cameraDistance: 10,
+    cameraAngle: 'diagonal'
   };
   
   @Input() autoStart: boolean = true;
@@ -255,6 +271,16 @@ export class AnimatedLandscapeComponent implements OnInit, OnDestroy, AfterViewI
     this.updateConfiguration({
       ...this.config,
       waveAmplitude: amplitude
+    });
+  }
+  
+  public updateCameraAngle(event: Event): void {
+    const target = event.target as HTMLSelectElement;
+    const angle = target.value as 'top' | 'side' | 'diagonal';
+    
+    this.updateConfiguration({
+      ...this.config,
+      cameraAngle: angle
     });
   }
   

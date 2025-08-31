@@ -15,7 +15,7 @@
   grid-template-rows: 60px 1fr;
   min-height: 100vh;
   position: relative;
-  z-index: 1;
+  z-index: 1; // Над ландшафтом
 }
 
 // === ПРОФЕССИОНАЛЬНАЯ ВЕРХНЯЯ ПАНЕЛЬ ===
@@ -121,13 +121,14 @@
 // === ПРОФЕССИОНАЛЬНОЕ БОКОВОЕ МЕНЮ ===
 .app-sidebar {
   grid-area: sidebar;
-  background: var(--surface-secondary);
+  background: rgba(248, 250, 252, 0.85); // Полупрозрачный фон
   border-right: 1px solid var(--glass-border);
   box-shadow: var(--shadow-subtle);
   padding: var(--spacing-lg) 0;
   backdrop-filter: var(--blur-light);
   -webkit-backdrop-filter: var(--blur-light);
   position: relative;
+  z-index: 1; // Над ландшафтом, но под верхней панелью
 }
 
 .nav-menu {
@@ -194,7 +195,9 @@
   grid-area: content;
   padding: var(--spacing-lg);
   overflow-y: auto;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.02); // Очень легкая прозрачность для видимости ландшафта
+  position: relative;
+  z-index: 1; // Над ландшафтом, но под навигацией
   
   // Профессиональная прокрутка
   &::-webkit-scrollbar {
@@ -312,6 +315,14 @@
 
 // === ТЕМНАЯ ТЕМА ===
 [data-theme="dark"] {
+  .app-sidebar {
+    background: rgba(17, 24, 39, 0.85); // Полупрозрачный темный фон
+  }
+  
+  .app-content {
+    background: rgba(0, 0, 0, 0.02); // Очень легкая прозрачность для темной темы
+  }
+  
   .nav-link {
     color: var(--text-secondary);
     

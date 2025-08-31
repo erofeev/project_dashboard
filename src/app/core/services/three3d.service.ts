@@ -9,6 +9,9 @@ export interface Landscape3DConfig {
   colorScheme: 'wone-it' | 'blue' | 'purple' | 'gradient';
   enableDroplets: boolean; // Эффект падающих капель
   quality: 'low' | 'medium' | 'high'; // Качество для производительности
+  landscapeHeight?: number; // Высота ландшафта (по умолчанию 0)
+  cameraDistance?: number;  // Расстояние камеры (по умолчанию 12)
+  cameraAngle?: 'top' | 'side' | 'diagonal'; // Угол обзора камеры
 }
 
 export interface PerformanceMetrics {
@@ -36,15 +39,31 @@ export class Three3DService {
   private dropletGeometry: THREE.BufferGeometry | null = null;
   private dropletMesh: THREE.Points | null = null;
   
+  // === ВОЛНЫ ОТ ВСПЛЕСКОВ ===
+  private splashWaves: Array<{
+    x: number;
+    z: number;
+    intensity: number;
+    time: number;
+    maxTime: number;
+  }> = [];
+  
+  // === ВРАЩЕНИЕ КАМЕРЫ ===
+  private cameraRotationAngle: number = 0;
+  private cameraRotationSpeed: number = 0.00004; // Экстремально медленное вращение (в 50 раз медленнее)
+  
   // === КОНФИГУРАЦИЯ И СОСТОЯНИЕ ===
   private config: Landscape3DConfig = {
-    gridSize: 80,
-    animationSpeed: 1.0,
-    waveAmplitude: 1.5,
-    particleSize: 2.0,
+    gridSize: 100,
+    animationSpeed: 0.8,
+    waveAmplitude: 2.0,
+    particleSize: 2.5,
     colorScheme: 'wone-it',
     enableDroplets: true,
-    quality: 'medium'
+    quality: 'high',
+    landscapeHeight: 5,
+    cameraDistance: 10,
+    cameraAngle: 'diagonal'
   };
   
   private isInitialized: boolean = false;
@@ -66,6 +85,9 @@ export class Three3DService {
     uniform float uTime;
     uniform float uWaveAmplitude;
     uniform float uAnimationSpeed;
+    uniform float uLandscapeHeight;
+    uniform float uSplashWaves[50]; // Массив волн от всплесков [x, z, intensity, time, maxTime] * 10 волн
+    uniform int uSplashWaveCount;
     attribute float aRandomness;
     attribute float aScale;
     varying vec3 vColor;
@@ -143,22 +165,48 @@ export class Three3DService {
     void main() {
       vec3 pos = position;
       
-      // Основные волны
-      float wave1 = sin(pos.x * 0.1 + uTime * uAnimationSpeed) * 
-                    cos(pos.z * 0.1 + uTime * uAnimationSpeed * 0.7) * uWaveAmplitude;
+      // Основные волны (замедлено в 5 раз)
+      float wave1 = sin(pos.x * 0.1 + uTime * uAnimationSpeed * 0.2) * 
+                    cos(pos.z * 0.1 + uTime * uAnimationSpeed * 0.14) * uWaveAmplitude;
       
-      // Дополнительные волны для сложности
-      float wave2 = sin(pos.x * 0.05 + uTime * uAnimationSpeed * 1.5) * 
-                    sin(pos.z * 0.07 + uTime * uAnimationSpeed * 0.3) * uWaveAmplitude * 0.5;
+      // Дополнительные волны для сложности (замедлено в 5 раз)
+      float wave2 = sin(pos.x * 0.05 + uTime * uAnimationSpeed * 0.3) * 
+                    sin(pos.z * 0.07 + uTime * uAnimationSpeed * 0.06) * uWaveAmplitude * 0.5;
       
-      // Шум для органичности
-      float noise = snoise(vec3(pos.x * 0.02, uTime * 0.1, pos.z * 0.02)) * uWaveAmplitude * 0.3;
+      // Шум для органичности (замедлено в 5 раз)
+      float noise = snoise(vec3(pos.x * 0.02, uTime * 0.02, pos.z * 0.02)) * uWaveAmplitude * 0.3;
       
-      // Случайные колебания для "танца" точек
-      float dance = sin(uTime * 2.0 + aRandomness * 10.0) * 0.2;
+      // Случайные колебания для "танца" точек (замедлено в 5 раз)
+      float dance = sin(uTime * 0.4 + aRandomness * 10.0) * 0.2;
       
-      // Применяем все эффекты к высоте
-      pos.y = wave1 + wave2 + noise + dance;
+      // Эффект волн от всплесков дождя
+      float splashEffect = 0.0;
+      for (int i = 0; i < uSplashWaveCount; i++) {
+        int idx = i * 5;
+        float waveX = uSplashWaves[idx];
+        float waveZ = uSplashWaves[idx + 1];
+        float intensity = uSplashWaves[idx + 2];
+        float time = uSplashWaves[idx + 3];
+        float maxTime = uSplashWaves[idx + 4];
+        
+        // Расстояние от точки до центра волны
+        float distance = length(vec2(pos.x - waveX, pos.z - waveZ));
+        
+        // Радиус волны увеличивается со временем (замедлено в 40 раз)
+        float waveRadius = time * 0.15375;
+        
+        // Если точка в радиусе волны (увеличена ширина для заметности)
+        if (distance < waveRadius && distance > waveRadius - 4.0) {
+          // Интенсивность волны уменьшается со временем
+          float waveIntensity = intensity * (1.0 - time / maxTime);
+          // Создаем кольцевую волну (увеличена интенсивность для заметности)
+          float wave = sin((distance - waveRadius + 4.0) * 1.5708) * waveIntensity * 1.2;
+          splashEffect += wave;
+        }
+      }
+      
+      // Применяем все эффекты к высоте с учетом базовой высоты ландшафта
+      pos.y = uLandscapeHeight + wave1 + wave2 + noise + dance + splashEffect;
       
       // Масштабирование частиц в зависимости от высоты
       float heightFactor = (pos.y + uWaveAmplitude) / (uWaveAmplitude * 2.0);
@@ -294,11 +342,17 @@ export class Three3DService {
     if (this.landscapeMaterial) {
       this.landscapeMaterial.uniforms['uAnimationSpeed'].value = this.config.animationSpeed;
       this.landscapeMaterial.uniforms['uWaveAmplitude'].value = this.config.waveAmplitude;
+      this.landscapeMaterial.uniforms['uLandscapeHeight'].value = this.config.landscapeHeight || 0;
     }
     
     // Пересоздаем ландшафт если изменился размер сетки
     if (newConfig.gridSize && this.landscapeGeometry) {
       this.recreateLandscape();
+    }
+    
+    // Пересоздаем камеру если изменился угол обзора
+    if (newConfig.cameraAngle && this.camera) {
+      this.recreateCamera();
     }
     
     console.log('🔄 Конфигурация 3D ландшафта обновлена');
@@ -377,9 +431,31 @@ export class Three3DService {
     const aspect = container.nativeElement.clientWidth / container.nativeElement.clientHeight;
     this.camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 1000);
     
-    // Позиционируем камеру ближе к плоскости для лучшего восприятия точек
-    this.camera.position.set(0, 15, 12);
-    this.camera.lookAt(0, 0, 0);
+    // Позиционируем камеру в зависимости от выбранного угла
+    const distance = this.config.cameraDistance || 12;
+    const height = this.config.landscapeHeight || 0;
+    const angle = this.config.cameraAngle || 'diagonal';
+    
+    switch (angle) {
+      case 'top':
+        // Вид сверху (более динамичный)
+        this.camera.position.set(0, distance * 1.8, 0);
+        this.camera.lookAt(0, height + 1, 0);
+        break;
+        
+      case 'side':
+        // Вид сбоку (более красивый угол)
+        this.camera.position.set(distance * 1.2, distance * 0.8, distance * 0.3);
+        this.camera.lookAt(0, height + 1, 0);
+        break;
+        
+      case 'diagonal':
+      default:
+        // Диагональный вид (красивый динамичный угол)
+        this.camera.position.set(distance * 0.7, distance * 1.4, distance * 0.8);
+        this.camera.lookAt(0, height + 2, 0);
+        break;
+    }
   }
 
   private createRenderer(container: ElementRef<HTMLElement>): void {
@@ -406,13 +482,14 @@ export class Three3DService {
     const vertices = [];
     const randomness = [];
     const scales = [];
+    const landscapeHeight = this.config.landscapeHeight || 0;
     
     // Создаем сетку точек
     for (let i = 0; i < size; i++) {
       for (let j = 0; j < size; j++) {
         const x = (i - size / 2) * 0.5;
         const z = (j - size / 2) * 0.5;
-        const y = 0;
+        const y = landscapeHeight; // Используем новую высоту
         
         vertices.push(x, y, z);
         randomness.push(Math.random());
@@ -440,7 +517,10 @@ export class Three3DService {
       uniforms: {
         uTime: { value: 0 },
         uWaveAmplitude: { value: this.config.waveAmplitude },
-        uAnimationSpeed: { value: this.config.animationSpeed }
+        uAnimationSpeed: { value: this.config.animationSpeed },
+        uLandscapeHeight: { value: landscapeHeight },
+        uSplashWaves: { value: new Array(50).fill(0) },
+        uSplashWaveCount: { value: 0 }
       },
       vertexShader: this.vertexShader,
       fragmentShader: this.fragmentShader,
@@ -455,13 +535,13 @@ export class Three3DService {
 
   private createDroplets(): void {
     const dropletVertices = [];
-    const dropletCount = 100;
+    const dropletCount = 150; // Больше капель для лучшего эффекта
     
     for (let i = 0; i < dropletCount; i++) {
       dropletVertices.push(
-        (Math.random() - 0.5) * 40, // x
-        Math.random() * 30 + 10,     // y (высота)
-        (Math.random() - 0.5) * 40   // z
+        (Math.random() - 0.5) * 100, // x - широкая область над плоскостью
+        Math.random() * 30 + 15,     // y (высота) - над плоскостью ландшафта
+        (Math.random() - 0.5) * 100   // z - глубокая область над плоскостью
       );
     }
     
@@ -471,11 +551,33 @@ export class Three3DService {
       new THREE.Float32BufferAttribute(dropletVertices, 3)
     );
     
+    // Создаем круглую текстуру для капель
+    const canvas = document.createElement('canvas');
+    canvas.width = 32;
+    canvas.height = 32;
+    const context = canvas.getContext('2d')!;
+    
+    // Создаем градиент для круглой капли
+    const gradient = context.createRadialGradient(16, 16, 0, 16, 16, 16);
+    gradient.addColorStop(0, 'rgba(100, 150, 255, 0.8)');
+    gradient.addColorStop(0.5, 'rgba(80, 120, 255, 0.6)');
+    gradient.addColorStop(1, 'rgba(60, 100, 255, 0.2)');
+    
+    context.fillStyle = gradient;
+    context.beginPath();
+    context.arc(16, 16, 16, 0, Math.PI * 2);
+    context.fill();
+    
+    const texture = new THREE.CanvasTexture(canvas);
+    
     const dropletMaterial = new THREE.PointsMaterial({
-      color: 0x4444ff,
-      size: 0.5,
+      map: texture, // Используем круглую текстуру
+      color: 0x88aaff,
+      size: 0.6, // Меньше для фонового эффекта
       transparent: true,
-      opacity: 0.6
+      opacity: 0.5, // Более прозрачные для фонового эффекта
+      alphaTest: 0.1, // Убираем квадратные края
+      blending: THREE.AdditiveBlending // Красивый эффект свечения
     });
     
     this.dropletMesh = new THREE.Points(this.dropletGeometry, dropletMaterial);
@@ -521,6 +623,33 @@ export class Three3DService {
     this.createLandscape();
   }
 
+  private recreateCamera(): void {
+    if (this.camera) {
+      // Обновляем позицию камеры с новым углом
+      const distance = this.config.cameraDistance || 12;
+      const height = this.config.landscapeHeight || 0;
+      const angle = this.config.cameraAngle || 'diagonal';
+      
+      switch (angle) {
+        case 'top':
+          this.camera.position.set(0, distance * 1.8, 0);
+          this.camera.lookAt(0, height + 1, 0);
+          break;
+          
+        case 'side':
+          this.camera.position.set(distance * 1.2, distance * 0.8, distance * 0.3);
+          this.camera.lookAt(0, height + 1, 0);
+          break;
+          
+        case 'diagonal':
+        default:
+          this.camera.position.set(distance * 0.7, distance * 1.4, distance * 0.8);
+          this.camera.lookAt(0, height + 2, 0);
+          break;
+      }
+    }
+  }
+
   private animate = (): void => {
     if (!this.isAnimating) return;
     
@@ -538,6 +667,12 @@ export class Three3DService {
       this.animateDroplets(elapsed);
     }
     
+    // Обновление волн от всплесков
+    this.updateSplashWaves(elapsed);
+    
+    // Обновление вращения камеры
+    this.updateCameraRotation(elapsed);
+    
     // Рендерим сцену
     if (this.renderer && this.scene && this.camera) {
       this.renderer.render(this.scene, this.camera);
@@ -552,19 +687,123 @@ export class Three3DService {
     
     const positions = this.dropletGeometry.attributes['position'];
     const array = positions.array as Float32Array;
+    const speed = (0.2 * this.config.animationSpeed) / 13; // Замедлено в 13 раз (1.3 * 10)
+    const landscapeHeight = this.config.landscapeHeight || 0;
     
     for (let i = 1; i < array.length; i += 3) { // y координаты
-      array[i] -= 0.1; // Падение
+      // Более реалистичное падение с небольшой случайностью
+      array[i] -= speed + (Math.random() - 0.5) * 0.03;
       
-      // Перезапуск капли сверху
-      if (array[i] < -5) {
-        array[i] = Math.random() * 30 + 10;
-        array[i - 1] = (Math.random() - 0.5) * 40; // новая x позиция
-        array[i + 1] = (Math.random() - 0.5) * 40; // новая z позиция
+      // Небольшое горизонтальное движение для реалистичности
+      array[i - 1] += (Math.random() - 0.5) * 0.015; // x координата
+      array[i + 1] += (Math.random() - 0.5) * 0.015; // z координата
+      
+      // Когда капля достигает плоскости ландшафта - создаем всплеск
+      if (array[i] <= landscapeHeight + 1) {
+        // Создаем эффект всплеска (увеличиваем размер капли)
+        const splashIntensity = Math.random() * 0.5 + 0.5;
+        
+        // Перезапуск капли сверху с улучшенным позиционированием
+        array[i] = Math.random() * 30 + 15; // Выше стартовая позиция
+        array[i - 1] = (Math.random() - 0.5) * 100; // новая x позиция (шире)
+        array[i + 1] = (Math.random() - 0.5) * 100; // новая z позиция (глубже)
+        
+        // Здесь можно добавить эффект волн на ландшафте
+        this.createSplashWave(array[i - 1], array[i + 1], splashIntensity);
       }
     }
     
     positions.needsUpdate = true;
+  }
+
+  private createSplashWave(x: number, z: number, intensity: number): void {
+    // Добавляем новую волну от всплеска
+    this.splashWaves.push({
+      x: x,
+      z: z,
+      intensity: intensity,
+      time: 0,
+      maxTime: 15.0 + Math.random() * 10.0 // Длительность волны 15-25 секунд (для медленных волн)
+    });
+    
+    // Ограничиваем количество активных волн для производительности
+    if (this.splashWaves.length > 50) {
+      this.splashWaves.shift();
+    }
+  }
+
+  private updateSplashWaves(elapsed: number): void {
+    // Обновляем все активные волны
+    for (let i = this.splashWaves.length - 1; i >= 0; i--) {
+      const wave = this.splashWaves[i];
+      wave.time += elapsed;
+      
+      // Удаляем завершенные волны
+      if (wave.time >= wave.maxTime) {
+        this.splashWaves.splice(i, 1);
+      }
+    }
+    
+    // Обновляем данные волн в шейдере
+    if (this.landscapeMaterial) {
+      const waveArray = new Array(50).fill(0);
+      const waveCount = Math.min(this.splashWaves.length, 10); // Максимум 10 волн
+      
+      for (let i = 0; i < waveCount; i++) {
+        const wave = this.splashWaves[i];
+        const idx = i * 5;
+        waveArray[idx] = wave.x;
+        waveArray[idx + 1] = wave.z;
+        waveArray[idx + 2] = wave.intensity;
+        waveArray[idx + 3] = wave.time;
+        waveArray[idx + 4] = wave.maxTime;
+      }
+      
+      this.landscapeMaterial.uniforms['uSplashWaves'].value = waveArray;
+      this.landscapeMaterial.uniforms['uSplashWaveCount'].value = waveCount;
+    }
+  }
+
+  private updateCameraRotation(elapsed: number): void {
+    if (!this.camera) return;
+    
+    // Обновляем угол вращения
+    this.cameraRotationAngle += this.cameraRotationSpeed * elapsed;
+    
+    // Получаем текущие параметры камеры
+    const distance = this.config.cameraDistance || 10;
+    const height = this.config.landscapeHeight || 5;
+    const angle = this.config.cameraAngle || 'diagonal';
+    
+    // Вычисляем новую позицию камеры с вращением
+    let baseX = 0, baseY = 0, baseZ = 0;
+    
+    switch (angle) {
+      case 'top':
+        baseX = 0;
+        baseY = distance * 1.8;
+        baseZ = 0;
+        break;
+      case 'side':
+        baseX = distance * 1.2;
+        baseY = distance * 0.8;
+        baseZ = distance * 0.3;
+        break;
+      case 'diagonal':
+      default:
+        baseX = distance * 0.7;
+        baseY = distance * 1.4;
+        baseZ = distance * 0.8;
+        break;
+    }
+    
+    // Применяем вращение вокруг Y оси (вертикальной)
+    const rotatedX = baseX * Math.cos(this.cameraRotationAngle) - baseZ * Math.sin(this.cameraRotationAngle);
+    const rotatedZ = baseX * Math.sin(this.cameraRotationAngle) + baseZ * Math.cos(this.cameraRotationAngle);
+    
+    // Обновляем позицию камеры
+    this.camera.position.set(rotatedX, baseY, rotatedZ);
+    this.camera.lookAt(0, height + 2, 0);
   }
 
   private updatePerformanceMetrics(): void {

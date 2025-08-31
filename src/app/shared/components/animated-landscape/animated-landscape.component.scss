@@ -28,9 +28,14 @@ $border-radius-lg: 16px;
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -1; // Размещаем под всем контентом
+  z-index: 0; // Размещаем под навигацией, но над фоном
   overflow: hidden;
   pointer-events: none; // Не блокируем взаимодействие с UI
+  
+  // Убеждаемся, что ландшафт виден в верхней части экрана
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
   
   // Canvas будет автоматически добавлен Three.js
   canvas {
@@ -269,6 +274,35 @@ $border-radius-lg: 16px;
       border: 2px solid rgba(255, 255, 255, 0.3);
       cursor: pointer;
       box-shadow: 0 2px 8px rgba($wone-primary, 0.4);
+    }
+  }
+  
+  .control-select {
+    width: 100%;
+    padding: $spacing-xs $spacing-sm;
+    border: 1px solid rgba($wone-primary, 0.3);
+    border-radius: $border-radius-md;
+    background: rgba($wone-primary, 0.1);
+    color: $wone-primary;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background: rgba($wone-primary, 0.15);
+      border-color: rgba($wone-primary, 0.5);
+    }
+    
+    &:focus {
+      border-color: $wone-primary;
+      box-shadow: 0 0 8px rgba($wone-primary, 0.3);
+    }
+    
+    option {
+      background: rgba(0, 0, 0, 0.8);
+      color: $wone-primary;
     }
   }
 }

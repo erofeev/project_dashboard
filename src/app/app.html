@@ -3,13 +3,16 @@
 <!-- ANIMATED 3D LANDSCAPE BACKGROUND -->
 <app-animated-landscape
   [config]="{
-    gridSize: 90,
-    animationSpeed: 1.2,
+    gridSize: 100,
+    animationSpeed: 0.8,
     waveAmplitude: 2.0,
-    particleSize: 4.0,
+    particleSize: 2.5,
     colorScheme: 'wone-it',
-    enableDroplets: false,
-    quality: 'medium'
+    enableDroplets: true,
+    quality: 'high',
+    landscapeHeight: 5,
+    cameraDistance: 10,
+    cameraAngle: 'diagonal'
   }"
   [autoStart]="true"
   [showControls]="false"
