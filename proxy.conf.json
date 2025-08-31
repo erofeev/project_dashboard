@@ -1,0 +1,15 @@
+{
+  "/api/calendar/*": {
+    "target": "https://xmlcalendar.ru",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/api/calendar": "/data/ru"
+    },
+    "headers": {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+  }
+}

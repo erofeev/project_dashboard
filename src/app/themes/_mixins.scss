@@ -1,0 +1,181 @@
+// ========================================
+// GLASSMORPHISM MIXINS
+// ========================================
+
+@use 'variables' as *;
+
+// === БАЗОВЫЙ GLASS ЭФФЕКТ ===
+@mixin glass-base($opacity: 0.1, $blur: 20px) {
+  background: rgba(255, 255, 255, $opacity);
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--radius-md);
+}
+
+// === ИНТЕРАКТИВНЫЙ GLASS (для кнопок, карточек) ===
+@mixin glass-interactive($base-opacity: 0.1) {
+  @include glass-base($base-opacity);
+  
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  
+  &:hover {
+    background: rgba(255, 255, 255, $base-opacity + 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+}
+
+// === ФИНАНСОВЫЕ СТАТУС КАРТОЧКИ ===
+@mixin glass-financial-card($status: 'neutral') {
+  @include glass-base(0.1);
+  
+  @if $status == 'profit' {
+    background: var(--gradient-profit);
+    border-left: 4px solid var(--color-profit);
+  } @else if $status == 'loss' {
+    background: var(--gradient-loss);
+    border-left: 4px solid var(--color-loss);
+  } @else if $status == 'warning' {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.05));
+    border-left: 4px solid var(--color-warning);
+  } @else {
+    background: var(--gradient-neutral);
+    border-left: 4px solid var(--color-neutral);
+  }
+}
+
+// === AG-GRID GLASSMORPHISM ===
+@mixin ag-grid-glass-theme() {
+  .ag-theme-alpine {
+    // Заголовки таблицы
+    .ag-header {
+      @include glass-base(0.15);
+      border-bottom: 1px solid var(--glass-border);
+      backdrop-filter: blur(15px);
+    }
+    
+    // Строки таблицы
+    .ag-row {
+      background: rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      
+      &.ag-row-selected {
+        background: rgba(99, 102, 241, 0.1) !important;
+        border: 1px solid rgba(99, 102, 241, 0.3);
+      }
+    }
+    
+    // Пинированные колонки
+    .ag-pinned-left-cols-container,
+    .ag-pinned-right-cols-container {
+      @include glass-base(0.2);
+    }
+  }
+}
+
+// === PRIMENG GLASSMORPHISM OVERRIDES ===
+@mixin primeng-glass-overrides() {
+  // Кнопки
+  .p-button {
+    @include glass-interactive(0.15);
+    border: 1px solid var(--glass-border) !important;
+    font-weight: 500;
+    
+    &.p-button-success {
+      background: var(--gradient-profit) !important;
+      border-color: var(--color-profit) !important;
+    }
+    
+    &.p-button-danger {
+      background: var(--gradient-loss) !important;
+      border-color: var(--color-loss) !important;
+    }
+    
+    &.p-button-info {
+      background: var(--gradient-neutral) !important;
+      border-color: var(--color-neutral) !important;
+    }
+  }
+  
+  // Панели и карточки
+  .p-panel,
+  .p-card {
+    @include glass-base(0.1);
+    
+    .p-panel-header,
+    .p-card-header {
+      @include glass-base(0.15);
+      border-bottom: 1px solid var(--glass-border);
+    }
+  }
+  
+  // Меню и навигация
+  .p-menubar {
+    @include glass-base(0.2);
+    
+    .p-menuitem-link:hover {
+      background: rgba(255, 255, 255, 0.1) !important;
+    }
+  }
+  
+  // Диалоги
+  .p-dialog {
+    @include glass-base(0.2);
+    backdrop-filter: blur(25px);
+    
+    .p-dialog-header {
+      background: rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid var(--glass-border);
+    }
+  }
+}
+
+// === АНИМАЦИЯ ПОЯВЛЕНИЯ ===
+@mixin fade-in-up() {
+  animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+// === ПУЛЬСИРУЮЩИЙ ЭФФЕКТ ===
+@mixin pulse-effect($color: var(--color-neutral)) {
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: inherit;
+    background: linear-gradient(45deg, $color, transparent, $color);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  &:hover::before {
+    opacity: 0.3;
+  }
+}

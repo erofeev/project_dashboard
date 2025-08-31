@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "pouchdb": {
+      "command": "node",
+      "args": ["./dist/couchdb-index.js"],
+      "env": {},
+      "cwd": "infrastructure/mcp-server/pouchdb-mcp-server"
+    }
+  }
+}

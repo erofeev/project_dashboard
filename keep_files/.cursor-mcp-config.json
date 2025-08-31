@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "pouchdb": {
+      "command": "node",
+      "args": ["./dist/couchdb-index.js"],
+      "env": {},
+      "cwd": "infrastructure/mcp-server/pouchdb-mcp-server"
+    },
+    "easyredmine": {
+      "command": "node",
+      "args": ["./dist/easyredmine-index.js"],
+      "env": {},
+      "cwd": "infrastructure/mcp-server/easyredmine-mcp-server"
+    },
+    "primeng": {
+      "command": "node",
+      "args": ["./dist/index.js"],
+      "env": {},
+      "cwd": "infrastructure/mcp-server/primeng-mcp-server"
+    }
+  }
+}

@@ -1,31 +1,52 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient, HttpClient } from '@angular/common/http';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
+// i18n
+import { TranslateModule, TranslateService, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { provideServiceWorker } from '@angular/service-worker';
+
+// PrimeNG
+import { provideAnimations } from '@angular/platform-browser/animations';
+
+// AG-Grid
+import { AgGridModule } from 'ag-grid-angular';
 
 import { routes } from './app.routes';
-import { PRIMENG_GLOBAL_CONFIG } from './config/primeng-config';
 
-export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+// Factory function for TranslateHttpLoader
+export function HttpLoaderFactory(): TranslateHttpLoader {
+  return new TranslateHttpLoader();
 }
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideBrowserGlobalErrorListeners(),
+    provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(withInterceptorsFromDi()),
+    provideAnimationsAsync(),
+    
+    // PrimeNG Support - правильная настройка анимаций
     provideAnimations(),
-    importProvidersFrom(
-      TranslateModule.forRoot({
-        defaultLanguage: 'ru',
-        loader: {
-          provide: TranslateLoader,
-          useFactory: createTranslateLoader,
-          deps: [HttpClient]
-        }
-      })
-    )
+    
+    // i18n Support (временно отключен для отладки)
+    // importProvidersFrom(
+    //   TranslateModule.forRoot({
+    //     loader: {
+    //       provide: TranslateLoader,
+    //       useFactory: HttpLoaderFactory
+    //     },
+    //     defaultLanguage: 'ru'
+    //   })
+    // ),
+    
+    // PWA Support
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: false, // Включим позже
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ]
 };

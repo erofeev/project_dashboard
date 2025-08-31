@@ -1,0 +1,117 @@
+<!-- PROJECT ANALYTICS V2 - ГЛАВНОЕ ПРИЛОЖЕНИЕ С НАВИГАЦИЕЙ -->
+
+<!-- ANIMATED 3D LANDSCAPE BACKGROUND -->
+<app-animated-landscape
+  [config]="{
+    gridSize: 90,
+    animationSpeed: 1.2,
+    waveAmplitude: 2.0,
+    particleSize: 4.0,
+    colorScheme: 'wone-it',
+    enableDroplets: false,
+    quality: 'medium'
+  }"
+  [autoStart]="true"
+  [showControls]="false"
+  [showPerformanceMonitor]="false"
+  [enableUserInteraction]="false"
+  (initialized)="onLandscapeInitialized($event)"
+  (performanceUpdate)="onPerformanceUpdate($event)"
+></app-animated-landscape>
+
+<div class="app-layout">
+  
+  <!-- ВЕРХНЯЯ ПАНЕЛЬ С ЯЗЫКОВЫМ ПЕРЕКЛЮЧАТЕЛЕМ -->
+  <header class="app-topbar">
+    <div class="topbar-content">
+      <h1 class="app-title">
+        Project Analytics V2
+      </h1>
+      
+      <!-- Статус инициализации -->
+      @if (initializationStatus()) {
+        <div class="init-status">
+          {{ initializationStatus() }}
+        </div>
+      }
+      
+      <!-- Дебаг кнопки (только для разработки) -->
+      <div class="debug-controls" style="display: flex; gap: 0.5rem; margin-right: 1rem;">
+        <button 
+          (click)="debugShowConfig()"
+          class="debug-btn"
+          title="Показать конфигурацию"
+        >
+          📊
+        </button>
+        <button 
+          (click)="debugSaveConfig()"
+          class="debug-btn"
+          title="Сохранить в БД"
+        >
+          💾
+        </button>
+      </div>
+      
+      <!-- Языковой переключатель -->
+      <div class="language-switcher">
+        <button 
+          (click)="toggleLanguage()"
+          class="lang-toggle-btn"
+          [class.active]="currentLang() === 'ru'"
+        >
+          {{ currentLang() === 'ru' ? 'ENG' : 'РУС' }}
+        </button>
+      </div>
+    </div>
+  </header>
+
+    <!-- ПОКАЗЫВАЕМ КОНТЕНТ ТОЛЬКО ПОСЛЕ ИНИЦИАЛИЗАЦИИ -->
+  @if (isInitialized()) {
+    
+    <!-- БОКОВОЕ МЕНЮ -->
+    <nav class="app-sidebar">
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a routerLink="/dashboard" class="nav-link" routerLinkActive="active">
+            <span class="nav-icon">📊</span>
+            <span class="nav-text">{{ currentLang() === 'ru' ? 'Дашборд' : 'Dashboard' }}</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/reports/time-entries" class="nav-link" routerLinkActive="active">
+            <span class="nav-icon">⏰</span>
+            <span class="nav-text">{{ currentLang() === 'ru' ? 'Временные записи' : 'Time Entries' }}</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/settings" class="nav-link" routerLinkActive="active">
+            <span class="nav-icon">⚙️</span>
+            <span class="nav-text">{{ currentLang() === 'ru' ? 'Настройки' : 'Settings' }}</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
+    <main class="app-content">
+      <router-outlet></router-outlet>
+</main>
+
+  } @else {
+    
+    <!-- ЭКРАН ЗАГРУЗКИ -->
+    <div class="loading-screen">
+      <div class="loading-card glass-card">
+        <h2>{{ currentLang() === 'ru' ? '🔄 Инициализация системы...' : '🔄 System initialization...' }}</h2>
+        <p>{{ currentLang() === 'ru' ? 'Загрузка конфигурации из базы данных' : 'Loading configuration from database' }}</p>
+        <div class="loading-spinner"></div>
+      </div>
+    </div>
+    
+  }
+
+</div>
+
+<!-- ГЛОБАЛЬНЫЕ УВЕДОМЛЕНИЯ -->
+<app-notifications></app-notifications>

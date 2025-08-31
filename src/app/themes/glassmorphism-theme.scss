@@ -1,0 +1,365 @@
+// ========================================
+// PREMIUM GLASSMORPHISM THEME - EXECUTIVE LEVEL
+// ========================================
+
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// === ПЕРЕМЕННЫЕ УЖЕ ОПРЕДЕЛЕНЫ В _VARIABLES.SCSS ===
+
+// === ГЛОБАЛЬНЫЕ СТИЛИ ===
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family-primary);
+  
+  // Фоновый градиент (как ваш "ковер из точек")
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(245, 158, 11, 0.2) 0%, transparent 50%),
+    linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  
+  // Точечный паттерн поверх градиента
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.4;
+    background-image: 
+      radial-gradient(circle at 1px 1px, rgba(99, 102, 241, 0.3) 1px, transparent 0);
+    background-size: 20px 20px;
+    pointer-events: none;
+    z-index: -1;
+  }
+}
+
+// === DARK THEME ===
+[data-theme="dark"] {
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(245, 158, 11, 0.15) 0%, transparent 50%),
+    linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  
+  color: #e2e8f0;
+  
+  &::before {
+    background-image: 
+      radial-gradient(circle at 1px 1px, rgba(148, 163, 184, 0.2) 1px, transparent 0);
+  }
+}
+
+// === БАЗОВЫЕ КОМПОНЕНТЫ ===
+
+// Главный контейнер приложения
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+// === ПРЕМИАЛЬНЫЕ СТЕКЛЯННЫЕ КАРТОЧКИ ===
+.glass-card {
+  background: linear-gradient(
+    135deg,
+    var(--glass-primary) 0%,
+    var(--glass-secondary) 100%
+  );
+  backdrop-filter: var(--blur-medium);
+  -webkit-backdrop-filter: var(--blur-medium);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: 
+    var(--shadow-subtle),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+  padding: var(--spacing-xl);
+  margin: var(--spacing-md);
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+
+  // Тонкая светящаяся линия сверху
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.3) 50%,
+      transparent 100%
+    );
+  }
+
+  // Тонкое свечение по краям при ховере
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(
+      135deg,
+      var(--glow-primary) 0%,
+      var(--glow-secondary) 50%,
+      var(--glow-accent) 100%
+    );
+    border-radius: 20px;
+    opacity: 0;
+    z-index: -1;
+    transition: var(--transition-smooth);
+  }
+
+  &:hover {
+    background: linear-gradient(
+      135deg,
+      var(--glass-elevated) 0%,
+      var(--glass-primary) 100%
+    );
+    border-color: var(--glass-border-hover);
+    box-shadow: 
+      var(--shadow-elevated),
+      0 0 40px var(--glow-primary),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+    transform: translateY(-4px);
+
+    &::after {
+      opacity: 0.6;
+    }
+  }
+  
+  &--interactive {
+    cursor: pointer;
+    
+    &:active {
+      transform: translateY(-2px);
+      box-shadow: 
+        var(--shadow-subtle),
+        0 0 24px var(--glow-primary),
+        inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  }
+  
+  &--elevated {
+    background: linear-gradient(
+      135deg,
+      var(--glass-elevated) 0%,
+      var(--glass-primary) 100%
+    );
+    box-shadow: 
+      var(--shadow-floating),
+      0 0 60px var(--glow-primary),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-color: var(--glass-border-hover);
+  }
+}
+
+// Заголовки
+.section-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-lg);
+  background: linear-gradient(135deg, var(--color-neutral), var(--color-profit));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subsection-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-neutral);
+}
+
+// === ПРЕМИАЛЬНЫЕ СТАТИСТИЧЕСКИЕ ВИДЖЕТЫ ===
+.stats-widget {
+  background: linear-gradient(
+    135deg,
+    var(--glass-elevated) 0%,
+    var(--glass-primary) 100%
+  );
+  backdrop-filter: var(--blur-medium);
+  -webkit-backdrop-filter: var(--blur-medium);
+  border: 1px solid var(--glass-border);
+  border-radius: 18px;
+  box-shadow: 
+    var(--shadow-elevated),
+    0 0 32px var(--glow-primary),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+  padding: var(--spacing-xl);
+  text-align: center;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+  
+  // Тонкая анимированная линия сверху
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--glow-primary) 50%,
+      transparent 100%
+    );
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  &:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.15) 0%,
+      var(--glass-elevated) 100%
+    );
+    border-color: var(--glass-border-hover);
+    box-shadow: 
+      var(--shadow-floating),
+      0 0 48px var(--glow-primary),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+    transform: translateY(-6px) scale(1.02);
+  }
+  
+  .stats-value {
+    font-size: 2.25rem;
+    font-weight: 700;
+    font-family: var(--font-family-mono);
+    background: linear-gradient(
+      135deg,
+      #4f46e5 0%,
+      #7c3aed 50%,
+      #06b6d4 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .stats-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    opacity: 0.75;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: var(--spacing-sm);
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .stats-change {
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-top: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    display: inline-block;
+    
+    &--positive { 
+      background: rgba(16, 185, 129, 0.15);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    
+    &--negative { 
+      background: rgba(239, 68, 68, 0.15);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+  }
+
+  // Специальные стили для разных типов
+  &--primary {
+    border-color: var(--glow-primary);
+    box-shadow: 
+      var(--shadow-elevated),
+      0 0 40px var(--glow-primary),
+      inset 0 1px 0 rgba(79, 70, 229, 0.2);
+  }
+
+  &--success {
+    border-color: var(--glow-accent);
+    box-shadow: 
+      var(--shadow-elevated),
+      0 0 40px var(--glow-accent),
+      inset 0 1px 0 rgba(16, 185, 129, 0.2);
+  }
+}
+
+// Анимация для светящихся линий
+@keyframes shimmer {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+// === AG-GRID СТИЛИ ===
+@include ag-grid-glass-theme();
+
+// === PRIMENG ПЕРЕОПРЕДЕЛЕНИЯ ===
+@include primeng-glass-overrides();
+
+// === RESPONSIVE ===
+@media (max-width: 768px) {
+  .glass-card {
+    margin: var(--spacing-xs);
+    padding: var(--spacing-md);
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+  }
+  
+  .stats-widget .stats-value {
+    font-size: 1.5rem;
+  }
+}
+
+// === UTILITY CLASSES ===
+.text-profit { color: var(--color-profit); }
+.text-loss { color: var(--color-loss); }
+.text-warning { color: var(--color-warning); }
+.text-neutral { color: var(--color-neutral); }
+
+.bg-profit { background: var(--gradient-profit); }
+.bg-loss { background: var(--gradient-loss); }
+.bg-warning { background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.05)); }
+.bg-neutral { background: var(--gradient-neutral); }
+
+// Анимации
+.fade-in { @include fade-in-up(); }
+.pulse { @include pulse-effect(); }
+
+// Скрытие элементов для мобильных
+@media (max-width: 640px) {
+  .hide-mobile { display: none !important; }
+}
+
+@media (min-width: 641px) {
+  .hide-desktop { display: none !important; }
+}

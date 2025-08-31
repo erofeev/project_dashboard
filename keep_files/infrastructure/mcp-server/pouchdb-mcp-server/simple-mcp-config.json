@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "pouchdb": {
+      "command": "node",
+      "args": ["./dist/index.js"],
+      "env": {},
+      "cwd": "/home/xmraner/prj/pouchdb-mcp-server"
+    }
+  }
+}

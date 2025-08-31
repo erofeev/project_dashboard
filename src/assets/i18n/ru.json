@@ -1,213 +1,50 @@
 {
-  "COMMON": {
-    "APP_TITLE": "Business Solutions",
-    "ALL_RIGHTS_RESERVED": "Все права защищены"
-  },
-  "NAV": {
-    "DASHBOARD": "Дашборд",
-    "PROJECTS": "Проекты",
-    "EMPLOYEES": "Сотрудники",
-    "ANALYTICS": "Аналитика",
-    "INVOICES": "Счета"
-  },
-  "AUTH": {
-    "LOGIN_TITLE": "Вход в систему",
-    "LOGIN_SUBTITLE": "Введите учетные данные для входа",
-    "EMAIL": "Электронная почта",
-    "EMAIL_PLACEHOLDER": "example@company.ru",
-    "PASSWORD": "Пароль",
-    "PASSWORD_PLACEHOLDER": "Введите пароль",
-    "LOGIN_BUTTON": "Войти",
-    "LOGGING_IN": "Входим...",
-    "LOGOUT": "Выйти",
-    "DEMO_CREDENTIALS": "Демо-доступ"
-  },
-  "DASHBOARD": {
-    "TITLE": "Панель управления проектами",
-    "SUBTITLE": "Мониторинг ключевых показателей и трендов",
-    "PROJECTS": "Проекты",
-    "TOTAL_PROJECTS": "Всего проектов",
-    "EMPLOYEES": "Сотрудники",
-    "TOTAL_EMPLOYEES": "Всего сотрудников",
-    "REVENUE": "Выручка",
-    "TOTAL_REVENUE": "Общая выручка",
-    "MARGIN": "Маржа",
-    "TOTAL_MARGIN": "Общая маржа",
-    "PROJECTS_COMPLETED": "Завершено проектов",
-    "AVG_PROJECT_TIME": "Среднее время проекта",
-    "SUCCESS_RATE": "Процент успеха"
-  },
-  "SIDEBAR": {
-    "ACTIVE": "Активные",
-    "PLANNING": "Планирование",
-    "COMPLETED": "Завершённые",
-    "SENT": "Отправленные",
-    "OVERDUE": "Просроченные",
-    "PAID": "Оплаченные",
-    "HIERARCHY": "Иерархия",
-    "HIERARCHY_DESC": "Здесь будет иерархический список: Направления → Проекты.",
-    "HIERARCHY_FILTERS": "Фильтры и быстрый выбор появятся позже.",
-    "BOTTOM_TITLE": "Дополнительные возможности",
-    "BOTTOM_DESC": "Здесь будут размещены новые функции и инструменты для управления проектами.",
-    "BOTTOM_PLACEHOLDER_1": "Новые интеграции",
-    "BOTTOM_PLACEHOLDER_2": "Аналитические отчеты",
-    "BOTTOM_PLACEHOLDER_3": "Автоматизация процессов"
-  },
-  "SEARCH": {
-    "SUGGESTIONS": "Подсказки поиска",
-    "RECENT_SEARCHES": "Недавние поиски",
-    "CLEAR_HISTORY": "Очистить историю",
-    "RESULTS": "Результаты поиска"
-  },
-  "HEADER": {
-    "SEARCH": "Поиск...",
-    "MENU": "Меню",
-    "THEME_LIGHT": "Темная тема",
-    "THEME_DARK": "Светлая тема",
-    "HIERARCHY": "Иерархия",
-    "DATA_UPDATE": "Обновление данных",
-    "ERM_IMPORT": "Импорт данных из ЕРМ",
-    "ADMINISTRATION": "Администрирование"
-  },
-  "PROJECTS": {
-    "TITLE": "Проекты",
-    "DESCRIPTION": "Список проектов будет здесь"
-  },
-  "USER": {
-    "PROFILE": "Профиль",
-    "SETTINGS": "Настройки"
-  },
-  "BREADCRUMBS": {
-    "DASHBOARD": "Дашборд",
-    "PROJECTS": "Проекты",
-    "EMPLOYEES": "Сотрудники",
-    "ANALYTICS": "Аналитика",
-    "INVOICES": "Счета",
-    "SETTINGS": "Настройки"
-  },
-  "SETTINGS": {
-    "BACK": "Назад",
-    "TITLE": "Настройки",
-    "COMING_SOON": "Скоро будет доступно",
-    "UI": {
-      "TITLE": "Настройки интерфейса",
-      "LANDSCAPE_TITLE": "3D Ландшафт",
-      "LANDSCAPE_DESCRIPTION": "Настройте параметры анимированного 3D фона",
-      "WAVE_AMPLITUDE": "Амплитуда волн",
-      "ANIMATION_SPEED": "Скорость анимации",
-      "POINT_SIZE": "Размер точек",
-      "GRID_SIZE": "Размер сетки",
-      "COLOR_SCHEME": "Цветовая схема",
-      "COLOR_WONE_IT": "Wone IT (Фиолетово-красная)",
-      "COLOR_SUNSET": "Закат (Оранжевая)",
-      "COLOR_OCEAN": "Океан (Сине-зеленая)",
-      "COLOR_FOREST": "Лес (Зеленая)",
-      "PRESETS": "Быстрые пресеты",
-      "PRESET_NAMES": {
-        "WONE_IT": "Wone IT",
-        "SUNSET": "Закат",
-        "OCEAN": "Океан",
-        "FOREST": "Лес"
-      },
-      "TRANSPARENCY_TITLE": "Прозрачность и блюр",
-      "TRANSPARENCY_DESCRIPTION": "Настройте прозрачность и эффект размытия для различных элементов интерфейса",
-      "FORMS_TRANSPARENCY": "Прозрачность форм",
-      "WIDGETS_TRANSPARENCY": "Прозрачность виджетов",
-      "SIDEBARS_TRANSPARENCY": "Прозрачность сайдбаров",
-      "FORMS_BLUR": "Блюр форм",
-      "WIDGETS_BLUR": "Блюр виджетов",
-      "SIDEBARS_BLUR": "Блюр сайдбаров",
-      "THEME_TITLE": "Тема оформления",
-      "THEME_DESCRIPTION": "Выберите светлую или темную тему интерфейса",
-      "THEME_MODE": "Режим темы",
-      "THEME_LIGHT": "Светлая",
-      "THEME_DARK": "Темная",
-      "PRESETS_DESCRIPTION": "Выберите готовую схему настроек",
-      "CUSTOM_PRESET": "Пользовательский пресет",
-      "CUSTOM_PRESET_DESCRIPTION": "Сохраните текущие настройки как пользовательский пресет",
-      "SAVE_CUSTOM": "Сохранить текущий",
-      "RANGE_MIN": "5",
-      "RANGE_MAX": "30",
-      "RANGE_MIN_SPEED": "0.1",
-      "RANGE_MAX_SPEED": "2.0",
-      "RANGE_MIN_SIZE": "1",
-      "RANGE_MAX_SIZE": "5",
-      "RANGE_MIN_GRID": "50",
-      "RANGE_MAX_GRID": "150",
-      "RANGE_MIN_TRANSPARENCY": "50%",
-      "RANGE_MAX_TRANSPARENCY": "95%",
-      "RANGE_MIN_WIDGETS": "70%",
-      "RANGE_MAX_WIDGETS": "95%",
-      "RANGE_MIN_SIDEBARS": "70%",
-      "RANGE_MAX_SIDEBARS": "95%",
-      "RANGE_MIN_FORMS_BLUR": "0px",
-      "RANGE_MAX_FORMS_BLUR": "20px",
-      "RANGE_MIN_WIDGETS_BLUR": "0px",
-      "RANGE_MAX_WIDGETS_BLUR": "20px",
-      "RANGE_MIN_SIDEBARS_BLUR": "10px",
-      "RANGE_MAX_SIDEBARS_BLUR": "50px"
+  "app": {
+    "title": "Project Analytics V2",
+    "subtitle": "Современная система финансовой аналитики проектов",
+    "success": "УСПЕХ!",
+    "launched": "Project Analytics V2 запущен!",
+    "ready": "Готово к разработке Excel функционала!",
+    "components": {
+      "title": "Готовые компоненты:",
+      "angular": "Angular 20.2 + TypeScript",
+      "agGrid": "AG-Grid Community для таблиц",
+      "primeng": "PrimeNG 20.0 для UI",
+      "pouchdb": "PouchDB 9.0 для данных",
+      "styles": "Glassmorphism стили",
+      "erm": "ERM интеграция сервис"
     },
-    "FILTERS": {
-      "TITLE": "Настройки фильтров",
-      "PROJECTS_TITLE": "Фильтры проектов",
-      "PROJECTS_DESCRIPTION": "Настройте фильтры по умолчанию для проектов",
-      "STATUS_FILTERS": "Фильтры по статусу",
-      "STATUS_ACTIVE": "Активные",
-      "STATUS_COMPLETED": "Завершённые",
-      "STATUS_ON_HOLD": "На паузе",
-      "PRIORITY_FILTERS": "Фильтры по приоритету",
-      "PRIORITY_HIGH": "Высокий",
-      "PRIORITY_MEDIUM": "Средний",
-      "PRIORITY_LOW": "Низкий",
-      "ANALYTICS_TITLE": "Фильтры аналитики",
-      "ANALYTICS_DESCRIPTION": "Настройте параметры аналитических отчётов",
-      "TIME_RANGE": "Временной диапазон по умолчанию",
-      "TIME_WEEK": "Неделя",
-      "TIME_MONTH": "Месяц",
-      "TIME_QUARTER": "Квартал",
-      "TIME_YEAR": "Год",
-      "CHART_TYPE": "Тип графика по умолчанию",
-      "CHART_LINE": "Линейный",
-      "CHART_BAR": "Столбчатый",
-      "CHART_PIE": "Круговой",
-      "CHART_AREA": "Областной",
-      "SHOW_TRENDS": "Показывать тренды",
-      "CLEAR_ALL": "Очистить все фильтры",
-      "SAVE": "Сохранить настройки"
+    "server": {
+      "title": "Dev сервер:",
+      "status": "Status:",
+      "running": "RUNNING"
     },
-    "ACCOUNT": {
-      "TITLE": "Настройки аккаунта",
-      "ERM_TITLE": "Настройки ERM системы",
-      "ERM_DESCRIPTION": "Настройте подключение к ERM системе для автоматического обновления данных",
-      "ERM_URL": "URL ERM системы",
-      "ERM_URL_PLACEHOLDER": "https://your-erm-system.com",
-      "ERM_URL_ERROR": "Введите корректный URL",
-      "ERM_API_KEY": "API ключ",
-      "ERM_API_KEY_PLACEHOLDER": "your-api-key",
-      "ERM_API_KEY_ERROR": "Введите API ключ",
-      "TEST_CONNECTION": "Проверить подключение",
-      "SAVE_SETTINGS": "Сохранить настройки",
-      "SETTINGS_SAVED": "Настройки успешно сохранены",
-      "SAVE_ERROR": "Ошибка сохранения настроек",
-      "TESTING_CONNECTION": "Проверка подключения...",
-      "CONNECTION_SUCCESS": "Подключение к ERM системе успешно!",
-      "CONNECTION_FAILED": "Не удалось подключиться к ERM системе. Проверьте URL и API ключ.",
-      "TEST_ERROR": "Ошибка проверки подключения"
-    },
-    "NOTIFICATIONS": {
-      "TITLE": "Уведомления",
-      "COMING_SOON": "Функция уведомлений будет доступна в ближайшее время"
-    },
-    "PRIVACY": {
-      "TITLE": "Конфиденциальность",
-      "COMING_SOON": "Настройки конфиденциальности будут доступны в ближайшее время"
-    },
-    "SECTIONS": {
-      "UI": "Интерфейс",
-      "FILTERS": "Фильтры",
-      "ACCOUNT": "Аккаунт",
-      "NOTIFICATIONS": "Уведомления",
-      "PRIVACY": "Конфиденциальность"
+    "language": {
+      "switch": "Switch to English",
+      "ru": "РУС",
+      "en": "ENG"
     }
+  },
+  "navigation": {
+    "dashboard": "Дашборд",
+    "projects": "Проекты", 
+    "reports": "Отчеты",
+    "timeEntries": "Временные записи",
+    "invoices": "Счета",
+    "payments": "Платежи",
+    "settings": "Настройки"
+  },
+  "common": {
+    "loading": "Загрузка...",
+    "error": "Ошибка",
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "add": "Добавить",
+    "search": "Поиск",
+    "filter": "Фильтр",
+    "export": "Экспорт",
+    "import": "Импорт"
   }
 }

@@ -1,103 +1,71 @@
-/* You can add global styles to this file, and also import other style files */
-@use 'styles/glassmorphism.scss';
+/* ========================================
+   PROJECT ANALYTICS V2 - GLOBAL STYLES
+   ======================================== */
 
-/* PrimeNG Theme Import - Временно отключено до решения проблем с путями */
-/* @import 'primeng/themes/aura-dark-blue/theme.css'; */
-/* @import 'primeng/core/core.css'; */
-/* @import 'primeicons/primeicons.css'; */
-/* @import 'primeflex/primeflex.css'; */
-@import 'styles/primeng-glassmorphism.scss';
+/* Базовые стили для старта */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+}
 
-/* ПРАВИЛО ПРИЛОЖЕНИЯ: Компактные размеры везде */
-@import 'styles/compact-components.scss';
+/* ========================================
+   ДОПОЛНИТЕЛЬНЫЕ ГЛОБАЛЬНЫЕ СТИЛИ
+   ======================================== */
 
-/* Глобальные стили для темной темы */
-.theme-dark {
-  background-color: #0f172a !important;
-  color: #f8fafc !important;
-  
-  /* Основной фон страницы */
-  body {
-    background-color: #0f172a !important;
-    color: #f8fafc !important;
-  }
-  
-  /* Фон для 3D ландшафта */
-  .landscape-container {
-    background-color: #000000 !important;
-  }
-  
-  /* Меню пользователя в темной теме */
-  .user-dropdown-menu {
-    background: rgba(15,23,42,0.98) !important;
-    border-color: rgba(59,130,246,0.4) !important;
-    backdrop-filter: blur(25px) !important;
-    box-shadow: 0 12px 40px rgba(59,130,246,0.3), 0 0 0 1px rgba(59,130,246,0.1) !important;
-    width: 100% !important;
-    min-width: 200px !important;
-  }
-  
-  .dropdown-item {
-    background: rgba(30,41,59,0.8) !important;
-    border-bottom: 1px solid rgba(59,130,246,0.1) !important;
-    color: #f8fafc !important;
-  }
-  
-  .dropdown-item:hover {
-    background: linear-gradient(135deg, rgba(59,130,246,0.25) 0%, rgba(37,99,235,0.25) 100%) !important;
-    color: #93c5fd !important;
-  }
-  
-  /* Контейнер меню пользователя */
-  .glass-user-menu {
-    position: relative !important;
-    z-index: 999999 !important;
-  }
-  
-  /* Убираем выделение текста для всех элементов */
-  .glass-title,
-  .group-title,
-  .suggestion-title,
-  .suggestion-subtitle,
-  .result-title,
-  .result-subtitle,
-  .history-text,
-  .history-time,
-  .user-info,
-  .dropdown-arrow,
-  .glass-footer p {
-    user-select: none !important;
-    -webkit-user-select: none !important;
-    -moz-user-select: none !important;
-    -ms-user-select: none !important;
-    -webkit-tap-highlight-color: transparent !important;
-    -webkit-touch-callout: none !important;
-    caret-color: transparent !important;
-  }
-  
+// Сброс стилей для лучшей совместимости
+html {
+  scroll-behavior: smooth;
+}
 
+body {
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Улучшение фокуса для accessibility
+*:focus {
+  outline: 2px solid var(--color-neutral);
+  outline-offset: 2px;
+}
+
+// Скрытие скроллбаров в WebKit браузерах (более красивый вид)
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
   
-  /* Общие элементы */
-  * {
-    scrollbar-color: #475569 #1e293b;
+  &:hover {
+    background: rgba(255, 255, 255, 0.5);
   }
-  
-  /* Скроллбары */
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-  
+}
+
+// Стили для темной темы скроллбара
+[data-theme="dark"] {
   ::-webkit-scrollbar-track {
-    background: #1e293b;
+    background: rgba(0, 0, 0, 0.2);
   }
   
   ::-webkit-scrollbar-thumb {
-    background: #475569;
-    border-radius: 4px;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    background: #64748b;
+    background: rgba(148, 163, 184, 0.3);
+    
+    &:hover {
+      background: rgba(148, 163, 184, 0.5);
+    }
   }
 }
+
+/* ========================================
+   PREMIUM GLASSMORPHISM THEME
+   ======================================== */
+@import './app/themes/glassmorphism-theme.scss';

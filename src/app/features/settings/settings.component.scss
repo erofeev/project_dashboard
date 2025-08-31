@@ -1,0 +1,332 @@
+// ========================================
+// SETTINGS COMPONENT - GLASSMORPHISM STYLES
+// ========================================
+
+@use '../../themes/variables' as *;
+@use '../../themes/mixins' as *;
+
+.settings-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+  
+  @include glass-base(0.05);
+  min-height: calc(100vh - 4rem);
+}
+
+.settings-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  
+  .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 var(--spacing-sm) 0;
+    background: linear-gradient(135deg, var(--color-neutral), var(--color-profit));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .settings-subtitle {
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 1rem;
+    margin: 0;
+  }
+}
+
+// === СЕКЦИИ НАСТРОЕК ===
+.config-section,
+.rates-section,
+.import-export-section {
+  @include glass-base(0.08);
+  padding: var(--spacing-lg);
+  margin: var(--spacing-lg) 0;
+  border-radius: var(--radius-md);
+  
+  h3 {
+    margin: 0 0 var(--spacing-md) 0;
+    color: var(--color-neutral);
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+  
+  h4 {
+    margin: 0 0 var(--spacing-sm) 0;
+    color: var(--color-neutral);
+    font-weight: 600;
+    font-size: 1rem;
+  }
+}
+
+// === ФОРМЫ ===
+.config-grid {
+  display: grid;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.field-label {
+  font-weight: 600;
+  color: var(--color-neutral);
+  font-size: 0.9rem;
+}
+
+.field-hint {
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.6);
+  font-style: italic;
+}
+
+// === ПОЛЯ ВВОДА ===
+.field-input {
+  @include glass-base(0.1);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  color: inherit;
+  
+  &:focus {
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3);
+    border-color: var(--color-neutral);
+    outline: none;
+  }
+  
+  &::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+// === КНОПКИ ===
+.btn {
+  @include glass-interactive(0.1);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    
+    &:hover {
+      transform: none;
+    }
+  }
+  
+  &.btn-success {
+    background: var(--gradient-profit);
+    border-color: var(--color-profit);
+    color: white;
+  }
+
+  &.btn-info {
+    background: var(--gradient-neutral);
+    border-color: var(--color-neutral);
+    color: white;
+  }
+
+  &.btn-danger {
+    background: var(--gradient-loss);
+    border-color: var(--color-loss);
+    color: white;
+  }
+
+  &.btn-sm {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+
+// === КНОПКИ ДЕЙСТВИЙ ===
+.action-buttons {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-top: var(--spacing-lg);
+}
+
+// === КАРТОЧКИ ===
+.rates-card,
+.rates-list-card,
+.calendar-card,
+.export-card,
+.import-card {
+  @include glass-base(0.1);
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  
+  h4 {
+    margin: 0 0 var(--spacing-md) 0;
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--glass-border);
+    color: var(--color-neutral);
+    font-weight: 600;
+  }
+}
+
+// === УПРАВЛЕНИЕ СТАВКАМИ ===
+.rates-grid {
+  display: grid;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.rates-table {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.rate-row {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr;
+  gap: var(--spacing-md);
+  align-items: center;
+  padding: var(--spacing-md);
+  @include glass-base(0.05);
+  border-radius: var(--radius-sm);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    @include glass-base(0.1);
+  }
+}
+
+.rate-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  
+  strong {
+    font-weight: 600;
+    color: var(--color-neutral);
+  }
+  
+  .rate-date {
+    font-size: 0.8rem;
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+.rate-values {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  
+  .rate-salary {
+    color: var(--color-profit);
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+  
+  .rate-hourly {
+    color: var(--color-neutral);
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+}
+
+.rate-actions {
+  display: flex;
+  justify-content: center;
+}
+
+// === ПУСТОЕ СОСТОЯНИЕ ===
+.empty-state {
+  text-align: center;
+  padding: var(--spacing-xl);
+  color: rgba(0, 0, 0, 0.6);
+  
+  p {
+    margin: var(--spacing-sm) 0;
+  }
+}
+
+// === ЭКСПОРТ/ИМПОРТ ===
+.import-export-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+}
+
+.file-input {
+  @include glass-base(0.1);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem;
+  margin-top: 1rem;
+  width: 100%;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+}
+
+// === RESPONSIVE ===
+@media (max-width: 768px) {
+  .config-grid {
+    gap: var(--spacing-sm);
+  }
+  
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .rate-row {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+    text-align: center;
+  }
+  
+  .import-export-section {
+    grid-template-columns: 1fr;
+  }
+  
+  .action-buttons {
+    justify-content: center;
+  }
+}
+
+// === АНИМАЦИИ ===
+.settings-container {
+  @include fade-in-up();
+}
+
+.rate-row {
+  animation: slideInFromLeft 0.3s ease-out;
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

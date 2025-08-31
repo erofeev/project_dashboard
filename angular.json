@@ -3,11 +3,11 @@
   "version": 1,
   "cli": {
     "packageManager": "npm",
-    "analytics": "2dcfd634-0a62-4e32-ab4e-0ad478ff1ec9"
+    "analytics": false
   },
   "newProjectRoot": "projects",
   "projects": {
-    "project-management": {
+    "project-analytics-temp": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,14 +23,19 @@
           "options": {
             "browser": "src/main.ts",
             "polyfills": [
-              "zone.js",
-              "src/polyfills.ts"
+              "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              {
+                "glob": "**/*",
+                "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/assets"
+              }
             ],
             "styles": [
               "src/styles.scss"
@@ -41,13 +46,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "1MB",
+                  "maximumWarning": "1.5MB",
                   "maximumError": "2MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "50kB",
-                  "maximumError": "100kB"
+                  "maximumWarning": "10kB",
+                  "maximumError": "15kB"
                 }
               ],
               "outputHashing": "all"
@@ -64,10 +69,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "project-management:build:production"
+              "buildTarget": "project-analytics-temp:build:production"
             },
             "development": {
-              "buildTarget": "project-management:build:development"
+              "buildTarget": "project-analytics-temp:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -80,14 +85,15 @@
           "options": {
             "polyfills": [
               "zone.js",
-              "zone.js/testing",
-              "src/polyfills.ts"
+              "zone.js/testing"
             ],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
             ],
             "styles": [
               "src/styles.scss"

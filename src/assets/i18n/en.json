@@ -1,213 +1,50 @@
 {
-  "COMMON": {
-    "APP_TITLE": "Business Solutions",
-    "ALL_RIGHTS_RESERVED": "All rights reserved"
-  },
-  "NAV": {
-    "DASHBOARD": "Dashboard",
-    "PROJECTS": "Projects",
-    "EMPLOYEES": "Employees",
-    "ANALYTICS": "Analytics",
-    "INVOICES": "Invoices"
-  },
-  "AUTH": {
-    "LOGIN_TITLE": "Login",
-    "LOGIN_SUBTITLE": "Enter your credentials to access the system",
-    "EMAIL": "Email",
-    "EMAIL_PLACEHOLDER": "example@company.com",
-    "PASSWORD": "Password",
-    "PASSWORD_PLACEHOLDER": "Enter password",
-    "LOGIN_BUTTON": "Login",
-    "LOGGING_IN": "Logging in...",
-    "LOGOUT": "Logout",
-    "DEMO_CREDENTIALS": "Demo access"
-  },
-  "DASHBOARD": {
-    "TITLE": "Project Management Dashboard",
-    "SUBTITLE": "Key metrics monitoring and trends analysis",
-    "PROJECTS": "Projects",
-    "TOTAL_PROJECTS": "Total Projects",
-    "EMPLOYEES": "Employees",
-    "TOTAL_EMPLOYEES": "Total Employees",
-    "REVENUE": "Revenue",
-    "TOTAL_REVENUE": "Total Revenue",
-    "MARGIN": "Margin",
-    "TOTAL_MARGIN": "Total Margin",
-    "PROJECTS_COMPLETED": "Completed Projects",
-    "AVG_PROJECT_TIME": "Average Project Time",
-    "SUCCESS_RATE": "Success Rate"
-  },
-  "SIDEBAR": {
-    "ACTIVE": "Active",
-    "PLANNING": "Planning",
-    "COMPLETED": "Completed",
-    "SENT": "Sent",
-    "OVERDUE": "Overdue",
-    "PAID": "Paid",
-    "HIERARCHY": "Hierarchy",
-    "HIERARCHY_DESC": "Hierarchical list will be here: Directions → Projects.",
-    "HIERARCHY_FILTERS": "Filters and quick selection will appear later.",
-    "BOTTOM_TITLE": "Additional Features",
-    "BOTTOM_DESC": "New functions and tools for project management will be placed here.",
-    "BOTTOM_PLACEHOLDER_1": "New Integrations",
-    "BOTTOM_PLACEHOLDER_2": "Analytical Reports",
-    "BOTTOM_PLACEHOLDER_3": "Process Automation"
-  },
-  "SEARCH": {
-    "SUGGESTIONS": "Search Suggestions",
-    "RECENT_SEARCHES": "Recent Searches",
-    "CLEAR_HISTORY": "Clear History",
-    "RESULTS": "Search Results"
-  },
-  "HEADER": {
-    "SEARCH": "Search...",
-    "MENU": "Menu",
-    "THEME_LIGHT": "Dark theme",
-    "THEME_DARK": "Light theme",
-    "HIERARCHY": "Hierarchy",
-    "DATA_UPDATE": "Data Update",
-    "ERM_IMPORT": "Import data from ERM",
-    "ADMINISTRATION": "Administration"
-  },
-  "PROJECTS": {
-    "TITLE": "Projects",
-    "DESCRIPTION": "Project list will be here"
-  },
-  "USER": {
-    "PROFILE": "Profile",
-    "SETTINGS": "Settings"
-  },
-  "BREADCRUMBS": {
-    "DASHBOARD": "Dashboard",
-    "PROJECTS": "Projects",
-    "EMPLOYEES": "Employees",
-    "ANALYTICS": "Analytics",
-    "INVOICES": "Invoices",
-    "SETTINGS": "Settings"
-  },
-  "SETTINGS": {
-    "BACK": "Back",
-    "TITLE": "Settings",
-    "COMING_SOON": "Coming soon",
-    "UI": {
-      "TITLE": "Interface Settings",
-      "LANDSCAPE_TITLE": "3D Landscape",
-      "LANDSCAPE_DESCRIPTION": "Configure animated 3D background parameters",
-      "WAVE_AMPLITUDE": "Wave Amplitude",
-      "ANIMATION_SPEED": "Animation Speed",
-      "POINT_SIZE": "Point Size",
-      "GRID_SIZE": "Grid Size",
-      "COLOR_SCHEME": "Color Scheme",
-      "COLOR_WONE_IT": "Wone IT (Purple-Red)",
-      "COLOR_SUNSET": "Sunset (Orange)",
-      "COLOR_OCEAN": "Ocean (Blue-Green)",
-      "COLOR_FOREST": "Forest (Green)",
-      "PRESETS": "Quick Presets",
-      "PRESET_NAMES": {
-        "WONE_IT": "Wone IT",
-        "SUNSET": "Sunset",
-        "OCEAN": "Ocean",
-        "FOREST": "Forest"
-      },
-      "TRANSPARENCY_TITLE": "Transparency and Blur",
-      "TRANSPARENCY_DESCRIPTION": "Configure transparency and blur effects for various interface elements",
-      "FORMS_TRANSPARENCY": "Forms Transparency",
-      "WIDGETS_TRANSPARENCY": "Widgets Transparency",
-      "SIDEBARS_TRANSPARENCY": "Sidebars Transparency",
-      "FORMS_BLUR": "Forms Blur",
-      "WIDGETS_BLUR": "Widgets Blur",
-      "SIDEBARS_BLUR": "Sidebars Blur",
-      "THEME_TITLE": "Theme",
-      "THEME_DESCRIPTION": "Choose light or dark interface theme",
-      "THEME_MODE": "Theme Mode",
-      "THEME_LIGHT": "Light",
-      "THEME_DARK": "Dark",
-      "PRESETS_DESCRIPTION": "Choose a ready-made settings scheme",
-      "CUSTOM_PRESET": "Custom Preset",
-      "CUSTOM_PRESET_DESCRIPTION": "Save current settings as a custom preset",
-      "SAVE_CUSTOM": "Save Current"
+  "app": {
+    "title": "Project Analytics V2",
+    "subtitle": "Modern Financial Analytics Dashboard for Projects",
+    "success": "SUCCESS!",
+    "launched": "Project Analytics V2 is running!",
+    "ready": "Ready for Excel functionality development!",
+    "components": {
+      "title": "Ready components:",
+      "angular": "Angular 20.2 + TypeScript",
+      "agGrid": "AG-Grid Community for tables",
+      "primeng": "PrimeNG 20.0 for UI",
+      "pouchdb": "PouchDB 9.0 for data",
+      "styles": "Glassmorphism styles",
+      "erm": "ERM integration service"
     },
-    "FILTERS": {
-      "TITLE": "Filter Settings",
-      "PROJECTS_TITLE": "Project Filters",
-      "PROJECTS_DESCRIPTION": "Configure default filters for projects",
-      "STATUS_FILTERS": "Status Filters",
-      "STATUS_ACTIVE": "Active",
-      "STATUS_COMPLETED": "Completed",
-      "STATUS_ON_HOLD": "On Hold",
-      "PRIORITY_FILTERS": "Priority Filters",
-      "PRIORITY_HIGH": "High",
-      "PRIORITY_MEDIUM": "Medium",
-      "PRIORITY_LOW": "Low",
-      "ANALYTICS_TITLE": "Analytics Filters",
-      "ANALYTICS_DESCRIPTION": "Configure analytics report parameters",
-      "TIME_RANGE": "Default Time Range",
-      "TIME_WEEK": "Week",
-      "TIME_MONTH": "Month",
-      "TIME_QUARTER": "Quarter",
-      "TIME_YEAR": "Year",
-      "CHART_TYPE": "Default Chart Type",
-      "CHART_LINE": "Line",
-      "CHART_BAR": "Bar",
-      "CHART_PIE": "Pie",
-      "CHART_AREA": "Area",
-      "SHOW_TRENDS": "Show Trends",
-      "CLEAR_ALL": "Clear All Filters",
-      "SAVE": "Save Settings"
+    "server": {
+      "title": "Dev server:",
+      "status": "Status:",
+      "running": "RUNNING"
     },
-    "ACCOUNT": {
-      "TITLE": "Account Settings",
-      "ERM_TITLE": "ERM Integration",
-      "ERM_DESCRIPTION": "Configure connection to EasyRedmine system",
-      "ERM_URL": "ERM URL",
-      "ERM_URL_PLACEHOLDER": "https://your-erm-instance.com",
-      "ERM_API_KEY": "API Key",
-      "ERM_API_KEY_PLACEHOLDER": "Enter your ERM API key",
-      "TEST_CONNECTION": "Test Connection",
-      "SAVE_SETTINGS": "Save Settings",
-      "SETTINGS_SAVED": "Settings saved successfully",
-      "CONNECTION_SUCCESS": "Connection successful",
-      "CONNECTION_FAILED": "Connection failed",
-      "SAVE_ERROR": "Error saving settings",
-      "TEST_ERROR": "Error testing connection",
-      "TESTING_CONNECTION": "Testing connection..."
-    },
-    "NOTIFICATIONS": {
-      "TITLE": "Notifications",
-      "COMING_SOON": "Notification settings will be available soon"
-    },
-    "PRIVACY": {
-      "TITLE": "Privacy",
-      "COMING_SOON": "Privacy settings will be available soon"
-    },
-    "SECTIONS": {
-      "UI": "Interface",
-      "FILTERS": "Filters",
-      "ACCOUNT": "Account",
-      "NOTIFICATIONS": "Notifications",
-      "PRIVACY": "Privacy"
-    },
-    "UI": {
-      "RANGE_MIN": "Min",
-      "RANGE_MAX": "Max",
-      "RANGE_MIN_SPEED": "Slow",
-      "RANGE_MAX_SPEED": "Fast",
-      "RANGE_MIN_SIZE": "Small",
-      "RANGE_MAX_SIZE": "Large",
-      "RANGE_MIN_GRID": "Fine",
-      "RANGE_MAX_GRID": "Coarse",
-      "RANGE_MIN_TRANSPARENCY": "Opaque",
-      "RANGE_MAX_TRANSPARENCY": "Transparent",
-      "RANGE_MIN_WIDGETS": "Opaque",
-      "RANGE_MAX_WIDGETS": "Transparent",
-      "RANGE_MIN_SIDEBARS": "Opaque",
-      "RANGE_MAX_SIDEBARS": "Transparent",
-      "RANGE_MIN_FORMS_BLUR": "None",
-      "RANGE_MAX_FORMS_BLUR": "Strong",
-      "RANGE_MIN_WIDGETS_BLUR": "None",
-      "RANGE_MAX_WIDGETS_BLUR": "Strong",
-      "RANGE_MIN_SIDEBARS_BLUR": "None",
-      "RANGE_MAX_SIDEBARS_BLUR": "Strong"
+    "language": {
+      "switch": "Переключить на русский",
+      "ru": "РУС",
+      "en": "ENG"
     }
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "projects": "Projects",
+    "reports": "Reports", 
+    "timeEntries": "Time Entries",
+    "invoices": "Invoices",
+    "payments": "Payments",
+    "settings": "Settings"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search",
+    "filter": "Filter",
+    "export": "Export",
+    "import": "Import"
   }
 }
