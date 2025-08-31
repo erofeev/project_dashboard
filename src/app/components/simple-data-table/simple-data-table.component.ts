@@ -7,6 +7,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Button } from 'primeng/button';
 import { Card } from 'primeng/card';
 
+// Базовый компонент с правилами стилизации
+import { BaseComponent } from '../base/base-component';
+
 @Component({
   selector: 'app-simple-data-table',
   standalone: true,
@@ -19,14 +22,17 @@ import { Card } from 'primeng/card';
   ],
   template: `
     <div class="simple-table-container p-4">
-      <p-card [header]="'Таблица данных времени'" styleClass="glass-card">
+      <p-card 
+        [header]="getLocalizedText('Таблица данных времени', 'Time Entries Table')" 
+        styleClass="glass-card">
         <div class="card-content">
           <div class="flex justify-content-between align-items-center mb-4">
-            <h2>Записи времени</h2>
+            <h2>{{ getLocalizedText('Записи времени', 'Time Entries') }}</h2>
             <div class="actions">
               <p-button 
-                label="Обновить" 
+                [label]="getLocalizedText('Обновить', 'Refresh')" 
                 icon="pi pi-refresh" 
+                [size]="componentSize"
                 (click)="loadData()"
                 [loading]="loading">
               </p-button>
@@ -60,16 +66,16 @@ import { Card } from 'primeng/card';
           <div class="summary mt-4 p-3">
             <div class="flex gap-4">
               <div class="stat">
-                <span class="label">Всего записей:</span>
+                <span class="label">{{ getLocalizedText('Всего записей:', 'Total entries:') }}</span>
                 <span class="value">{{ timeEntries.length }}</span>
               </div>
               <div class="stat">
-                <span class="label">Общие часы:</span>
-                <span class="value">{{ getTotalHours() | number:'1.2-2' }}</span>
+                <span class="label">{{ getLocalizedText('Общие часы:', 'Total hours:') }}</span>
+                <span class="value">{{ formatNumber(getTotalHours()) }}</span>
               </div>
               <div class="stat">
-                <span class="label">Общая стоимость:</span>
-                <span class="value">{{ getTotalCost() | currency:'RUB':'symbol':'1.0-0' }}</span>
+                <span class="label">{{ getLocalizedText('Общая стоимость:', 'Total cost:') }}</span>
+                <span class="value">{{ formatCurrency(getTotalCost()) }}</span>
               </div>
             </div>
           </div>
@@ -172,7 +178,7 @@ import { Card } from 'primeng/card';
     }
   `]
 })
-export class SimpleDataTableComponent implements OnInit {
+export class SimpleDataTableComponent extends BaseComponent implements OnInit {
   loading = false;
   timeEntries: any[] = [];
 

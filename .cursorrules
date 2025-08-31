@@ -1,6 +1,21 @@
-# Cursor Rules для MCP сервера PouchDB
+# Cursor Rules для проекта
 
-## MCP Сервер
+## UI Компоненты
+- **ВСЕГДА используйте компоненты PrimeNG** для создания пользовательского интерфейса
+- Документация доступна через MCP сервер: используйте команды типа "Покажи компонент button PrimeNG"
+- Официальная документация: https://primeng.org/
+- Поддерживаемые категории: Form, Button, Data, Panel, Overlay, Menu, Chart, Messages, Media, File, Misc
+- Перед созданием кастомных компонентов проверьте, есть ли готовое решение в PrimeNG
+
+## MCP Серверы
+
+### PrimeNG MCP Сервер
+- MCP сервер для работы с компонентами PrimeNG: `infrastructure/mcp-server/primeng-mcp-server/`
+- Предоставляет доступ к документации, примерам кода и API всех компонентов PrimeNG
+- Доступные команды: "Покажи компонент editor", "Найди компоненты для форм", "Как установить PrimeNG?"
+- Поддерживает поиск по компонентам, получение примеров кода и инструкций по установке
+
+### PouchDB MCP Сервер
 - MCP сервер находится в `infrastructure/mcp-server/pouchdb-mcp-server/`
 - Использует `couchdb-index.js` для подключения к CouchDB
 - Поддерживает инструменты для работы с базами данных: users, projects, time_entries, invoices, payments
@@ -29,6 +44,12 @@
 ```json
 {
   "mcpServers": {
+    "primeng": {
+      "command": "node",
+      "args": ["./dist/index.js"],
+      "env": {},
+      "cwd": "infrastructure/mcp-server/primeng-mcp-server"
+    },
     "pouchdb": {
       "command": "node",
       "args": ["./dist/couchdb-index.js"],
@@ -50,6 +71,14 @@
 ## Тестирование
 
 После настройки вы сможете использовать команды:
+
+### PrimeNG команды:
+- "Покажи информацию о компоненте editor"
+- "Найди все компоненты для форм"
+- "Как установить PrimeNG?"
+- "Пример использования table компонента"
+
+### PouchDB команды:
 - "Покажи всех пользователей в базе данных"
 - "Сколько проектов в системе?"
 - "Создай нового пользователя test@example.com"

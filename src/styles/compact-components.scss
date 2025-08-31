@@ -1,0 +1,206 @@
+/* Глобальные стили для компактности всех компонентов */
+/* ПРАВИЛО ПРИЛОЖЕНИЯ: Везде используем компактные размеры */
+
+/* Компактные размеры для всех элементов */
+.compact-app {
+  
+  /* Базовые компактные классы */
+  .compact-button {
+    padding: 0.375rem 0.75rem !important;
+    font-size: 0.875rem !important;
+    height: 2rem !important;
+    min-width: auto !important;
+  }
+
+  .compact-input {
+    padding: 0.375rem 0.75rem !important;
+    font-size: 0.875rem !important;
+    height: 2rem !important;
+  }
+
+  .compact-table {
+    font-size: 0.875rem !important;
+    
+    th, td {
+      padding: 0.375rem 0.5rem !important;
+      line-height: 1.25rem !important;
+    }
+  }
+
+  .compact-card {
+    .p-card-header {
+      padding: 0.5rem 0.75rem !important;
+      font-size: 0.875rem !important;
+      font-weight: 600 !important;
+    }
+
+    .p-card-content {
+      padding: 0.75rem !important;
+    }
+  }
+
+  .compact-panel {
+    .p-panel-header {
+      padding: 0.375rem 0.75rem !important;
+      font-size: 0.875rem !important;
+    }
+
+    .p-panel-content {
+      padding: 0.5rem !important;
+    }
+  }
+
+  .compact-dialog {
+    .p-dialog-header {
+      padding: 0.5rem 0.75rem !important;
+      font-size: 0.875rem !important;
+    }
+
+    .p-dialog-content {
+      padding: 0.75rem !important;
+    }
+
+    .p-dialog-footer {
+      padding: 0.5rem 0.75rem !important;
+      gap: 0.5rem;
+    }
+  }
+
+  /* Компактные формы */
+  .compact-form {
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-label {
+      font-size: 0.875rem;
+      margin-bottom: 0.25rem;
+      font-weight: 500;
+    }
+
+    .field-error {
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+      padding: 0.25rem 0.5rem;
+    }
+  }
+
+  /* Компактные статистики */
+  .compact-stats {
+    .stat-item {
+      padding: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    .stat-value {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-color-secondary);
+    }
+  }
+
+  /* Компактная навигация */
+  .compact-nav {
+    .nav-item {
+      padding: 0.375rem 0.75rem;
+      font-size: 0.875rem;
+    }
+
+    .nav-subitem {
+      padding: 0.25rem 0.75rem;
+      font-size: 0.8125rem;
+    }
+  }
+
+  /* Компактные уведомления */
+  .compact-toast {
+    .p-toast-message {
+      padding: 0.75rem !important;
+      font-size: 0.875rem !important;
+    }
+
+    .p-toast-message-text {
+      margin: 0 !important;
+    }
+
+    .p-toast-summary {
+      font-size: 0.875rem !important;
+      font-weight: 600 !important;
+    }
+
+    .p-toast-detail {
+      font-size: 0.8125rem !important;
+      margin-top: 0.25rem !important;
+    }
+  }
+
+  /* Компактные меню */
+  .compact-menu {
+    .p-menu-item {
+      padding: 0.375rem 0.75rem !important;
+      font-size: 0.875rem !important;
+    }
+
+    .p-submenu-header {
+      padding: 0.25rem 0.75rem !important;
+      font-size: 0.8125rem !important;
+    }
+  }
+
+  /* Компактные вкладки */
+  .compact-tabs {
+    .p-tabview-nav-link {
+      padding: 0.375rem 0.75rem !important;
+      font-size: 0.875rem !important;
+    }
+
+    .p-tabview-panel {
+      padding: 0.75rem !important;
+    }
+  }
+}
+
+/* Применяем компактность ко всему приложению */
+body {
+  @extend .compact-app;
+}
+
+/* Адаптивные размеры для мобильных устройств */
+@media (max-width: 768px) {
+  .compact-app {
+    .compact-button {
+      padding: 0.25rem 0.5rem !important;
+      font-size: 0.8125rem !important;
+      height: 1.75rem !important;
+    }
+
+    .compact-input {
+      padding: 0.25rem 0.5rem !important;
+      font-size: 0.8125rem !important;
+      height: 1.75rem !important;
+    }
+
+    .compact-table {
+      font-size: 0.8125rem !important;
+      
+      th, td {
+        padding: 0.25rem 0.375rem !important;
+      }
+    }
+
+    .compact-card {
+      .p-card-header {
+        padding: 0.375rem 0.5rem !important;
+        font-size: 0.8125rem !important;
+      }
+
+      .p-card-content {
+        padding: 0.5rem !important;
+      }
+    }
+  }
+}

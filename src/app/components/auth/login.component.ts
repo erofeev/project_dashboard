@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -22,67 +22,108 @@ import * as THREE from 'three';
           <button class="theme-toggle" (click)="toggleTheme()" [title]="currentTheme === 'light' ? 'Переключить на темную тему' : 'Переключить на светлую тему'">
             {{ currentTheme === 'light' ? '🌙' : '☀️' }}
           </button>
-          <select class="language-select" [value]="currentLang" (change)="onLangChange($event)">
-            <option value="ru">RU</option>
-            <option value="en">EN</option>
-          </select>
+          <button class="language-toggle" (click)="toggleLanguage()" [title]="currentLang === 'ru' ? 'Switch to English' : 'Переключить на русский'">
+            {{ currentLang === 'ru' ? 'EN' : 'RU' }}
+          </button>
         </div>
       </div>
 
       <div class="login-card glassmorphism-enhanced">
         <div class="login-header">
-          <h1 class="login-title">{{ 'AUTH.LOGIN_TITLE' | translate }}</h1>
-          <p class="login-subtitle">{{ 'AUTH.LOGIN_SUBTITLE' | translate }}</p>
+          <h1 class="login-title">
+            {{ currentLang === 'ru' ? 'Добро пожаловать' : 'Welcome' }}
+          </h1>
+          <p class="login-subtitle">
+            {{ currentLang === 'ru' ? 'Войдите в систему управления проектами' : 'Sign in to Project Management System' }}
+          </p>
         </div>
 
-        <form class="login-form" (ngSubmit)="onLogin()" #loginForm="ngForm">
+        <form class="login-form" (ngSubmit)="onLogin()" #loginForm="ngForm" novalidate>
           <div class="form-group">
-            <label for="email" class="form-label">{{ 'AUTH.EMAIL' | translate }}</label>
+            <label for="email" class="form-label">
+              {{ currentLang === 'ru' ? 'Email' : 'Email' }}
+            </label>
+            <div class="input-container">
             <input
               type="email"
               id="email"
               name="email"
               [(ngModel)]="email"
               required
-              class="form-input glassmorphism-input"
-              placeholder="{{ 'AUTH.EMAIL_PLACEHOLDER' | translate }}"
-              [class.error]="showError && !email"
-            />
+                email
+                #emailInput="ngModel"
+                class="form-input"
+                [placeholder]="currentLang === 'ru' ? 'Введите email' : 'Enter email'"
+                [class.error]="emailInput.invalid && (emailInput.dirty || emailInput.touched)"
+                autocomplete="email"
+              />
+              <div class="input-icon">
+                <i class="pi pi-envelope"></i>
+              </div>
+            </div>
+            <div class="field-error" *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">
+              <span *ngIf="emailInput.errors?.['required']">
+                {{ currentLang === 'ru' ? 'Email обязателен' : 'Email is required' }}
+              </span>
+              <span *ngIf="emailInput.errors?.['email']">
+                {{ currentLang === 'ru' ? 'Неверный формат email' : 'Invalid email format' }}
+              </span>
+            </div>
           </div>
 
           <div class="form-group">
-            <label for="password" class="form-label">{{ 'AUTH.PASSWORD' | translate }}</label>
+            <label for="password" class="form-label">
+              {{ currentLang === 'ru' ? 'Пароль' : 'Password' }}
+            </label>
+            <div class="input-container">
             <input
-              type="password"
+                [type]="showPassword ? 'text' : 'password'"
               id="password"
               name="password"
               [(ngModel)]="password"
               required
-              class="form-input glassmorphism-input"
-              placeholder="{{ 'AUTH.PASSWORD_PLACEHOLDER' | translate }}"
-              [class.error]="showError && !password"
-            />
+                minlength="3"
+                #passwordInput="ngModel"
+                class="form-input"
+                [placeholder]="currentLang === 'ru' ? 'Введите пароль' : 'Enter password'"
+                [class.error]="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)"
+                autocomplete="current-password"
+              />
+              <div class="input-icon password-toggle" (click)="togglePasswordVisibility()">
+                <i [class]="showPassword ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
+              </div>
+            </div>
+            <div class="field-error" *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)">
+              <span *ngIf="passwordInput.errors?.['required']">
+                {{ currentLang === 'ru' ? 'Пароль обязателен' : 'Password is required' }}
+              </span>
+              <span *ngIf="passwordInput.errors?.['minlength']">
+                {{ currentLang === 'ru' ? 'Пароль должен содержать минимум 3 символа' : 'Password must be at least 3 characters' }}
+              </span>
+            </div>
           </div>
 
           <div class="form-actions">
             <button
               type="submit"
-              class="btn btn-primary glassmorphism-btn"
-              [disabled]="isLoading"
+              class="btn btn-primary"
+              [disabled]="isLoading || loginForm.invalid"
             >
-              <span *ngIf="!isLoading">{{ 'AUTH.LOGIN_BUTTON' | translate }}</span>
-              <span *ngIf="isLoading">{{ 'AUTH.LOGGING_IN' | translate }}</span>
+              <span class="btn-content">
+                <i *ngIf="isLoading" class="pi pi-spinner pi-spin mr-2"></i>
+                <span *ngIf="!isLoading">{{ currentLang === 'ru' ? 'Войти' : 'Login' }}</span>
+                <span *ngIf="isLoading">{{ currentLang === 'ru' ? 'Вход...' : 'Logging in...' }}</span>
+              </span>
             </button>
           </div>
 
-
         </form>
 
-        <div *ngIf="errorMessage" class="error-message glassmorphism-error">
+        <div *ngIf="errorMessage" class="error-message">
           {{ errorMessage }}
         </div>
 
-        <div *ngIf="successMessage" class="success-message glassmorphism-success">
+        <div *ngIf="successMessage" class="success-message">
           {{ successMessage }}
         </div>
       </div>
@@ -150,14 +191,19 @@ import * as THREE from 'three';
       justify-content: center;
     }
 
-    .language-select {
-      padding: 8px 12px;
-      border-radius: 8px;
+    .language-toggle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
       border: none;
       cursor: pointer;
-      font-weight: 600;
+      font-size: 0.875rem;
+      font-weight: 700;
       transition: all 0.3s ease;
       backdrop-filter: blur(3px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     /* Стили переключателей для темной темы */
@@ -172,14 +218,16 @@ import * as THREE from 'three';
       transform: scale(1.05);
     }
 
-    .theme-dark .language-select {
+    .theme-dark .language-toggle {
       background: rgba(30, 41, 59, 0.35);
-      border: 1px solid rgba(59, 130, 246, 0.2);
-      color: #f8fafc;
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      color: #86efac;
     }
 
-    .theme-dark .language-select:hover {
-      background: rgba(59, 130, 246, 0.2);
+    .theme-dark .language-toggle:hover {
+      background: rgba(34, 197, 94, 0.2);
+      transform: scale(1.05);
+      border-color: rgba(34, 197, 94, 0.4);
     }
 
     /* Стили переключателей для светлой темы */
@@ -194,14 +242,16 @@ import * as THREE from 'three';
       transform: scale(1.05);
     }
 
-    .theme-light .language-select {
+    .theme-light .language-toggle {
       background: rgba(255, 255, 255, 0.6);
-      border: 1px solid rgba(148, 163, 184, 0.3);
-      color: #1e293b;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: #16a34a;
     }
 
-    .theme-light .language-select:hover {
+    .theme-light .language-toggle:hover {
       background: rgba(255, 255, 255, 0.8);
+      transform: scale(1.05);
+      border-color: rgba(34, 197, 94, 0.5);
     }
 
     .glassmorphism-enhanced {
@@ -274,12 +324,51 @@ import * as THREE from 'three';
       display: flex;
       flex-direction: column;
       gap: 20px;
+      width: 100%;
     }
 
     .form-group {
       display: flex;
       flex-direction: column;
       gap: 8px;
+      margin-bottom: 1.5rem;
+      width: 100%;
+    }
+
+    .input-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    .input-icon {
+      position: absolute;
+      right: 15px;
+      color: #94a3b8;
+      font-size: 1rem;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .password-toggle {
+      cursor: pointer;
+      pointer-events: auto;
+      transition: color 0.3s ease;
+    }
+
+    .password-toggle:hover {
+      color: #3b82f6;
+    }
+
+    .field-error {
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+      padding: 0.5rem;
+      border-radius: 6px;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      color: #ef4444;
     }
 
     .form-label {
@@ -288,12 +377,14 @@ import * as THREE from 'three';
     }
 
     .form-input {
-      padding: 15px 20px;
+      width: 100%;
+      padding: 15px 45px 15px 20px; /* Увеличен правый отступ для иконки */
       border: none;
       border-radius: 12px;
       font-size: 1rem;
       transition: all 0.3s ease;
       backdrop-filter: blur(3px);
+      box-sizing: border-box;
     }
 
     .form-input:focus {
@@ -352,11 +443,12 @@ import * as THREE from 'three';
 
     .form-actions {
       margin-top: 10px;
+      width: 100%;
     }
 
     .btn {
       width: 100%;
-      padding: 15px;
+      padding: 15px 20px;
       border: none;
       border-radius: 12px;
       font-size: 1rem;
@@ -365,6 +457,7 @@ import * as THREE from 'three';
       transition: all 0.3s ease;
       text-transform: uppercase;
       letter-spacing: 1px;
+      box-sizing: border-box;
     }
 
     .btn-primary {
@@ -382,9 +475,26 @@ import * as THREE from 'three';
     }
 
     .btn-primary:disabled {
-      opacity: 0.7;
+      opacity: 0.6;
       cursor: not-allowed;
       transform: none;
+      box-shadow: none;
+    }
+
+    .btn-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .pi-spin {
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
 
@@ -431,7 +541,7 @@ import * as THREE from 'three';
     }
   `]
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('landscapeCanvas', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
 
   email: string = '';
@@ -442,6 +552,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   successMessage: string = '';
   currentTheme: 'light' | 'dark' = 'dark';
   currentLang: string = 'ru';
+  showPassword: boolean = false;
 
   // Three.js переменные
   private scene!: THREE.Scene;
@@ -468,12 +579,16 @@ export class LoginComponent implements OnInit, OnDestroy {
     // Получаем текущую тему
     const settings = this.userSettingsService.getSettings();
     this.currentTheme = settings.ui.theme;
-    
-    // Инициализируем 3D ландшафт после рендера компонента
+  }
+
+  ngAfterViewInit(): void {
+    // Инициализируем 3D ландшафт после того, как view полностью загружен
     setTimeout(() => {
-      this.initThreeJS();
-      this.animate();
-    }, 0);
+      if (this.canvasRef && this.canvasRef.nativeElement) {
+        this.initThreeJS();
+        this.animate();
+      }
+    }, 100);
   }
 
   ngOnDestroy(): void {
@@ -486,26 +601,41 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   private initThreeJS(): void {
-    const canvas = this.canvasRef.nativeElement;
-    
-    // Создаем сцену
-    this.scene = new THREE.Scene();
-    
-    // Создаем камеру
-    this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    this.camera.position.set(0, 30, 50);
-    this.camera.lookAt(0, 0, 0);
-    
-    // Создаем рендерер
-    this.renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
-    this.renderer.setClearColor(0x000000, 0);
-    
-    // Создаем геометрию точек
-    this.createPointsGeometry();
-    
-    // Обработчик изменения размера окна
-    window.addEventListener('resize', this.onWindowResize.bind(this));
+    try {
+      const canvas = this.canvasRef.nativeElement;
+      if (!canvas) {
+        console.warn('Canvas element not found for 3D landscape');
+        return;
+      }
+      
+      // Создаем сцену
+      this.scene = new THREE.Scene();
+      
+      // Создаем камеру
+      this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      this.camera.position.set(0, 30, 50);
+      this.camera.lookAt(0, 0, 0);
+      
+      // Создаем рендерер
+      this.renderer = new THREE.WebGLRenderer({ 
+        canvas, 
+        alpha: true,
+        antialias: true,
+        powerPreference: 'high-performance'
+      });
+      this.renderer.setSize(window.innerWidth, window.innerHeight);
+      this.renderer.setClearColor(0x000000, 0);
+      
+      // Создаем геометрию точек
+      this.createPointsGeometry();
+      
+      // Обработчик изменения размера окна
+      window.addEventListener('resize', this.onWindowResize.bind(this));
+      
+      console.log('3D landscape initialized successfully');
+    } catch (error) {
+      console.error('Failed to initialize 3D landscape:', error);
+    }
   }
 
   private createPointsGeometry(): void {
@@ -656,29 +786,47 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   async onLogin(): Promise<void> {
-    this.showError = true;
     this.errorMessage = '';
     this.successMessage = '';
 
-    if (!this.email || !this.password) {
-      this.errorMessage = 'Пожалуйста, заполните все поля';
+    // Проверяем заполненность полей
+    if (!this.email?.trim() || !this.password?.trim()) {
+      this.errorMessage = this.currentLang === 'ru' 
+        ? 'Пожалуйста, заполните все поля' 
+        : 'Please fill in all fields';
+      return;
+    }
+
+    // Простая валидация email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(this.email.trim())) {
+      this.errorMessage = this.currentLang === 'ru' 
+        ? 'Неверный формат email адреса' 
+        : 'Invalid email address format';
       return;
     }
 
     this.isLoading = true;
 
     try {
-      const result = await this.authService.login(this.email, this.password);
+      const result = await this.authService.login(this.email.trim(), this.password);
       
       if (result.success) {
-        this.successMessage = result.message;
-        // Перенаправляем сразу без задержки, чтобы избежать мелькания
-        this.router.navigate(['/dashboard']);
+        this.successMessage = this.currentLang === 'ru' 
+          ? 'Успешный вход в систему' 
+          : 'Login successful';
+        
+        // Перенаправляем сразу без задержки
+          this.router.navigate(['/dashboard']);
       } else {
-        this.errorMessage = result.message;
+        this.errorMessage = this.currentLang === 'ru' 
+          ? 'Неверный email или пароль' 
+          : 'Invalid email or password';
       }
     } catch (error) {
-      this.errorMessage = 'Произошла ошибка при входе в систему';
+      this.errorMessage = this.currentLang === 'ru' 
+        ? 'Произошла ошибка при входе в систему' 
+        : 'An error occurred during login';
       console.error('Login error:', error);
     } finally {
       this.isLoading = false;
@@ -700,10 +848,18 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
-  onLangChange(event: any): void {
-    this.currentLang = event.target.value;
+  toggleLanguage(): void {
+    this.currentLang = this.currentLang === 'ru' ? 'en' : 'ru';
     localStorage.setItem('selectedLanguage', this.currentLang);
     this.translateService.use(this.currentLang);
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
+  validateEmail(): void {
+    // Дополнительная валидация email если нужно
   }
 
 }

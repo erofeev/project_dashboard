@@ -135,25 +135,34 @@ class PrimeNGMCPServer {
     this.server.setRequestHandler(CallToolRequestSchema, async (request) => {
       const { name, arguments: args } = request.params;
 
+      if (!args) {
+        throw new Error('Аргументы не предоставлены');
+      }
+
       try {
         switch (name) {
           case 'get_primeng_component': {
-            const component = await this.primeNGService.getComponent(args.name);
+            const componentName = args.name as string;
+            if (!componentName) {
+              throw new Error('Название компонента не указано');
+            }
+            const component = await this.primeNGService.getComponent(componentName);
             return {
               content: [
                 {
                   type: 'text',
                   text: component 
                     ? JSON.stringify(component, null, 2)
-                    : `Компонент "${args.name}" не найден`,
+                    : `Компонент "${componentName}" не найден`,
                 },
               ],
             };
           }
 
           case 'get_all_primeng_components': {
-            const components = args.category
-              ? await this.primeNGService.getComponentsByCategory(args.category)
+            const category = args.category as string | undefined;
+            const components = category
+              ? await this.primeNGService.getComponentsByCategory(category)
               : await this.primeNGService.getAllComponents();
             
             return {
@@ -167,7 +176,11 @@ class PrimeNGMCPServer {
           }
 
           case 'search_primeng_components': {
-            const components = await this.primeNGService.searchComponents(args.query);
+            const query = args.query as string;
+            if (!query) {
+              throw new Error('Поисковый запрос не указан');
+            }
+            const components = await this.primeNGService.searchComponents(query);
             return {
               content: [
                 {
@@ -179,28 +192,37 @@ class PrimeNGMCPServer {
           }
 
           case 'get_primeng_component_documentation': {
-            const documentation = await this.primeNGService.getComponentDocumentation(args.name);
+            const componentName = args.name as string;
+            if (!componentName) {
+              throw new Error('Название компонента не указано');
+            }
+            const documentation = await this.primeNGService.getComponentDocumentation(componentName);
             return {
               content: [
                 {
                   type: 'text',
                   text: documentation
                     ? JSON.stringify(documentation, null, 2)
-                    : `Документация для компонента "${args.name}" не найдена`,
+                    : `Документация для компонента "${componentName}" не найдена`,
                 },
               ],
             };
           }
 
           case 'get_primeng_component_example': {
-            const example = await this.primeNGService.getComponentExample(args.name, args.exampleType);
+            const componentName = args.name as string;
+            const exampleType = args.exampleType as string | undefined;
+            if (!componentName) {
+              throw new Error('Название компонента не указано');
+            }
+            const example = await this.primeNGService.getComponentExample(componentName, exampleType);
             return {
               content: [
                 {
                   type: 'text',
                   text: example
                     ? JSON.stringify(example, null, 2)
-                    : `Пример для компонента "${args.name}" не найден`,
+                    : `Пример для компонента "${componentName}" не найден`,
                 },
               ],
             };
@@ -219,7 +241,8 @@ class PrimeNGMCPServer {
           }
 
           case 'get_primeng_installation_guide': {
-            const guide = this.getInstallationGuide(args.component);
+            const component = args.component as string | undefined;
+            const guide = this.getInstallationGuide(component);
             return {
               content: [
                 {

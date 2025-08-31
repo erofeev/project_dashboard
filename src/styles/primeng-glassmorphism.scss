@@ -1,4 +1,5 @@
 /* PrimeNG Glassmorphism Theme Customization */
+/* ПРАВИЛО: Везде используем компактные размеры для экономии места */
 
 /* Основные переменные для темной темы */
 :root {
@@ -13,15 +14,130 @@
   --surface-hover: rgba(59, 130, 246, 0.1);
   --text-color: #f8fafc;
   --text-color-secondary: #cbd5e1;
-  --content-padding: 1rem;
-  --inline-spacing: 0.5rem;
-  --border-radius: 12px;
+  
+  /* КОМПАКТНЫЕ размеры - глобальное правило */
+  --content-padding: 0.5rem;
+  --inline-spacing: 0.25rem;
+  --border-radius: 6px;
+  --font-size: 0.875rem;
+  --line-height: 1.25rem;
+  --component-height: 2rem;
+  --button-padding: 0.5rem 0.75rem;
+  --input-padding: 0.5rem 0.75rem;
+  
   --surface-0: rgba(30, 41, 59, 0.9);
   --surface-50: rgba(30, 41, 59, 0.8);
   --surface-100: rgba(30, 41, 59, 0.7);
   --gray-100: rgba(148, 163, 184, 0.1);
   --gray-200: rgba(148, 163, 184, 0.2);
   --gray-300: rgba(148, 163, 184, 0.3);
+}
+
+/* ГЛОБАЛЬНОЕ ПРАВИЛО: Все PrimeNG компоненты компактные */
+.p-component {
+  font-size: var(--font-size) !important;
+  line-height: var(--line-height) !important;
+}
+
+/* Компактные кнопки */
+.p-button {
+  padding: var(--button-padding) !important;
+  font-size: var(--font-size) !important;
+  height: var(--component-height) !important;
+  min-width: auto !important;
+}
+
+.p-button.p-button-sm,
+.p-button-sm {
+  padding: 0.375rem 0.5rem !important;
+  font-size: 0.75rem !important;
+  height: 1.75rem !important;
+}
+
+/* Компактные поля ввода */
+.p-inputtext,
+.p-dropdown,
+.p-multiselect,
+.p-calendar .p-inputtext {
+  padding: var(--input-padding) !important;
+  font-size: var(--font-size) !important;
+  height: var(--component-height) !important;
+}
+
+/* Компактные таблицы */
+.p-datatable .p-datatable-thead > tr > th {
+  padding: 0.5rem !important;
+  font-size: var(--font-size) !important;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+  padding: 0.5rem !important;
+  font-size: var(--font-size) !important;
+}
+
+.p-datatable .p-paginator {
+  padding: 0.25rem !important;
+}
+
+.p-paginator .p-paginator-element {
+  min-width: 2rem !important;
+  height: 2rem !important;
+  font-size: var(--font-size) !important;
+}
+
+/* Компактные панели */
+.p-panel .p-panel-header {
+  padding: 0.5rem 0.75rem !important;
+  font-size: var(--font-size) !important;
+}
+
+.p-panel .p-panel-content {
+  padding: 0.75rem !important;
+}
+
+/* Компактные карточки */
+.p-card .p-card-header {
+  padding: 0.75rem !important;
+  font-size: var(--font-size) !important;
+}
+
+.p-card .p-card-content {
+  padding: 0.75rem !important;
+}
+
+.p-card .p-card-footer {
+  padding: 0.5rem 0.75rem !important;
+}
+
+/* Компактные диалоги */
+.p-dialog .p-dialog-header {
+  padding: 0.75rem !important;
+  font-size: 1rem !important;
+}
+
+.p-dialog .p-dialog-content {
+  padding: 0.75rem !important;
+}
+
+.p-dialog .p-dialog-footer {
+  padding: 0.5rem 0.75rem !important;
+}
+
+/* Компактные вкладки */
+.p-tabview .p-tabview-nav li .p-tabview-nav-link {
+  padding: 0.5rem 0.75rem !important;
+  font-size: var(--font-size) !important;
+}
+
+/* Компактные выпадающие списки */
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+  padding: 0.375rem 0.75rem !important;
+  font-size: var(--font-size) !important;
+}
+
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item {
+  padding: 0.375rem 0.75rem !important;
+  font-size: var(--font-size) !important;
 }
 
 /* Glassmorphism для основных PrimeNG компонентов */

@@ -8,6 +8,9 @@
 /* @import 'primeflex/primeflex.css'; */
 @import 'styles/primeng-glassmorphism.scss';
 
+/* ПРАВИЛО ПРИЛОЖЕНИЯ: Компактные размеры везде */
+@import 'styles/compact-components.scss';
+
 /* Глобальные стили для темной темы */
 .theme-dark {
   background-color: #0f172a !important;
