@@ -1,0 +1,306 @@
+// ========================================
+// SAKAI + GLASSMORPHISM HYBRID THEME
+// Аналитический портал с современным дизайном
+// ========================================
+
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// === ИМПОРТ SAKAI СТИЛЕЙ ===
+// PrimeNG стили теперь импортируются через app.config.ts
+
+// === TAILWIND CSS (временно отключен) ===
+// @tailwind base;
+// @tailwind components;
+// @tailwind utilities;
+
+// === ГЛОБАЛЬНЫЕ СТИЛИ ===
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family-primary);
+  color: var(--text-primary);
+  
+  // Профессиональный фоновый градиент с точками
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.06) 0%, transparent 50%),
+    linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  
+  // Тонкий точечный паттерн
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.15;
+    background-image: 
+      radial-gradient(circle at 1px 1px, rgba(59, 130, 246, 0.1) 1px, transparent 0);
+    background-size: 24px 24px;
+    pointer-events: none;
+    z-index: -1;
+  }
+}
+
+// === DARK THEME ===
+[data-theme="dark"], .app-dark {
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.04) 0%, transparent 50%),
+    linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  
+  color: var(--text-primary);
+  
+  &::before {
+    background-image: 
+      radial-gradient(circle at 1px 1px, rgba(148, 163, 184, 0.08) 1px, transparent 0);
+    opacity: 0.1;
+  }
+}
+
+// === SAKAI LAYOUT АДАПТАЦИЯ ===
+.layout-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-main-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-main {
+  flex: 1;
+  padding: 1rem;
+  background: transparent;
+}
+
+// === ПРОФЕССИОНАЛЬНЫЕ СТЕКЛЯННЫЕ КАРТОЧКИ ===
+.glass-card {
+  background: var(--surface-primary);
+  backdrop-filter: var(--blur-light);
+  -webkit-backdrop-filter: var(--blur-light);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-subtle);
+  padding: var(--spacing-lg);
+  margin: var(--spacing-sm);
+  position: relative;
+  transition: var(--transition-smooth);
+
+  &:hover {
+    background: var(--surface-elevated);
+    border-color: var(--glass-border-hover);
+    box-shadow: var(--shadow-elevated);
+    transform: translateY(-2px);
+  }
+  
+  &--interactive {
+    cursor: pointer;
+    
+    &:active {
+      transform: translateY(0);
+      box-shadow: var(--shadow-subtle);
+    }
+  }
+  
+  &--elevated {
+    background: var(--surface-elevated);
+    box-shadow: var(--shadow-elevated);
+    border-color: var(--glass-border-hover);
+  }
+}
+
+// === СТАТИСТИЧЕСКИЕ ВИДЖЕТЫ ===
+.stats-widget {
+  background: var(--surface-primary);
+  backdrop-filter: var(--blur-light);
+  -webkit-backdrop-filter: var(--blur-light);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-subtle);
+  padding: var(--spacing-lg);
+  text-align: center;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  transition: var(--transition-smooth);
+
+  &:hover {
+    background: var(--surface-elevated);
+    border-color: var(--glass-border-hover);
+    box-shadow: var(--shadow-elevated);
+    transform: translateY(-2px);
+  }
+  
+  .stats-value {
+    font-size: 1.875rem;
+    font-weight: 600;
+    font-family: var(--font-family-mono);
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .stats-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: var(--spacing-xs);
+    color: var(--text-secondary);
+  }
+  
+  .stats-change {
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-top: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    display: inline-block;
+    
+    &--positive { 
+      background: rgba(5, 150, 105, 0.1);
+      color: var(--color-profit);
+      border: 1px solid rgba(5, 150, 105, 0.2);
+    }
+    
+    &--negative { 
+      background: rgba(220, 38, 38, 0.1);
+      color: var(--color-loss);
+      border: 1px solid rgba(220, 38, 38, 0.2);
+    }
+  }
+
+  // Специальные стили для разных типов
+  &--primary {
+    border-left: 3px solid var(--color-neutral);
+  }
+
+  &--success {
+    border-left: 3px solid var(--color-profit);
+  }
+  
+  &--warning {
+    border-left: 3px solid var(--color-warning);
+  }
+}
+
+// === PRIMENG КОМПОНЕНТЫ С GLASSMORPHISM ===
+.p-card {
+  background: var(--surface-primary) !important;
+  backdrop-filter: var(--blur-light) !important;
+  -webkit-backdrop-filter: var(--blur-light) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-subtle) !important;
+  
+  &:hover {
+    background: var(--surface-elevated) !important;
+    border-color: var(--glass-border-hover) !important;
+    box-shadow: var(--shadow-elevated) !important;
+    transform: translateY(-2px);
+    transition: var(--transition-smooth);
+  }
+}
+
+.p-panel {
+  background: var(--surface-primary) !important;
+  backdrop-filter: var(--blur-light) !important;
+  -webkit-backdrop-filter: var(--blur-light) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-subtle) !important;
+}
+
+.p-datatable {
+  background: var(--surface-primary) !important;
+  backdrop-filter: var(--blur-light) !important;
+  -webkit-backdrop-filter: var(--blur-light) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-subtle) !important;
+  
+  .p-datatable-header {
+    background: var(--surface-elevated) !important;
+    border-bottom: 1px solid var(--glass-border) !important;
+  }
+  
+  .p-datatable-tbody > tr {
+    background: transparent !important;
+    border-bottom: 1px solid var(--glass-border) !important;
+    
+    &:hover {
+      background: var(--surface-elevated) !important;
+    }
+  }
+}
+
+.p-menu {
+  background: var(--surface-primary) !important;
+  backdrop-filter: var(--blur-light) !important;
+  -webkit-backdrop-filter: var(--blur-light) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-elevated) !important;
+}
+
+.p-dropdown-panel {
+  background: var(--surface-primary) !important;
+  backdrop-filter: var(--blur-light) !important;
+  -webkit-backdrop-filter: var(--blur-light) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-elevated) !important;
+}
+
+// === AG-GRID СТИЛИ ===
+@include ag-grid-glass-theme();
+
+// === RESPONSIVE ===
+@media (max-width: 768px) {
+  .glass-card {
+    margin: var(--spacing-xs);
+    padding: var(--spacing-md);
+  }
+  
+  .stats-widget .stats-value {
+    font-size: 1.5rem;
+  }
+}
+
+// === UTILITY CLASSES ===
+.text-profit { color: var(--color-profit); }
+.text-loss { color: var(--color-loss); }
+.text-warning { color: var(--color-warning); }
+.text-neutral { color: var(--color-neutral); }
+
+.bg-profit { background: var(--gradient-profit); }
+.bg-loss { background: var(--gradient-loss); }
+.bg-warning { background: linear-gradient(135deg, rgba(217, 119, 6, 0.08), rgba(217, 119, 6, 0.04)); }
+.bg-neutral { background: var(--gradient-neutral); }
+
+// Анимации
+.fade-in { @include fade-in-up(); }
+
+// Скрытие элементов для мобильных
+@media (max-width: 640px) {
+  .hide-mobile { display: none !important; }
+}
+
+@media (min-width: 641px) {
+  .hide-desktop { display: none !important; }
+}

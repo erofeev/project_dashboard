@@ -1,0 +1,406 @@
+// === ЛОКАЛЬНЫЕ ПЕРЕМЕННЫЕ (ВМЕСТО ВНЕШНИХ ИМПОРТОВ) ===
+$wone-primary: #4f46e5;
+$wone-secondary: #7c3aed;
+$glass-background: rgba(255, 255, 255, 0.1);
+$success-color: #10b981;
+$warning-color: #f59e0b;
+$error-color: #ef4444;
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+$border-radius-md: 8px;
+$border-radius-lg: 16px;
+
+// === ЛОКАЛЬНЫЕ МИКСИНЫ ===
+@mixin glass-interactive {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+// === ОСНОВНОЙ КОНТЕЙНЕР ===
+.landscape-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0; // Размещаем под навигацией, но над фоном
+  overflow: hidden;
+  pointer-events: none; // Не блокируем взаимодействие с UI
+  
+  // Убеждаемся, что ландшафт виден в верхней части экрана
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  
+  // Canvas будет автоматически добавлен Three.js
+  canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+  }
+  
+  // Состояния контейнера
+  &.landscape-loading {
+    background: linear-gradient(
+      135deg,
+      rgba(79, 70, 229, 0.05) 0%,
+      rgba(124, 58, 237, 0.05) 100%
+    );
+  }
+  
+  &.landscape-error {
+    background: rgba(239, 68, 68, 0.02);
+  }
+}
+
+// === LOADING OVERLAY ===
+.landscape-loading-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-xl;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border-radius: $border-radius-lg;
+  border: 1px solid rgba(79, 70, 229, 0.2);
+  color: $wone-primary;
+  text-align: center;
+  pointer-events: auto;
+  
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(79, 70, 229, 0.2);
+  border-top: 3px solid $wone-primary;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// === ERROR OVERLAY ===
+.landscape-error-overlay {
+  position: absolute;
+  bottom: $spacing-xl;
+  right: $spacing-xl;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-lg;
+  background: rgba($error-color, 0.1);
+  backdrop-filter: blur(8px);
+  border-radius: $border-radius-md;
+  border: 1px solid rgba($error-color, 0.3);
+  color: $error-color;
+  text-align: center;
+  pointer-events: auto;
+  max-width: 250px;
+  
+  .error-icon {
+    font-size: 2rem;
+  }
+  
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  
+  small {
+    font-size: 0.75rem;
+    opacity: 0.8;
+    line-height: 1.3;
+  }
+}
+
+// === PERFORMANCE MONITOR ===
+.performance-monitor {
+  position: absolute;
+  top: $spacing-lg;
+  right: $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  padding: $spacing-md;
+  background: rgba($glass-background, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: $border-radius-md;
+  border: 1px solid rgba($wone-primary, 0.2);
+  font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+  font-size: 0.75rem;
+  color: $wone-primary;
+  pointer-events: auto;
+  min-width: 120px;
+  
+  .perf-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    span:first-child {
+      opacity: 0.7;
+    }
+    
+    span:last-child {
+      font-weight: 600;
+      color: $success-color;
+      
+      &.perf-warning {
+        color: $warning-color;
+      }
+    }
+  }
+}
+
+// === CONTROL PANEL ===
+.landscape-controls {
+  position: absolute;
+  bottom: $spacing-lg;
+  left: $spacing-lg;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-lg;
+  background: rgba($glass-background, 0.85);
+  backdrop-filter: blur(12px);
+  border-radius: $border-radius-lg;
+  border: 1px solid rgba($wone-primary, 0.25);
+  pointer-events: auto;
+  max-width: 400px;
+  
+  .control-btn {
+    @include glass-interactive;
+    
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: $border-radius-md;
+    background: rgba($wone-primary, 0.1);
+    color: $wone-primary;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &:hover {
+      background: rgba($wone-primary, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba($wone-primary, 0.3);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+  
+  .control-group {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+    min-width: 100px;
+    
+    label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: $wone-primary;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+  
+  .control-slider {
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba($wone-primary, 0.2);
+    outline: none;
+    cursor: pointer;
+    
+    &::-webkit-slider-thumb {
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: linear-gradient(
+        135deg,
+        $wone-primary 0%,
+        $wone-secondary 100%
+      );
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba($wone-primary, 0.4);
+      transition: all 0.2s ease;
+      
+      &:hover {
+        transform: scale(1.2);
+        box-shadow: 0 4px 12px rgba($wone-primary, 0.6);
+      }
+    }
+    
+    &::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: linear-gradient(
+        135deg,
+        $wone-primary 0%,
+        $wone-secondary 100%
+      );
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba($wone-primary, 0.4);
+    }
+  }
+  
+  .control-select {
+    width: 100%;
+    padding: $spacing-xs $spacing-sm;
+    border: 1px solid rgba($wone-primary, 0.3);
+    border-radius: $border-radius-md;
+    background: rgba($wone-primary, 0.1);
+    color: $wone-primary;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background: rgba($wone-primary, 0.15);
+      border-color: rgba($wone-primary, 0.5);
+    }
+    
+    &:focus {
+      border-color: $wone-primary;
+      box-shadow: 0 0 8px rgba($wone-primary, 0.3);
+    }
+    
+    option {
+      background: rgba(0, 0, 0, 0.8);
+      color: $wone-primary;
+    }
+  }
+}
+
+// === RESPONSIVE DESIGN ===
+@media (max-width: 768px) {
+  .landscape-controls {
+    bottom: $spacing-sm;
+    left: $spacing-sm;
+    right: $spacing-sm;
+    padding: $spacing-md;
+    flex-direction: column;
+    align-items: stretch;
+    max-width: none;
+    
+    .control-group {
+      min-width: auto;
+    }
+  }
+  
+  .performance-monitor {
+    top: $spacing-sm;
+    right: $spacing-sm;
+    font-size: 0.7rem;
+  }
+  
+  .landscape-error-overlay {
+    bottom: $spacing-md;
+    right: $spacing-md;
+    left: $spacing-md;
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .landscape-loading-overlay {
+    padding: $spacing-lg;
+    max-width: 90vw;
+  }
+  
+  .landscape-controls {
+    gap: $spacing-sm;
+    
+    .control-btn {
+      width: 36px;
+      height: 36px;
+      font-size: 1rem;
+    }
+  }
+}
+
+// === ACCESSIBILITY ===
+@media (prefers-reduced-motion: reduce) {
+  .loading-spinner {
+    animation: none;
+  }
+  
+  .control-btn {
+    transition: none;
+    
+    &:hover {
+      transform: none;
+    }
+  }
+  
+  .control-slider::-webkit-slider-thumb {
+    transition: none;
+    
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+// === HIGH CONTRAST MODE ===
+@media (prefers-contrast: high) {
+  .landscape-container {
+    &.landscape-loading {
+      background: rgba($wone-primary, 0.1);
+    }
+  }
+  
+  .landscape-loading-overlay,
+  .landscape-controls,
+  .performance-monitor {
+    background: rgba($glass-background, 0.95);
+    border-width: 2px;
+  }
+  
+  .landscape-error-overlay {
+    background: rgba($error-color, 0.2);
+    border-width: 2px;
+  }
+}
+
+// === PRINT STYLES ===
+@media print {
+  .landscape-container {
+    display: none !important;
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "app": {
+    "title": "Project Analytics V2",
+    "subtitle": "Современная система финансовой аналитики проектов",
+    "success": "УСПЕХ!",
+    "launched": "Project Analytics V2 запущен!",
+    "ready": "Готово к разработке Excel функционала!",
+    "components": {
+      "title": "Готовые компоненты:",
+      "angular": "Angular 20.2 + TypeScript",
+      "agGrid": "AG-Grid Community для таблиц",
+      "primeng": "PrimeNG 20.0 для UI",
+      "pouchdb": "PouchDB 9.0 для данных",
+      "styles": "Glassmorphism стили",
+      "erm": "ERM интеграция сервис"
+    },
+    "server": {
+      "title": "Dev сервер:",
+      "status": "Status:",
+      "running": "RUNNING"
+    },
+    "language": {
+      "switch": "Switch to English",
+      "ru": "РУС",
+      "en": "ENG"
+    }
+  },
+  "navigation": {
+    "dashboard": "Дашборд",
+    "projects": "Проекты", 
+    "reports": "Отчеты",
+    "timeEntries": "Временные записи",
+    "invoices": "Счета",
+    "payments": "Платежи",
+    "settings": "Настройки"
+  },
+  "common": {
+    "loading": "Загрузка...",
+    "error": "Ошибка",
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "add": "Добавить",
+    "search": "Поиск",
+    "filter": "Фильтр",
+    "export": "Экспорт",
+    "import": "Импорт"
+  }
+}

@@ -1,0 +1,345 @@
+// ========================================
+// MAIN APP LAYOUT - PROFESSIONAL GLASSMORPHISM NAVIGATION
+// ========================================
+
+@use './themes/variables' as *;
+@use './themes/mixins' as *;
+
+// === ОСНОВНОЙ LAYOUT ===
+.app-layout {
+  display: grid;
+  grid-template-areas: 
+    "topbar topbar"
+    "sidebar content";
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: 60px 1fr;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1; // Над ландшафтом
+}
+
+// === ПРОФЕССИОНАЛЬНАЯ ВЕРХНЯЯ ПАНЕЛЬ ===
+.app-topbar {
+  grid-area: topbar;
+  background: var(--surface-primary);
+  backdrop-filter: var(--blur-light);
+  -webkit-backdrop-filter: var(--blur-light);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-subtle);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--spacing-lg);
+  z-index: 1000;
+  position: relative;
+  transition: var(--transition-smooth);
+}
+
+.topbar-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+// === СТАТУС ИНИЦИАЛИЗАЦИИ ===
+.init-status {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  background: rgba(5, 150, 105, 0.08);
+  color: var(--color-profit);
+  border: 1px solid rgba(5, 150, 105, 0.2);
+}
+
+// === ДЕБАГ КОНТРОЛЫ ===
+.debug-controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.debug-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+  }
+}
+
+// === ЯЗЫКОВОЙ ПЕРЕКЛЮЧАТЕЛЬ ===
+.language-switcher {
+  display: flex;
+  align-items: center;
+}
+
+.lang-toggle-btn {
+  @include glass-interactive(0.1);
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    color: var(--color-neutral);
+  }
+  
+  &.active {
+    background: var(--gradient-neutral);
+    color: white;
+    border-color: var(--color-neutral);
+  }
+}
+
+// === ПРОФЕССИОНАЛЬНОЕ БОКОВОЕ МЕНЮ ===
+.app-sidebar {
+  grid-area: sidebar;
+  background: rgba(248, 250, 252, 0.85); // Полупрозрачный фон
+  border-right: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-subtle);
+  padding: var(--spacing-lg) 0;
+  backdrop-filter: var(--blur-light);
+  -webkit-backdrop-filter: var(--blur-light);
+  position: relative;
+  z-index: 1; // Над ландшафтом, но под верхней панелью
+}
+
+.nav-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.nav-item {
+  margin: 0;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: var(--transition-smooth);
+  border-radius: var(--radius-md);
+  margin: var(--spacing-xs) var(--spacing-sm);
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-primary);
+    transform: translateX(4px);
+  }
+  
+  &.active {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--color-neutral);
+    border-left: 3px solid var(--color-neutral);
+  }
+}
+
+.nav-icon {
+  font-size: 1.1rem;
+  width: 20px;
+  text-align: center;
+  opacity: 0.8;
+  transition: var(--transition-smooth);
+  
+  .nav-link:hover & {
+    opacity: 1;
+  }
+  
+  .nav-link.active & {
+    opacity: 1;
+  }
+}
+
+.nav-text {
+  flex: 1;
+}
+
+// === ОСНОВНОЙ КОНТЕНТ ===
+.app-content {
+  grid-area: content;
+  padding: var(--spacing-lg);
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.02); // Очень легкая прозрачность для видимости ландшафта
+  position: relative;
+  z-index: 1; // Над ландшафтом, но под навигацией
+  
+  // Профессиональная прокрутка
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    
+    &:hover {
+      background: rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+// === ЭКРАН ЗАГРУЗКИ ===
+.loading-screen {
+  grid-column: 1 / -1;
+  grid-row: 2 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 60px);
+}
+
+.loading-card {
+  text-align: center;
+  padding: 3rem;
+  max-width: 400px;
+  
+  h2 {
+    margin: 0 0 1rem 0;
+    color: var(--color-neutral);
+  }
+  
+  p {
+    margin: 0 0 2rem 0;
+    color: rgba(0, 0, 0, 0.7);
+  }
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(99, 102, 241, 0.3);
+  border-top: 3px solid var(--color-neutral);
+  border-radius: 50%;
+  margin: 0 auto;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+// === RESPONSIVE ===
+@media (max-width: 768px) {
+  .app-layout {
+    grid-template-areas: 
+      "topbar"
+      "content";
+    grid-template-columns: 1fr;
+    grid-template-rows: 60px 1fr;
+  }
+  
+  .app-sidebar {
+    display: none; // Скрываем на мобильных (позже добавим выдвижное меню)
+  }
+  
+  .app-title {
+    font-size: 1.1rem;
+  }
+  
+  .app-content {
+    padding: var(--spacing-md);
+  }
+}
+
+// === АНИМАЦИИ ===
+.app-layout {
+  @include fade-in-up();
+}
+
+.nav-link {
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    background: var(--gradient-neutral);
+    transition: width 0.3s ease;
+    z-index: -1;
+  }
+  
+  &:hover::before {
+    width: 100%;
+  }
+}
+
+// === ТЕМНАЯ ТЕМА ===
+[data-theme="dark"] {
+  .app-sidebar {
+    background: rgba(17, 24, 39, 0.85); // Полупрозрачный темный фон
+  }
+  
+  .app-content {
+    background: rgba(0, 0, 0, 0.02); // Очень легкая прозрачность для темной темы
+  }
+  
+  .nav-link {
+    color: var(--text-secondary);
+    
+    &:hover {
+      color: var(--text-primary);
+    }
+    
+    &.active {
+      color: var(--color-neutral);
+    }
+  }
+  
+  .lang-toggle-btn {
+    color: var(--text-secondary);
+    
+    &:hover {
+      color: var(--color-neutral);
+    }
+  }
+}

@@ -2,9 +2,6 @@
    PROJECT ANALYTICS V2 - GLOBAL STYLES
    ======================================== */
 
-/* Импорт тем (должен быть в начале) */
-@use './app/themes/glassmorphism-theme.scss';
-
 /* Базовые стили для старта */
 html, body {
   height: 100%;
@@ -71,4 +68,4 @@ body {
 /* ========================================
    PREMIUM GLASSMORPHISM THEME
    ======================================== */
-/* Тема импортирована в начале файла с использованием @use */
+@import './app/themes/glassmorphism-theme.scss';

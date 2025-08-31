@@ -1,0 +1,50 @@
+{
+  "app": {
+    "title": "Project Analytics V2",
+    "subtitle": "Modern Financial Analytics Dashboard for Projects",
+    "success": "SUCCESS!",
+    "launched": "Project Analytics V2 is running!",
+    "ready": "Ready for Excel functionality development!",
+    "components": {
+      "title": "Ready components:",
+      "angular": "Angular 20.2 + TypeScript",
+      "agGrid": "AG-Grid Community for tables",
+      "primeng": "PrimeNG 20.0 for UI",
+      "pouchdb": "PouchDB 9.0 for data",
+      "styles": "Glassmorphism styles",
+      "erm": "ERM integration service"
+    },
+    "server": {
+      "title": "Dev server:",
+      "status": "Status:",
+      "running": "RUNNING"
+    },
+    "language": {
+      "switch": "Переключить на русский",
+      "ru": "РУС",
+      "en": "ENG"
+    }
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "projects": "Projects",
+    "reports": "Reports", 
+    "timeEntries": "Time Entries",
+    "invoices": "Invoices",
+    "payments": "Payments",
+    "settings": "Settings"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search",
+    "filter": "Filter",
+    "export": "Export",
+    "import": "Import"
+  }
+}

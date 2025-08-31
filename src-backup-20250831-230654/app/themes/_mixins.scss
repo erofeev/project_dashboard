@@ -1,0 +1,185 @@
+// ========================================
+// GLASSMORPHISM MIXINS
+// ========================================
+
+@use 'variables' as *;
+
+// === ПРОФЕССИОНАЛЬНЫЙ GLASS ЭФФЕКТ ===
+@mixin glass-base($opacity: 0.06, $blur: 12px) {
+  background: rgba(255, 255, 255, $opacity);
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-subtle);
+  border-radius: var(--radius-md);
+}
+
+// === ПРОФЕССИОНАЛЬНЫЙ ИНТЕРАКТИВНЫЙ GLASS ===
+@mixin glass-interactive($base-opacity: 0.08) {
+  @include glass-base($base-opacity);
+  
+  transition: var(--transition-smooth);
+  cursor: pointer;
+  
+  &:hover {
+    background: rgba(255, 255, 255, $base-opacity + 0.03);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-elevated);
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-subtle);
+  }
+}
+
+// === ПРОФЕССИОНАЛЬНЫЕ ФИНАНСОВЫЕ СТАТУС КАРТОЧКИ ===
+@mixin glass-financial-card($status: 'neutral') {
+  @include glass-base(0.08);
+  
+  @if $status == 'profit' {
+    background: var(--gradient-profit);
+    border-left: 3px solid var(--color-profit);
+  } @else if $status == 'loss' {
+    background: var(--gradient-loss);
+    border-left: 3px solid var(--color-loss);
+  } @else if $status == 'warning' {
+    background: linear-gradient(135deg, rgba(217, 119, 6, 0.08), rgba(217, 119, 6, 0.04));
+    border-left: 3px solid var(--color-warning);
+  } @else {
+    background: var(--gradient-neutral);
+    border-left: 3px solid var(--color-neutral);
+  }
+}
+
+// === ПРОФЕССИОНАЛЬНЫЙ AG-GRID GLASSMORPHISM ===
+@mixin ag-grid-glass-theme() {
+  .ag-theme-alpine {
+    // Заголовки таблицы
+    .ag-header {
+      @include glass-base(0.08);
+      border-bottom: 1px solid var(--glass-border);
+      backdrop-filter: var(--blur-light);
+    }
+    
+    // Строки таблицы
+    .ag-row {
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.06);
+      }
+      
+      &.ag-row-selected {
+        background: rgba(59, 130, 246, 0.08) !important;
+        border: 1px solid rgba(59, 130, 246, 0.2);
+      }
+    }
+    
+    // Пинированные колонки
+    .ag-pinned-left-cols-container,
+    .ag-pinned-right-cols-container {
+      @include glass-base(0.1);
+    }
+  }
+}
+
+// === ПРОФЕССИОНАЛЬНЫЕ PRIMENG GLASSMORPHISM OVERRIDES ===
+@mixin primeng-glass-overrides() {
+  // Кнопки
+  .p-button {
+    @include glass-interactive(0.08);
+    border: 1px solid var(--glass-border) !important;
+    font-weight: 500;
+    color: var(--text-primary);
+    
+    &.p-button-success {
+      background: var(--gradient-profit) !important;
+      border-color: var(--color-profit) !important;
+      color: var(--color-profit);
+    }
+    
+    &.p-button-danger {
+      background: var(--gradient-loss) !important;
+      border-color: var(--color-loss) !important;
+      color: var(--color-loss);
+    }
+    
+    &.p-button-info {
+      background: var(--gradient-neutral) !important;
+      border-color: var(--color-neutral) !important;
+      color: var(--color-neutral);
+    }
+  }
+  
+  // Панели и карточки
+  .p-panel,
+  .p-card {
+    @include glass-base(0.08);
+    
+    .p-panel-header,
+    .p-card-header {
+      @include glass-base(0.1);
+      border-bottom: 1px solid var(--glass-border);
+    }
+  }
+  
+  // Меню и навигация
+  .p-menubar {
+    @include glass-base(0.12);
+    
+    .p-menuitem-link:hover {
+      background: rgba(255, 255, 255, 0.06) !important;
+    }
+  }
+  
+  // Диалоги
+  .p-dialog {
+    @include glass-base(0.15);
+    backdrop-filter: var(--blur-medium);
+    
+    .p-dialog-header {
+      background: rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid var(--glass-border);
+    }
+  }
+}
+
+// === АНИМАЦИЯ ПОЯВЛЕНИЯ ===
+@mixin fade-in-up() {
+  animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+// === ПУЛЬСИРУЮЩИЙ ЭФФЕКТ ===
+@mixin pulse-effect($color: var(--color-neutral)) {
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: inherit;
+    background: linear-gradient(45deg, $color, transparent, $color);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  &:hover::before {
+    opacity: 0.3;
+  }
+}

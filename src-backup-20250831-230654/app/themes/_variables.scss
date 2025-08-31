@@ -1,0 +1,96 @@
+// ========================================
+// PROJECT ANALYTICS V2 - PROFESSIONAL GLASSMORPHISM VARIABLES  
+// ========================================
+
+// Основные цвета
+:root {
+  // === PROFESSIONAL GLASSMORPHISM COLORS ===
+  --glass-primary: rgba(255, 255, 255, 0.06);
+  --glass-secondary: rgba(255, 255, 255, 0.03);
+  --glass-elevated: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-border-hover: rgba(255, 255, 255, 0.18);
+  --glass-border-active: rgba(255, 255, 255, 0.25);
+  
+  // Более сдержанные тени
+  --shadow-subtle: 0 2px 16px rgba(0, 0, 0, 0.06);
+  --shadow-elevated: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --shadow-floating: 0 8px 40px rgba(0, 0, 0, 0.12);
+  
+  // Профессиональные акцентные цвета
+  --glow-primary: rgba(59, 130, 246, 0.15);
+  --glow-secondary: rgba(99, 102, 241, 0.12);
+  --glow-accent: rgba(16, 185, 129, 0.1);
+  
+  // Умеренные эффекты размытия
+  --blur-light: blur(12px);
+  --blur-medium: blur(16px);
+  --blur-heavy: blur(24px);
+  
+  // Плавные переходы
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-quick: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  // === PROFESSIONAL FINANCIAL STATUS COLORS ===
+  --color-profit: #059669;      // Более сдержанный зеленый
+  --color-loss: #dc2626;        // Более сдержанный красный  
+  --color-neutral: #3b82f6;     // Профессиональный синий
+  --color-warning: #d97706;     // Сдержанный оранжевый
+  
+  // === PROFESSIONAL GLASS GRADIENTS ===
+  --gradient-profit: linear-gradient(135deg, rgba(5, 150, 105, 0.08), rgba(5, 150, 105, 0.04));
+  --gradient-loss: linear-gradient(135deg, rgba(220, 38, 38, 0.08), rgba(220, 38, 38, 0.04));
+  --gradient-neutral: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(59, 130, 246, 0.04));
+  
+  // === PROFESSIONAL TYPOGRAPHY ===
+  --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
+  
+  // === PROFESSIONAL SPACING ===
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  
+  // === PROFESSIONAL BORDER RADIUS ===
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  
+  // === PROFESSIONAL SURFACE COLORS ===
+  --surface-primary: rgba(255, 255, 255, 0.95);
+  --surface-secondary: rgba(248, 250, 252, 0.95);
+  --surface-elevated: rgba(255, 255, 255, 0.98);
+  
+  // === PROFESSIONAL TEXT COLORS ===
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --text-tertiary: #9ca3af;
+  --text-inverse: #ffffff;
+}
+
+// Dark theme overrides  
+[data-theme="dark"] {
+  --glass-primary: rgba(0, 0, 0, 0.12);
+  --glass-secondary: rgba(0, 0, 0, 0.06);
+  --glass-elevated: rgba(0, 0, 0, 0.18);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-hover: rgba(255, 255, 255, 0.12);
+  --glass-border-active: rgba(255, 255, 255, 0.18);
+  
+  --shadow-subtle: 0 2px 16px rgba(0, 0, 0, 0.25);
+  --shadow-elevated: 0 4px 24px rgba(0, 0, 0, 0.35);
+  --shadow-floating: 0 8px 40px rgba(0, 0, 0, 0.45);
+  
+  --surface-primary: rgba(17, 24, 39, 0.95);
+  --surface-secondary: rgba(31, 41, 55, 0.95);
+  --surface-elevated: rgba(17, 24, 39, 0.98);
+  
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --text-tertiary: #9ca3af;
+  --text-inverse: #1f2937;
+}

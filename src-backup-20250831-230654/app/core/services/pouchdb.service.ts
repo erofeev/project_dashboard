@@ -151,7 +151,7 @@ export class PouchDBService {
 
   // === ИНИЦИАЛИЗАЦИЯ БАЗ ДАННЫХ ===
   async initializeDatabases() {
-    const dbNames = ['users', 'projects', 'time_entries', 'invoices', 'payments', 'activities'];
+    const dbNames = ['users', 'projects', 'time_entries', 'invoices', 'payments'];
     
     for (const dbName of dbNames) {
       try {
@@ -214,10 +214,6 @@ export class PouchDBService {
           break;
         case 'payments':
           await db.createIndex({ index: { fields: ['invoiceId'] } });
-          break;
-        case 'activities':
-          await db.createIndex({ index: { fields: ['name'] } });
-          await db.createIndex({ index: { fields: ['ermId'] } });
           break;
       }
     } catch (error) {
@@ -462,130 +458,6 @@ export class PouchDBService {
     if (!calendar) return {};
 
     return calendar.workingCalendar;
-  }
-
-  // === УНИВЕРСАЛЬНЫЕ CRUD ОПЕРАЦИИ ===
-  
-  /**
-   * Upsert (Update or Insert) документа - если существует, обновляет; если нет, создает
-   */
-  async upsertDocument(dbName: string, docId: string, data: any): Promise<any> {
-    const db = this.databases[dbName];
-    if (!db) throw new Error(`База ${dbName} не инициализирована`);
-
-    try {
-      // Пытаемся получить существующий документ
-      let existingDoc: any = null;
-      try {
-        existingDoc = await db.get(docId);
-      } catch (error: any) {
-        if (error.status !== 404) {
-          throw error; // Если ошибка не "документ не найден", пробрасываем её дальше
-        }
-      }
-
-      const docToSave = {
-        _id: docId,
-        _rev: existingDoc?._rev,
-        ...data,
-        updated_at: new Date().toISOString()
-      };
-
-      // Если документ новый, добавляем created_at
-      if (!existingDoc) {
-        docToSave.created_at = new Date().toISOString();
-      }
-
-      const result = await db.put(docToSave);
-      
-      return {
-        ...docToSave,
-        _rev: result.rev
-      };
-
-    } catch (error) {
-      console.error(`Ошибка upsert документа ${docId} в базе ${dbName}:`, error);
-      throw error;
-    }
-  }
-
-  /**
-   * Получить документ по ID из указанной базы
-   */
-  async getDocument(dbName: string, docId: string): Promise<any | null> {
-    const db = this.databases[dbName];
-    if (!db) throw new Error(`База ${dbName} не инициализирована`);
-
-    try {
-      return await db.get(docId);
-    } catch (error: any) {
-      if (error.status === 404) {
-        return null;
-      }
-      throw error;
-    }
-  }
-
-  /**
-   * Удалить документ по ID из указанной базы
-   */
-  async deleteDocument(dbName: string, docId: string): Promise<boolean> {
-    const db = this.databases[dbName];
-    if (!db) throw new Error(`База ${dbName} не инициализирована`);
-
-    try {
-      const doc = await db.get(docId);
-      await db.remove(doc);
-      return true;
-    } catch (error: any) {
-      if (error.status === 404) {
-        return false; // Документ уже не существует
-      }
-      throw error;
-    }
-  }
-
-  /**
-   * Очистить всю базу данных (удалить все документы)
-   */
-  async clearDatabase(dbName: string): Promise<number> {
-    const db = this.databases[dbName];
-    if (!db) throw new Error(`База ${dbName} не инициализирована`);
-
-    try {
-      const allDocs = await db.allDocs({ include_docs: true });
-      const docsToDelete = allDocs.rows.map(row => ({
-        _id: row.doc!._id,
-        _rev: row.doc!._rev,
-        _deleted: true
-      }));
-
-      if (docsToDelete.length > 0) {
-        await db.bulkDocs(docsToDelete);
-      }
-
-      console.log(`🧹 База ${dbName} очищена: удалено ${docsToDelete.length} документов`);
-      return docsToDelete.length;
-    } catch (error) {
-      console.error(`Ошибка очистки базы ${dbName}:`, error);
-      throw error;
-    }
-  }
-
-  /**
-   * Получить количество документов в базе
-   */
-  async getDocumentCount(dbName: string): Promise<number> {
-    const db = this.databases[dbName];
-    if (!db) throw new Error(`База ${dbName} не инициализирована`);
-
-    try {
-      const info = await db.info();
-      return info.doc_count;
-    } catch (error) {
-      console.error(`Ошибка получения количества документов в базе ${dbName}:`, error);
-      throw error;
-    }
   }
 
   // === СТАТИСТИКА (Аналог ваших макросов) ===

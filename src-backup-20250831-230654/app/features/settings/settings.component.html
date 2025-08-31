@@ -1,0 +1,263 @@
+<!-- PROJECT ANALYTICS V2 - НАСТРОЙКИ (УПРОЩЕННАЯ ВЕРСИЯ) -->
+
+<div class="settings-container glass-card">
+  
+  <!-- ЗАГОЛОВОК -->
+  <div class="settings-header">
+    <h2 class="section-title">Конфигурация системы</h2>
+    <p class="settings-subtitle">Настройки подключения к ERM и управление ставками сотрудников</p>
+  </div>
+
+  <!-- ERM ПОДКЛЮЧЕНИЕ (аналог Config листа B2-B6) -->
+  <section class="config-section">
+    <h3>ERM API Конфигурация</h3>
+    
+    <form [formGroup]="ermConfigForm" (ngSubmit)="saveERMConfig()">
+      
+      <div class="config-grid">
+        
+        <!-- Base URL -->
+        <div class="field-group">
+          <label for="baseUrl" class="field-label">Base URL *</label>
+          <input 
+            id="baseUrl"
+            type="url" 
+            formControlName="baseUrl"
+            placeholder="http://localhost:3000/api"
+            class="field-input"
+          />
+          <small class="field-hint">URL вашего ERM сервера (аналог B2 в Excel)</small>
+        </div>
+
+        <!-- API Key -->
+        <div class="field-group">
+          <label for="apiKey" class="field-label">API Key *</label>
+          <input 
+            id="apiKey"
+            type="password" 
+            formControlName="apiKey"
+            placeholder="Введите API ключ"
+            class="field-input"
+          />
+          <small class="field-hint">Ключ доступа к ERM API (аналог B3 в Excel)</small>
+        </div>
+
+        <!-- Период данных -->
+        <div class="field-row">
+          <div class="field-group">
+            <label for="startDate" class="field-label">Дата начала *</label>
+            <input 
+              id="startDate"
+              type="date"
+              formControlName="startDate"
+              class="field-input"
+            />
+            <small class="field-hint">Начало периода (B4)</small>
+          </div>
+
+          <div class="field-group">
+            <label for="endDate" class="field-label">Дата окончания *</label>
+            <input 
+              id="endDate"
+              type="date"
+              formControlName="endDate"
+              class="field-input"
+            />
+            <small class="field-hint">Конец периода (B5)</small>
+          </div>
+        </div>
+
+        <!-- Project ID -->
+        <div class="field-group">
+          <label for="projectId" class="field-label">ID проекта</label>
+          <input 
+            id="projectId"
+            type="text" 
+            formControlName="projectId"
+            placeholder="Оставьте пустым для всех проектов"
+            class="field-input"
+          />
+          <small class="field-hint">Фильтр по проекту (B6 в Excel)</small>
+        </div>
+
+        <!-- Пользователи для фильтрации -->
+        <div class="field-group">
+          <label for="userFilter" class="field-label">Пользователи для фильтрации</label>
+          <textarea 
+            id="userFilter"
+            formControlName="userFilter"
+            placeholder="Иванов И.И., Петров П.П."
+            rows="3"
+            class="field-input"
+          ></textarea>
+          <small class="field-hint">Список пользователей через запятую (аналог A9+ в Excel)</small>
+        </div>
+
+      </div>
+
+      <!-- КНОПКИ УПРАВЛЕНИЯ -->
+      <div class="action-buttons">
+        <button 
+          type="submit"
+          class="btn btn-success"
+          [disabled]="isLoading()"
+        >
+          {{ isLoading() ? 'Сохранение...' : 'Сохранить конфигурацию' }}
+        </button>
+        
+        <button 
+          type="button"
+          class="btn btn-info"
+          (click)="testERMConnection()"
+          [disabled]="isLoading()"
+        >
+          {{ isLoading() ? 'Тестирование...' : 'Тест соединения' }}
+        </button>
+      </div>
+
+    </form>
+  </section>
+
+  <!-- СТАВКИ ПОЛЬЗОВАТЕЛЕЙ (аналог Rates листа) -->
+  <section class="rates-section">
+    <h3>Ставки сотрудников</h3>
+    
+    <!-- ФОРМА ДОБАВЛЕНИЯ НОВОЙ СТАВКИ -->
+    <div class="rates-card">
+      <h4>Добавить ставку</h4>
+      <form [formGroup]="ratesForm" (ngSubmit)="addUserRate()">
+        
+        <div class="rates-grid">
+          
+          <div class="field-group">
+            <label for="userName" class="field-label">Пользователь *</label>
+            <input 
+              id="userName"
+              type="text" 
+              formControlName="userName"
+              placeholder="Иванов Иван Иванович"
+              class="field-input"
+            />
+          </div>
+
+          <div class="field-group">
+            <label for="dateFrom" class="field-label">Дата начала действия *</label>
+            <input 
+              id="dateFrom"
+              type="date"
+              formControlName="dateFrom"
+              class="field-input"
+            />
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="grossPerMonth" class="field-label">Оклад в месяц (руб)</label>
+              <input 
+                id="grossPerMonth"
+                type="number" 
+                formControlName="grossPerMonth"
+                placeholder="0"
+                min="0"
+                class="field-input"
+              />
+              <small class="field-hint">Для сотрудников на окладе</small>
+            </div>
+
+            <div class="field-group">
+              <label for="hourlyRate" class="field-label">Почасовая ставка (руб)</label>
+              <input 
+                id="hourlyRate"
+                type="number"
+                formControlName="hourlyRate"
+                placeholder="0"
+                min="0"
+                class="field-input"
+              />
+              <small class="field-hint">Для сотрудников на почасовой оплате</small>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="action-buttons">
+          <button 
+            type="submit"
+            class="btn btn-success"
+            [disabled]="!ratesForm.valid"
+          >
+            Добавить ставку
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- СПИСОК ТЕКУЩИХ СТАВОК -->
+    <div class="rates-list-card">
+      <h4>Текущие ставки</h4>
+      
+      @if (userRates().length === 0) {
+        <div class="empty-state">
+          <p>Ставки пользователей пока не настроены.</p>
+          <p>Добавьте ставки выше для расчета себестоимости проектов.</p>
+        </div>
+      } @else {
+        <div class="rates-table">
+          @for (rate of userRates(); track $index) {
+            <div class="rate-row">
+              <div class="rate-info">
+                <strong>{{ rate.userName }}</strong>
+                <span class="rate-date">с {{ rate.startDate | date:'dd.MM.yyyy' }}</span>
+              </div>
+              <div class="rate-values">
+                @if (rate.grossPerMonth && rate.grossPerMonth > 0) {
+                  <span class="rate-salary">{{ rate.grossPerMonth | currency:'RUB':'symbol':'1.0-0' }}/мес</span>
+                }
+                @if (rate.hourlyRate && rate.hourlyRate > 0) {
+                  <span class="rate-hourly">{{ rate.hourlyRate | currency:'RUB':'symbol':'1.0-0' }}/час</span>
+                }
+              </div>
+              <div class="rate-actions">
+                <button 
+                  class="btn btn-danger btn-sm"
+                  (click)="removeUserRate($index)"
+                  title="Удалить ставку"
+                >
+                  Удалить
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+  </section>
+
+  <!-- ЭКСПОРТ/ИМПОРТ -->
+  <section class="import-export-section">
+    <div class="export-card">
+      <h4>Экспорт конфигурации</h4>
+      <p>Сохранить все настройки в файл для резервного копирования</p>
+      <button 
+        class="btn btn-info"
+        (click)="exportConfiguration()"
+      >
+        Экспорт в JSON
+      </button>
+    </div>
+
+    <div class="import-card">
+      <h4>Импорт конфигурации</h4>
+      <p>Загрузить настройки из файла</p>
+      <input 
+        type="file" 
+        accept=".json"
+        (change)="onImportFile($event)"
+        class="file-input"
+      />
+    </div>
+  </section>
+
+</div>
