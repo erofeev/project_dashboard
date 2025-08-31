@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthService, AuthState } from './services/auth.service';
 import { Landscape3dComponent } from './components/3d-landscape/3d-landscape.component';
 import { LandscapeControlPanelComponent } from './components/landscape-control-panel/landscape-control-panel.component';
+import { LoginComponent } from './components/auth/login.component';
 import { UserSettingsService } from './services/user-settings.service';
 
 @Component({
@@ -19,7 +20,8 @@ import { UserSettingsService } from './services/user-settings.service';
     TranslateModule,
     FormsModule,
     Landscape3dComponent,
-    LandscapeControlPanelComponent
+    LandscapeControlPanelComponent,
+    LoginComponent
   ],
   template: `
     <!-- 3D анимированный ландшафт-подложка -->
@@ -38,7 +40,7 @@ import { UserSettingsService } from './services/user-settings.service';
     
     <!-- Страница логина для неавторизованных пользователей -->
     <div class="login-fullscreen" *ngIf="(authService.isInitialized$ | async) && !authState.isAuthenticated">
-      <router-outlet></router-outlet>
+      <app-login></app-login>
     </div>
     
     <!-- Основной интерфейс приложения для авторизованных пользователей -->
@@ -2615,7 +2617,19 @@ export class AppComponent implements OnInit {
     // Обработчик изменения размера окна убран, так как используется relative позиционирование
   }
 
-  async onLogout(): Promise<void> { await this.authService.logout(); this.router.navigate(['/login']); }
+  async onLogout(): Promise<void> { 
+    // Закрываем все открытые меню
+    this.closeUserMenu();
+    this.closeLeftSidebar();
+    this.closeRightSidebar();
+    this.closeBottomSidebar();
+    
+    // Выполняем логаут
+    await this.authService.logout(); 
+    
+    // Перенаправляем на страницу логина
+    this.router.navigate(['/login']); 
+  }
 
   toggleLeftSidebar(): void { this.leftSidebarOpen = !this.leftSidebarOpen; }
   closeLeftSidebar(): void { this.leftSidebarOpen = false; }

@@ -4,7 +4,6 @@ import { AdminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: 'login', loadComponent: () => import('./components/auth/login.component').then(m => m.LoginComponent) },
   { 
     path: 'dashboard', 
     loadComponent: () => import('./components/dashboard/dashboard.component').then(m => m.DashboardComponent),
@@ -46,5 +45,5 @@ export const routes: Routes = [
     loadComponent: () => import('./components/admin/admin.component').then(m => m.AdminComponent),
     canActivate: [AuthGuard, AdminGuard]
   },
-  { path: '**', redirectTo: '/dashboard' }
+  { path: '**', redirectTo: '/' }
 ];
