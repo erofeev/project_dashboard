@@ -427,7 +427,7 @@ export class InitializationService {
         createdAt: '2025-08-30T23:49:12.188Z',
         updatedAt: new Date().toISOString(),
         apiKey: '763c9fa14fcc0343773389494e8ba3004ef3cd65',
-        baseUrl: '/api/erm',
+        baseUrl: 'https://easyredmine.awara.pro',
         userId: 'admin@admin.ru',
         ermSettings: ermConfig,
         userRates: userRates

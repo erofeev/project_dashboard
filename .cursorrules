@@ -1,187 +1,132 @@
-# Cursor Rules для проекта
+# Cursor Rules для PWA Project Analytics
 
-## UI Компоненты
+## КОНТЕКСТ ПРОЕКТА
+❗ **ОБЯЗАТЕЛЬНО прочитай PROJECT_CONTEXT.md перед началом работы** ❗
+Файл содержит полное техническое задание, архитектуру и текущий статус проекта.
+
+## КРИТИЧЕСКИЕ ПРАВИЛА (НЕ НАРУШАТЬ)
+
+### UI Компоненты
 - **ВСЕГДА используйте компоненты PrimeNG** для создания пользовательского интерфейса
-- Документация доступна через MCP сервер: используйте команды типа "Покажи компонент button PrimeNG"
+- Проверяйте доступность компонентов через MCP сервер: `mcp_primeng_get_primeng_component`
 - Официальная документация: https://primeng.org/
-- Поддерживаемые категории: Form, Button, Data, Panel, Overlay, Menu, Chart, Messages, Media, File, Misc
 - Перед созданием кастомных компонентов проверьте, есть ли готовое решение в PrimeNG
 
-## MCP Серверы
+### Архитектура (НЕ ИЗМЕНЯТЬ)
+- **НЕ УДАЛЯЙТЕ реализованные функции ERM интеграции** - только дополняйте
+- **Сохраняйте логику прокси**: пользовательский URL → автозамена в ERMService → прокси
+- **Календарные данные ТОЛЬКО в PouchDB**, НЕ в localStorage  
+- **Справочники ERM ВСЕГДА сохраняем в БД**, time_entries - селективно по выбору пользователя
 
-### PrimeNG MCP Сервер
-- MCP сервер для работы с компонентами PrimeNG: `infrastructure/mcp-server/primeng-mcp-server/`
-- Предоставляет доступ к документации, примерам кода и API всех компонентов PrimeNG
-- Доступные команды: "Покажи компонент editor", "Найди компоненты для форм", "Как установить PrimeNG?"
-- Поддерживает поиск по компонентам, получение примеров кода и инструкций по установке
+### 3D фон
+- **НЕ включайте падающие капли**: `enableDroplets: false`
+- Размер точек: `particleSize: 4.0`
+- Камера приближена: `camera.position.set(0, 15, 12)`
+
+### База данных
+- PouchDB с 5 базами: users, projects, time_entries, invoices, payments, activities
+- SystemCalendar для системных календарных данных
+- Синхронизация с CouchDB отключена для development
+
+## MCP СЕРВЕРЫ
+
+### PrimeNG MCP Сервер  
+Доступные инструменты:
+- `mcp_primeng_get_primeng_component` - информация о компоненте
+- `mcp_primeng_get_all_primeng_components` - список всех компонентов
+- `mcp_primeng_search_primeng_components` - поиск компонентов
+- `mcp_primeng_get_primeng_component_documentation` - полная документация
+- `mcp_primeng_get_primeng_component_example` - примеры использования
 
 ### PouchDB MCP Сервер
-- MCP сервер находится в `infrastructure/mcp-server/pouchdb-mcp-server/`
-- Использует `couchdb-index.js` для подключения к CouchDB
-- Поддерживает инструменты для работы с базами данных: users, projects, time_entries, invoices, payments
+Инструменты для работы с локальной БД:
+- `mcp_pouchdb_get_all_users`, `mcp_pouchdb_create_user`
+- `mcp_pouchdb_get_database_stats` - статистика всех баз
+- `mcp_pouchdb_query_documents` - Mango запросы
 
-## Доступные инструменты
-- `get_user_count` - количество пользователей
-- `get_all_users` - список всех пользователей
-- `get_user_by_email` - пользователь по email
-- `create_user` - создание пользователя
-- `get_database_stats` - статистика по всем базам
-- `get_project_count`, `get_time_entries_count`, `get_invoice_count`, `get_payment_count`
+### EasyRedmine MCP Сервер  
+Инструменты для ERM интеграции:
+- `mcp_easyredmine_get_projects`, `mcp_easyredmine_get_users`
+- `mcp_easyredmine_get_time_entries` - временные записи
+- `mcp_easyredmine_get_issues` - задачи (для извлечения пользователей)
 
-## База данных
-- CouchDB работает на localhost:5984
-- Учетные данные: admin/admin123
-- Fauxton доступен на localhost:8888
+## СТИЛИ И ДИЗАЙН
 
-## Использование
-Для получения данных через MCP используйте соответствующие инструменты, например:
-- Получить список всех пользователей
-- Создать нового пользователя
-- Получить статистику базы данных
+### Glassmorphism UI
+- Применяется изысканный glassmorphism дизайн для руководителей
+- Стили: размытие, тени, glow эффекты, но утонченно, не кричаще
+- Базовый шаблон: Sakai Template для PrimeNG
+- Используется `@primeuix/themes` для кастомизации
 
-## MCP Конфигурация для Cursor
+### Языки интерфейса
+- Поддерживаются только русский и английский языки
+- Переключение через toggle кнопки
 
+## ANGULAR BEST PRACTICES
+
+### Структура кода
+- Angular 18+ с TypeScript
+- Signals для реактивного состояния
+- Standalone компоненты где возможно
+- Inject() функция для DI
+
+### Типизация
+- Строгая типизация, избегать `any`
+- Интерфейсы для всех моделей данных
+- Optional chaining (`?.`) и nullish coalescing (`??`)
+
+### Файловое именование
+- kebab-case для всех файлов
+- `*.component.ts`, `*.service.ts`, `*.pipe.ts`
+- Импорты в порядке: Angular core → RxJS → Angular modules → App imports → Relative imports
+
+## ТЕКУЩИЕ ЗАДАЧИ
+
+### Приоритетные проблемы:
+1. **Отладить ERM подключение** - текущая ошибка 500 Internal Server Error
+2. Протестировать стратегии загрузки данных из ERM
+3. Улучшить glassmorphism стили для других компонентов  
+
+### Архитектурные задачи:
+- Обработка больших объемов данных ERM
+- Оптимизация производительности 3D фона
+- Расширение функций финансовой аналитики
+
+## КОМАНДЫ РАЗРАБОТКИ
+
+```bash
+npm start              # Angular dev server с CORS прокси
+npm run build          # Продакшн сборка  
+npm run start:couchdb  # CouchDB (если нужен)
+```
+
+## КОНФИГУРАЦИЯ ОКРУЖЕНИЯ
+
+### CORS Прокси
 ```json
+// proxy.conf.json
 {
-  "mcpServers": {
-    "primeng": {
-      "command": "node",
-      "args": ["./dist/index.js"],
-      "env": {},
-      "cwd": "infrastructure/mcp-server/primeng-mcp-server"
-    },
-    "pouchdb": {
-      "command": "node",
-      "args": ["./dist/couchdb-index.js"],
-      "env": {},
-      "cwd": "infrastructure/mcp-server/pouchdb-mcp-server"
-    }
+  "/api/erm/*": {
+    "target": "https://easyredmine.awara.pro", 
+    "secure": false,  // SSL проблемы
+    "changeOrigin": true
   }
 }
 ```
 
-## Инструкция по настройке
+### ERM настройки
+- **URL**: https://easyredmine.awara.pro  
+- **API Key**: 763c9fa14fcc0343773389494e8ba3004ef3cd65
+- **Прокси**: http://localhost:4200/api/erm/*
 
-1. Скопируйте JSON конфигурацию выше
-2. В Cursor перейдите в **Settings** → **Extensions** → **MCP**
-3. Добавьте новый MCP сервер с указанными параметрами
-4. Перезапустите Cursor
-5. Убедитесь, что MCP сервер запущен: `npm run start:couchdb`
+---
 
-## Тестирование
+## 🚨 НАПОМИНАНИЕ ДЛЯ AI
+- Читай PROJECT_CONTEXT.md в начале каждой сессии
+- НЕ удаляй реализованные функции без явного указания  
+- Всегда используй PrimeNG компоненты
+- При архитектурных изменениях обновляй PROJECT_CONTEXT.md
+- Текущая активная задача: решение ошибки 500 в ERM подключении
 
-После настройки вы сможете использовать команды:
+*Последнее обновление правил: 2025-01-20*
 
-### PrimeNG команды:
-- "Покажи информацию о компоненте editor"
-- "Найди все компоненты для форм"
-- "Как установить PrimeNG?"
-- "Пример использования table компонента"
-
-### PouchDB команды:
-- "Покажи всех пользователей в базе данных"
-- "Сколько проектов в системе?"
-- "Создай нового пользователя test@example.com"
-
-
-**Prompt for Expert Angular Developer**
-
-**You are an Angular, SASS, and TypeScript expert focused on creating scalable and high-performance web applications. Your role is to provide code examples and guidance that adhere to best practices in modularity, performance, and maintainability, following strict type safety, clear naming conventions, and Angular's official style guide.**
-
-**Key Development Principles**
-1. **Provide Concise Examples**  
-   Share precise Angular and TypeScript examples with clear explanations.
-
-2. **Immutability & Pure Functions**  
-   Apply immutability principles and pure functions wherever possible, especially within services and state management, to ensure predictable outcomes and simplified debugging.
-
-3. **Component Composition**  
-   Favor component composition over inheritance to enhance modularity, enabling reusability and easy maintenance.
-
-4. **Meaningful Naming**  
-   Use descriptive variable names like `isUserLoggedIn`, `userPermissions`, and `fetchData()` to communicate intent clearly.
-
-5. **File Naming**  
-   Enforce kebab-case naming for files (e.g., `user-profile.component.ts`) and match Angular's conventions for file suffixes (e.g., `.component.ts`, `.service.ts`, etc.).
-
-**Angular and TypeScript Best Practices**
-- **Type Safety with Interfaces**  
-  Define data models using interfaces for explicit types and maintain strict typing to avoid `any`.
-
-- **Full Utilization of TypeScript**  
-  Avoid using `any`; instead, use TypeScript's type system to define specific types and ensure code reliability and ease of refactoring.
-
-- **Organized Code Structure**  
-  Structure files with imports at the top, followed by class definition, properties, methods, and ending with exports.
-
-- **Optional Chaining & Nullish Coalescing**  
-  Leverage optional chaining (`?.`) and nullish coalescing (`??`) to prevent null/undefined errors elegantly.
-
-- **Standalone Components**  
-  Use standalone components as appropriate, promoting code reusability without relying on Angular modules.
-
-- **Signals for Reactive State Management**  
-  Utilize Angular's signals system for efficient and reactive programming, enhancing both state handling and rendering performance.
-
-- **Direct Service Injection with `inject`**  
-  Use the `inject` function to inject services directly within component logic, directives, or services, reducing boilerplate code.
-
-**File Structure and Naming Conventions**
-- **Component Files**: `*.component.ts`
-- **Service Files**: `*.service.ts`
-- **Module Files**: `*.module.ts`
-- **Directive Files**: `*.directive.ts`
-- **Pipe Files**: `*.pipe.ts`
-- **Test Files**: `*.spec.ts`
-- **General Naming**: kebab-case for all filenames to maintain consistency and predictability.
-
-**Coding Standards**
-- Use single quotes (`'`) for string literals.
-- Use 2-space indentation.
-- Avoid trailing whitespace and unused variables.
-- Prefer `const` for constants and immutable variables.
-- Utilize template literals for string interpolation and multi-line strings.
-
-**Angular-Specific Development Guidelines**
-- Use `async` pipe for observables in templates to simplify subscription management.
-- Enable lazy loading for feature modules, optimizing initial load times.
-- Ensure accessibility by using semantic HTML and relevant ARIA attributes.
-- Use Angular's signals system for efficient reactive state management.
-- For images, use `NgOptimizedImage` to improve loading and prevent broken links in case of failures.
-- Implement deferrable views to delay rendering of non-essential components until they're needed.
-
-**Import Order**
-1. Angular core and common modules
-2. RxJS modules
-3. Angular-specific modules (e.g., `FormsModule`)
-4. Core application imports
-5. Shared module imports
-6. Environment-specific imports (e.g., `environment.ts`)
-7. Relative path imports
-
-**Error Handling and Validation**
-- Apply robust error handling in services and components, using custom error types or error factories as needed.
-- Implement validation through Angular's form validation system or custom validators where applicable.
-
-**Testing and Code Quality**
-- Adhere to the Arrange-Act-Assert pattern for unit tests.
-- Ensure high test coverage with well-defined unit tests for services, components, and utilities.
-
-**Performance Optimization**
-- Utilize trackBy functions with `ngFor` to optimize list rendering.
-- Apply pure pipes for computationally heavy operations, ensuring that recalculations occur only when inputs change.
-- Avoid direct DOM manipulation by relying on Angular's templating engine.
-- Leverage Angular's signals system to reduce unnecessary re-renders and optimize state handling.
-- Use `NgOptimizedImage` for faster, more efficient image loading.
-
-**Security Best Practices**
-- Prevent XSS by relying on Angular's built-in sanitization and avoiding `innerHTML`.
-- Sanitize dynamic content using Angular's trusted sanitization methods to prevent vulnerabilities.
-
-**Core Principles**
-- Use Angular's dependency injection and `inject` function to streamline service injections.
-- Focus on reusable, modular code that aligns with Angular's style guide and industry best practices.
-- Continuously optimize for core Web Vitals, especially Largest Contentful Paint (LCP), Interaction to Next Paint (INP), and Cumulative Layout Shift (CLS).
-
-**Reference**  
-Refer to Angular's official documentation for components, services, and modules to ensure best practices and maintain code quality and maintainability.
