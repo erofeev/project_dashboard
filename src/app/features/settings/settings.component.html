@@ -109,13 +109,162 @@
           type="button"
           class="btn btn-info"
           (click)="testERMConnection()"
-          [disabled]="isLoading()"
+          [disabled]="isTestingConnection() || !ermConfigForm.valid"
         >
-          {{ isLoading() ? 'Тестирование...' : 'Тест соединения' }}
+          {{ isTestingConnection() ? 'Тестирование...' : 'Тест соединения' }}
+        </button>
+
+        <button 
+          type="button"
+          class="btn btn-primary"
+          (click)="syncServiceData()"
+          [disabled]="isSyncing() || connectionStatus() !== 'success'"
+        >
+          {{ isSyncing() ? 'Синхронизация...' : 'Загрузить справочники' }}
+        </button>
+
+        <button 
+          type="button"
+          class="btn btn-success"
+          (click)="syncERMData()"
+          [disabled]="isSyncing() || connectionStatus() !== 'success'"
+        >
+          {{ isSyncing() ? 'Синхронизация...' : 'Полная синхронизация' }}
         </button>
       </div>
 
     </form>
+
+    <!-- НОВЫЕ СТРАТЕГИИ ЗАГРУЗКИ -->
+    <section class="strategy-section glass-card">
+      <h4>🎯 Умные стратегии загрузки (из Excel логики)</h4>
+      
+      <div class="strategy-buttons">
+        <button 
+          type="button"
+          class="btn btn-info"
+          (click)="quickLoadMasterData()"
+          [disabled]="loadingStrategy() || connectionStatus() !== 'success'"
+        >
+          {{ loadingStrategy() === 'quick' ? '🚀 Загрузка...' : '🚀 Быстро: Справочники' }}
+        </button>
+
+        <button 
+          type="button"
+          class="btn btn-primary"
+          (click)="loadByProjects()"
+          [disabled]="loadingStrategy() || connectionStatus() !== 'success'"
+        >
+          {{ loadingStrategy() === 'projects' ? '📁 Загрузка...' : '📁 По проектам: Полные данные' }}
+        </button>
+      </div>
+      
+      <p class="strategy-help">💡 <strong>Быстро</strong> - загружает справочники пользователей и проектов. <strong>По проектам</strong> - ваша идея: все проекты → данные по каждому.</p>
+    </section>
+
+    <!-- ВЫБОР ПОЛЬЗОВАТЕЛЕЙ -->
+    @if (discoveredUsers().length > 0) {
+      <section class="users-selection glass-card">
+        <h4>👥 Выберите пользователей для сохранения данных</h4>
+        
+        <div class="users-controls">
+          <button 
+            type="button" 
+            class="btn btn-sm btn-outline-primary" 
+            (click)="selectAllUsers()"
+          >Выбрать всех</button>
+          
+          <button 
+            type="button" 
+            class="btn btn-sm btn-outline-secondary" 
+            (click)="clearUserSelection()"
+          >Очистить</button>
+          
+          <span class="selection-info">
+            Выбрано: {{ selectedUsers().length }} из {{ discoveredUsers().length }}
+          </span>
+        </div>
+        
+        <div class="users-grid">
+          @for (user of discoveredUsers(); track user.id) {
+            <label class="user-checkbox">
+              <input 
+                type="checkbox" 
+                [checked]="selectedUsers().includes(user.id)"
+                (change)="toggleUserSelection(user.id)"
+              >
+              <span class="user-name">{{ user.name }}</span>
+              <small class="user-id">ID: {{ user.id }}</small>
+            </label>
+          }
+        </div>
+        
+        <div class="save-selected">
+          <button 
+            type="button"
+            class="btn btn-success"
+            (click)="saveSelectedUsersData()"
+            [disabled]="!selectedUsers().length || loadingStrategy()"
+          >
+            {{ loadingStrategy() === 'users' ? '🎯 Сохранение...' : '🎯 Сохранить данные выбранных' }}
+          </button>
+        </div>
+      </section>
+    }
+
+    <!-- СТАТУС ERM СИНХРОНИЗАЦИИ -->
+    @if (connectionStatus() !== 'unknown' || syncStatus() || syncStats()) {
+      <div class="status-section glass-card">
+        <h4>Статус ERM интеграции</h4>
+        
+        <!-- Статус подключения -->
+        @if (connectionStatus() !== 'unknown') {
+          <div class="status-item">
+            <span class="status-label">Подключение:</span>
+            <span [class]="connectionStatus() === 'success' ? 'status-success' : 'status-error'">
+              {{ connectionStatus() === 'success' ? '✅ Активно' : '❌ Ошибка' }}
+            </span>
+          </div>
+        }
+
+        <!-- Статус синхронизации -->
+        @if (syncStatus()) {
+          <div class="status-item">
+            <span class="status-label">Синхронизация:</span>
+            <span>{{ syncStatus() }}</span>
+          </div>
+        }
+
+        <!-- Статистика данных -->
+        @if (syncStats(); as stats) {
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-number">{{ stats.users }}</div>
+              <div class="stat-label">Пользователей</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">{{ stats.projects }}</div>
+              <div class="stat-label">Проектов</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">{{ stats.activities }}</div>
+              <div class="stat-label">Активностей</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">{{ stats.timeEntries }}</div>
+              <div class="stat-label">Записей времени</div>
+            </div>
+          </div>
+          
+          @if (stats.lastSync) {
+            <div class="sync-time">
+              Последняя синхронизация: {{ stats.lastSync | date:'dd.MM.yyyy HH:mm:ss' }}
+            </div>
+          }
+        }
+      </div>
+    }
+
   </section>
 
   <!-- СТАВКИ ПОЛЬЗОВАТЕЛЕЙ (аналог Rates листа) -->

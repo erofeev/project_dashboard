@@ -1,15 +1,14 @@
 {
-  "/api/calendar/*": {
-    "target": "https://xmlcalendar.ru",
-    "secure": true,
+  "/api/erm/*": {
+    "target": "https://easyredmine.awara.pro",
+    "secure": false,
     "changeOrigin": true,
     "logLevel": "debug",
     "pathRewrite": {
-      "^/api/calendar": "/data/ru"
+      "^/api/erm": ""
     },
     "headers": {
-      "Accept": "application/json",
-      "Content-Type": "application/json"
+      "Origin": "https://easyredmine.awara.pro"
     }
   }
 }

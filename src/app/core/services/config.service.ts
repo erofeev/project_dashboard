@@ -63,12 +63,12 @@ export class ConfigService {
   
   private getDefaultERMConfig(): ERMConfig {
     return {
-      baseUrl: 'http://localhost:3000/api', // Из вашей инфраструктуры
-      apiKey: '',
+      baseUrl: 'https://easyredmine.awara.pro', // Пользовательский URL (внутри ERM сервис заменит на прокси)
+      apiKey: '763c9fa14fcc0343773389494e8ba3004ef3cd65', // Реальный API key
       startDate: this.getDateDaysAgo(30), // 30 дней назад
       endDate: this.getTodayDate(),        // сегодня
       projectId: '',
-      userFilter: [] // Пустой список пользователей
+      userFilter: [] // Пустый список пользователей
     };
   }
 

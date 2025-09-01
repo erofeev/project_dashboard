@@ -72,7 +72,8 @@
               "buildTarget": "project-analytics-temp:build:production"
             },
             "development": {
-              "buildTarget": "project-analytics-temp:build:development"
+              "buildTarget": "project-analytics-temp:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
